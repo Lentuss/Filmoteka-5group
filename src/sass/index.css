@@ -9,6 +9,11 @@
   background-color: #2c2c94;
 }
 
+.modal {
+  background-color: #ffbb7f;
+  color: #040404;
+}
+
 p {
   margin: 0;
 }

@@ -1,0 +1,10 @@
+.footer-backdrop {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 2;
+}
+/*# sourceMappingURL=footer-modal.css.map */
