@@ -1,3 +1,21 @@
+/* Глобальні */
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.visually-hidden {
+    position: absolute;
+    clip: rect(0 0 0 0);
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+}
+
+/* Мейн */
+
 .section {
     background-color: #E5E5E5;
     padding-top: 20px;
@@ -7,7 +25,6 @@
         padding-top: 60px;
         padding-bottom: 60px;
     }
-
 }
 
 .container {
@@ -16,9 +33,12 @@
 
     @media screen and (min-width: 320px) {
         width: 320px;
+        margin: 0 auto;
     }
 
     @media screen and (min-width: 768px) {
+        display: flex;
+        flex-wrap: wrap;
         width: 768px;
         padding: 0 32px;
     }
@@ -28,8 +48,98 @@
     }
 }
 
-.main__movie-img {
-    width: 280px;
-    height: 400px;
+.main__movie-card-list {
+    @media screen and (min-width: 768px) {
+        display: flex;
+        flex-wrap: wrap;
+    }
 }
 
+.main__movie-card-item {
+    width: 100%; 
+
+    @media screen and (min-width: 768px) {
+        width: calc((100% - 32px) / 2);
+    }
+
+    @media screen and (min-width: 1024px) {
+        width: calc((100% - 16px * 2) / 3);
+    }
+
+}
+
+.main__movie-card-item:not(:last-child) {
+    margin-bottom: 20px;
+
+    @media screen and (min-width: 768px) {
+        margin-bottom: 0;
+    }
+}
+
+.main__movie-card-item:not(:nth-last-child(-n+2)) {
+    @media screen and (min-width: 768px) {
+        margin-bottom: 32px;
+    }
+
+    @media screen and (min-width: 1024px) {
+        margin-bottom: 0;
+    }
+}
+
+.main__movie-card-item:nth-child(odd){
+    @media screen and (min-width: 768px) {
+        margin-right: 32px;
+    }
+
+    @media screen and (min-width: 1024px) {
+        margin-right: 0;
+    }    
+}
+
+.main__movie-card-item:not(:nth-last-child(-n+3)) {
+    @media screen and (min-width: 1024px) {
+        margin-bottom: 32px;
+    }
+}
+
+.main__movie-card-item:not(:nth-child(3n)) {
+    @media screen and (min-width: 1024px) {
+        margin-right: 16px;
+    }
+}
+
+.main__movie-link {
+    display: block;
+    text-decoration: none;
+}
+
+
+.main__movie-img {
+    margin-bottom: 10px;
+    width: 100%;
+    height: auto;
+}
+
+.main__movie-title,
+.main__movie-genre {
+    color: #000000;
+    margin: 0;
+    font-family: roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.33;
+}
+
+.main__movie-genre {
+    color: #FF6B08;
+}
+
+.main_movie-year::before {
+    content: '';
+    width: 1px;
+    height: 10px;
+    margin: 0 3px;
+    display: inline-block;
+    background-color: #FF6B08;
+}
