@@ -1,2 +1,6 @@
 @import './common';
-@import './example';
+@import './utils/variables';
+@import './utils/breakpoints';
+@import './utils/mixins';
+
+@import './header-main';
