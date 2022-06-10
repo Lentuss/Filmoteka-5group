@@ -29,8 +29,14 @@ p {
     &__section--flex {
         @include centered;
     }
-
-    &__section--text {
+    
+    &__section--text{
+        margin-bottom: 10px;
+        @include respond-to(tablet) {
+                margin-bottom: 0;
+            }
+    }
+    &__section--text-right {
         @include respond-to(tablet) {
             margin-left: 5px;
         }
@@ -64,7 +70,13 @@ p {
 
     }
 
-    &__section--heart {
+    // &__section--heart {
+       
+    // }
+    &__section--svg{
+        width: 14px;
+        height: 13px;
+
         margin-right: 10px;
         margin-left: 10px;
     }
