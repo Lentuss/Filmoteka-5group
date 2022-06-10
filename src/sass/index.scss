@@ -3,5 +3,6 @@
 @import './utils/breakpoints';
 @import './utils/mixins';
 
-@import './header-main';
-@import './main'
+@import './components/header-main';
+@import './components/main';
+@import './components/details';

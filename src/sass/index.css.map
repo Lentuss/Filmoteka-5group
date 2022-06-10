@@ -7,8 +7,9 @@
         "utils/_variables.scss",
         "utils/_breakpoints.scss",
         "utils/_mixins.scss",
-        "_header-main.scss",
-        "_main.scss"
+        "components/_header-main.scss",
+        "components/_main.scss",
+        "components/_details.scss"
     ],
     "names": [],
     "file": "index.css"
