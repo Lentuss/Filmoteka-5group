@@ -1,0 +1,26 @@
+.footer-backdrop{
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    
+    z-index: 2;
+}
+
+// .footer-modal {
+// position: absolute;
+//     width: 90%;
+//     top: 94px;
+//     left: 50%;
+//     transform: translatex(-50%);
+
+//     &__item{
+//         @include respond-to (tablet-only){
+//             width: calc((100% - 2 * 20px) / 3);
+//                 background-color: #red;
+//         }
+       
+//     }
+// }
