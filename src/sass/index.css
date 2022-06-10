@@ -1,5 +1,5 @@
 @charset "UTF-8";
-@import url(c:\Users\Anton\Desktop\Репозиторий\Filmoteka-5group\node_modules\modern-normalize\modern-normalize.css);
+@import url(c:\Users\Lentus\OneDrive\Рабочий стол\WorkCode\Filmoteka-5group\node_modules\modern-normalize\modern-normalize.css);
 /* Миксин для медиаправил. Пример использования: @include respond-to (tablet-only){ } */
 /* Миксин для свойств transition. Через запятую вносятся все свойства, к которым применяется. 
 Пример: @include transit (color, background-color); */
@@ -8,47 +8,3 @@
 .header {
   background-color: #2c2c94;
 }
-
-.section {
-  background-color: #E5E5E5;
-  background-color: antiquewhite;
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
-
-@media screen and (min-width: 768px) {
-  .section {
-    padding-top: 60px;
-    padding-bottom: 60px;
-  }
-}
-
-.container {
-  padding: 0 20px;
-  margin: 0 auto;
-}
-
-@media screen and (min-width: 320px) {
-  .container {
-    width: 320px;
-  }
-}
-
-@media screen and (min-width: 768px) {
-  .container {
-    width: 768px;
-    padding: 0 32px;
-  }
-}
-
-@media screen and (min-width: 1024px) {
-  .container {
-    width: 1024px;
-  }
-}
-
-.main__movie-img {
-  width: 280px;
-  height: 400px;
-}
-/*# sourceMappingURL=index.css.map */
