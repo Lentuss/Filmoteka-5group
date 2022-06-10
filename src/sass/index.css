@@ -1,0 +1,8 @@
+@charset "UTF-8";
+@import url(c:\Users\Lentus\OneDrive\Рабочий стол\WorkCode\Filmoteka-5group\node_modules\modern-normalize\modern-normalize.css);
+/* Миксин для медиаправил. Пример использования: @include respond-to (tablet-only){ } */
+/* Миксин для свойств transition. Через запятую вносятся все свойства, к которым применяется. 
+Пример: @include transit (color, background-color); */
+/* Миксин для центрирования флексами. По умолчанию все свойства center.
+Пример: @include centered; или @include centered($justify:space-between);*/
+/*# sourceMappingURL=index.css.map */
