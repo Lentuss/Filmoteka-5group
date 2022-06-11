@@ -18,6 +18,12 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
 h1,
 h2,
 h3,
@@ -41,7 +47,6 @@ a {
 }
 
 button {
-  display: block;
   min-height: 44px;
   font-family: inherit;
   cursor: pointer;
@@ -65,11 +70,6 @@ button {
 Пример: @include centered; или @include centered($justify:space-between);*/
 .header {
   background-color: #2c2c94;
-}
-
-.modal {
-  background-color: #ffbb7f;
-  color: #040404;
 }
 
 .isHidden {

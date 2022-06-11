@@ -19,6 +19,12 @@ body {
     font-family: 'Roboto', sans-serif;
     }
 
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
 h1,
 h2,
 h3,
@@ -42,7 +48,7 @@ a {
 }
 
 button {
-    display: block;
+    // display: block;
     min-height: 44px;
 
     font-family: inherit;
