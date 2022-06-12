@@ -1,128 +1,79 @@
-import '../sass/main.scss';
-import Notiflix from 'notiflix';
-import 'regenerator-runtime/runtime';
 
-import SimpleLightbox from "simplelightbox";
-import "simplelightbox/dist/simple-lightbox.min.css";
-import PictureApiServise from './pictureAPI';
+import { IMAGE_URL } from "./apiVariables";
+import MovieApiServise from './movieAPI';
+import { getGenreById } from './getGenres';
 
-const pictureAPIService = new PictureApiServise();
+const movieAPIService = new MovieApiServise();
 
-const formEl = document.querySelector('.search-form');
-const loadMoreBtnEl = document.querySelector('.load-more');
-const galleryEl = document.querySelector('.gallery');
-
-let picturesOnPage = 0;
-
-const lightbox = new SimpleLightbox('.gallery a');
-
-loadMoreBtnEl.hidden = true;
+const formEl = document.querySelector('.header-form');
+const galleryEl = document.querySelector('.main__movie-card-list');
 
 formEl.addEventListener('submit', onFormSubmit);
-loadMoreBtnEl.addEventListener('click', onBtnClick);
 
 async function onFormSubmit(e) {
     e.preventDefault();
-    picturesOnPage = 0;
-    pictureAPIService.resetPage();
     cleanMarkup();
-    loadMoreBtnEl.classList.remove("visible");
-    
-    pictureAPIService.query = e.currentTarget.elements.searchQuery.value;
+   
+    movieAPIService.query = e.currentTarget.elements.searchQuery.value;
     
     try {
-        // Об'єкт з серверу
-        const picturesFromApi = await pictureAPIService.pictureSearch();
-        // Загальна кількість картинок, що віддає сервер
-        const totalPictures = picturesFromApi.totalHits;
-        // Масив картинок для розмітки 1 сторінки
-        const picturesPerPage = picturesFromApi.hits;
-        
-        if (pictureAPIService.query !== "") {
-            
-            const pictureForRender = await createMarkup(picturesPerPage);          
+        const movieFromApi = await movieAPIService.movieSearch();
+        const movieResults = movieFromApi.results;
 
-            if (picturesOnPage === totalPictures) {
-                loadMoreBtnEl.classList.remove("visible");
-            } else {
-                loadMoreBtnEl.classList.add("visible")
-            }
+        if (movieAPIService.query !== "") {
+            
+            const movieForRender = await createMarkup(movieResults);          
 
-            const { height: cardHeight } = document
-                .querySelector(".search-form")
-                .getBoundingClientRect();
-            
-            window.scrollBy({
-                top: cardHeight,
-                behavior: "smooth",
-            });
-            
-            return pictureForRender;
-       
-        } else {
-            Notiflix.Notify.failure(`Nothing to search for!`);
+            return movieForRender;       
         }
     } catch (error) {
-        console.log(error);
+        console.log(error.message);
     }
 
 }
 
+function createMarkup(moviesArray) {
+    const markup = moviesArray.map(movie => {
+        console.log(movie);
+        const posterPath = movie.backdrop_path;
+        let posterPicture =  `${IMAGE_URL + posterPath}`;
+        let movieYear = movie.release_date.slice(0, 4);
+        if (movie.release_date === "") {
+            movieYear = "Unknown"
+        }
 
-async function onBtnClick() {
-    // // Об'єкт з серверу
-    const picturesFromApi = await pictureAPIService.pictureSearch();  
-    // // Загальна кількість картинок, що віддає сервер
-    const totalPictures = picturesFromApi.totalHits;
-    // // Масив картинок для розмітки 1 сторінки
-    const picturesPerPage = picturesFromApi.hits;
-    // Рендер
-    const pictureMarkup = createMarkup(picturesPerPage);
+        const movieTitle = movie.title;
+          
+        if (posterPath === null) {
+            posterPicture = "https://www.prokerala.com/movies/assets/img/no-poster-available.jpg";
+        } 
 
-    if ( picturesOnPage === totalPictures) {
-        loadMoreBtnEl.classList.remove("visible");
-    } 
-  
-    const { height: cardHeight } = document
-        .querySelector(".photo-card")            
-        .getBoundingClientRect();
+        // const genreIds = movie.genre_ids;
+        // const genresArray = genreIds.map(genreId => {
+        //     return getGenreById(genreId);
+        // });
+
+        // console.log(genresArray);
+        // let genreList = "";
+
+        // if (genresArray.length > 2) {
+        //     const [firstGenre, secondGenre, ...othersGenres] = genresArray;
+
+        //     genreList = `${firstGenre.charAt(0).toUpperCase() + firstGenre.slice(1)}, ${secondGenre.charAt(0).toUpperCase() + secondGenre.slice(1)}, Other`;
             
-    window.scrollBy({
-        top: cardHeight * 2,
-        behavior: "smooth",
-    });
+        // }
 
-    return pictureMarkup;    
-}
-
-function createMarkup(picturesArray) {
-    const markup = picturesArray.map(picture => {
-        picturesOnPage += 1;
         return `
-        <div class="photo-card">
-        <a class="card-link" href="${picture.largeImageURL}">
-        <img class="card-img" src="${picture.webformatURL}" alt="${picture.tags}" loading="lazy" />
-        </a>
-        <div class="info">
-        <p class="info-item">
-        <b>Likes </b>${picture.likes}
-        </p>
-        <p class="info-item">
-        <b>Views </b>${picture.views}
-        </p>
-        <p class="info-item">
-        <b>Comments </b>${picture.comments}
-        </p>
-        <p class="info-item">
-        <b>Downloads </b>${picture.downloads}
-        </p>
-        </div>
-        </div>
+                <li class="main__movie-card-item">
+                    <img class="main__movie-img" src="${posterPicture}" alt="Movie poster">
+                    <div class="main__movie-info">
+                        <h2 class="main__movie-title">${movieTitle}</h2>
+                        <p class="main__movie-genre">CAAAAAAT<span class="main_movie-year">${movieYear}</span></p>
+                    </div>
+                </li>
         `}).join('');
         
         galleryEl.insertAdjacentHTML('beforeend', markup);
-
-    lightbox.refresh('show.simplelightbox');
 }
     
     
