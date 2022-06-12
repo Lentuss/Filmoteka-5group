@@ -1,7 +1,5 @@
-/* Мейн */
-
 .section {
-    background-color: #E5E5E5;
+    background-color: var(--header-text-color);
     padding-top: 20px;
     padding-bottom: 20px;
 
@@ -33,6 +31,8 @@
 }
 
 .main__movie-card-list {
+    width: 100%;
+
     @media screen and (min-width: 768px) {
         display: flex;
         flex-wrap: wrap;
@@ -52,7 +52,7 @@
 }
 
 .main__movie-card-item:not(:last-child) {
-    margin-bottom: 20px;
+    margin-bottom: var(--mobile-films-vertical-gap);
 
     @media screen and (min-width: 768px) {
         margin-bottom: 0;
@@ -61,7 +61,7 @@
 
 .main__movie-card-item:not(:nth-last-child(-n+2)) {
     @media screen and (min-width: 768px) {
-        margin-bottom: 32px;
+        margin-bottom: var(--tablet-films-vertical-gap);
     }
 
     @media screen and (min-width: 1024px) {
@@ -91,29 +91,31 @@
     }
 }
 
-.main__movie-link {
-    display: block;
-    text-decoration: none;
-}
-
 .main__movie-img {
     margin-bottom: 10px;
     width: 100%;
+    border-radius: var(--border-radius);
+
+    @media screen and (min-width: 1024px) {
+        margin-bottom: 8px;
+    }
+}
+
+.main__movie-title {
+    text-transform: uppercase;
 }
 
 .main__movie-title,
 .main__movie-genre {
-    color: #000000;
-    margin: 0;
+    color: var(--main-text-color);
     font-family: roboto;
-    font-style: normal;
     font-weight: 500;
     font-size: 12px;
     line-height: 1.33;
 }
 
 .main__movie-genre {
-    color: #FF6B08;
+    color: var(--accent-color);
 }
 
 .main_movie-year::before {
@@ -122,5 +124,5 @@
     height: 10px;
     margin: 0 3px;
     display: inline-block;
-    background-color: #FF6B08;
+    background-color: var(--accent-color);
 }
