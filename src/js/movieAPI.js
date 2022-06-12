@@ -1,15 +1,16 @@
 import axios from 'axios';
-import { API_KEY, SEARCH_URL } from "./apiVariables";
+import { API_KEY } from "./apiVariables";
 
 export default class MovieApiServise {
-    constructor() {
+    constructor(url) {
         this.searchRequest = "";
         this.page = 1;
+        this.url = url;
     }
 
     async movieSearch() {
         try {              
-            const fetchRequest = await axios.get(`${SEARCH_URL}`, {
+            const fetchRequest = await axios.get(`${this.url}`, {
                 params: {
                     api_key: API_KEY,
                     query: this.searchRequest,

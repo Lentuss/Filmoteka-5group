@@ -1,9 +1,9 @@
-
-import { IMAGE_URL } from "./apiVariables";
+import { IMAGE_URL, SEARCH_URL } from "./apiVariables";
 import MovieApiServise from './movieAPI';
 import { getGenreById } from './getGenres';
 
-const movieAPIService = new MovieApiServise();
+// Пошуковий url
+const movieAPIService = new MovieApiServise(SEARCH_URL);
 
 const formEl = document.querySelector('.header-form');
 const galleryEl = document.querySelector('.main__movie-card-list');
@@ -19,6 +19,7 @@ async function onFormSubmit(e) {
     try {
         const movieFromApi = await movieAPIService.movieSearch();
         const movieResults = movieFromApi.results;
+        console.log(movieResults)
 
         if (movieAPIService.query !== "") {
             
@@ -33,8 +34,18 @@ async function onFormSubmit(e) {
 }
 
 function createMarkup(moviesArray) {
+    if (moviesArray.length === 0) {
+        const headerContainerEl = document.querySelector('.header-container');
+        const failedSearch = document.createElement("p");
+        failedSearch.classList.add("header__failed-search-msg");
+        failedSearch.textContent = "Search result not successful. Enter the correct movie name";
+        headerContainerEl.append(failedSearch);
+    }
+
     const markup = moviesArray.map(movie => {
-        console.log(movie);
+        
+
+        // console.log(movie);
         const posterPath = movie.backdrop_path;
         let posterPicture =  `${IMAGE_URL + posterPath}`;
         let movieYear = movie.release_date.slice(0, 4);
