@@ -68,6 +68,37 @@ button {
 Пример: @include transit (color, background-color); */
 /* Миксин для центрирования флексами. По умолчанию все свойства center.
 Пример: @include centered; или @include centered($justify:space-between);*/
+.borders {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+@media screen and (min-width: 320px) {
+  .borders {
+    max-width: 320px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .borders {
+    max-width: 768px;
+    padding: 0 34px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .borders {
+    max-width: 1024px;
+    padding: 0 34px;
+  }
+}
+
 .header-section {
   padding-top: 48px;
   padding-bottom: 97px;
@@ -80,8 +111,43 @@ button {
 }
 
 .header-section__list {
-  background-image: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0.56)), to(rgba(0, 0, 0, 0.56))), url("../images/home-pc.jpg");
-  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)), url("../images/home-pc.jpg");
+  background-image: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0.56)), to(rgba(0, 0, 0, 0.56))), url("../images/home-mobile.jpg");
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)), url("../images/home-mobile.jpg");
+}
+
+@media (min-device-pixel-ratio: 2), (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+  .header-section__list {
+    background-image: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0.56)), to(rgba(0, 0, 0, 0.56))), url("../images/home-mobile-x2.jpg");
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)), url("../images/home-mobile-x2.jpg");
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .header-section__list {
+    background-image: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0.56)), to(rgba(0, 0, 0, 0.56))), url("../images/home-mobile.jpg");
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)), url("../images/home-mobile.jpg");
+  }
+}
+
+@media screen and (min-width: 768px) and (min-device-pixel-ratio: 2), screen and (min-width: 768px) and (-webkit-min-device-pixel-ratio: 2), screen and (min-width: 768px) and (min-resolution: 192dpi), screen and (min-width: 768px) and (min-resolution: 2dppx) {
+  .header-section__list {
+    background-image: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0.56)), to(rgba(0, 0, 0, 0.56))), url("../images/home-mobile-x2.jpg");
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)), url("../images/home-mobile-x2.jpg");
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .header-section__list {
+    background-image: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0.56)), to(rgba(0, 0, 0, 0.56))), url("../images/home-pc.jpg");
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)), url("../images/home-pc.jpg");
+  }
+}
+
+@media screen and (min-width: 1024px) and (min-device-pixel-ratio: 2), screen and (min-width: 1024px) and (-webkit-min-device-pixel-ratio: 2), screen and (min-width: 1024px) and (min-resolution: 192dpi), screen and (min-width: 1024px) and (min-resolution: 2dppx) {
+  .header-section__list {
+    background-image: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0.56)), to(rgba(0, 0, 0, 0.56))), url("../images/home-pc-x2.jpg");
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)), url("../images/home-pc-x2.jpg");
+  }
 }
 
 .header-container {
@@ -112,7 +178,7 @@ button {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .header-logo {
@@ -128,12 +194,19 @@ button {
 .header-logo__icon {
   margin-right: 12px;
   position: relative;
+  -webkit-transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .header-logo__label {
+  display: none;
   font-weight: 500;
   font-size: 30px;
   line-height: 1.17;
+  color: #FFFFFF;
+  font-family: 'Roboto';
+  -webkit-transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @media screen and (min-width: 768px) {
@@ -142,10 +215,17 @@ button {
   }
 }
 
+.header-logo__icon:hover,
+.header-logo__label:hover,
+.header-btns__label:hover {
+  color: #FF6B08;
+}
+
 .header-btns {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  margin-bottom: 0;
 }
 
 .header-btns__item:not(:last-child) {
@@ -160,13 +240,16 @@ button {
   font-size: 12px;
   line-height: 1.17;
   text-transform: uppercase;
+  -webkit-transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .header-form {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  margin: 0 auto;
+  margin: auto;
+  margin-top: 0px;
   max-width: 336px;
   border-bottom: 0.5px solid #FFFFFF;
 }
@@ -174,14 +257,32 @@ button {
 .header-form__input {
   border: none;
   padding: 5px 0px;
+  font-family: Roboto;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.14;
+  color: #FFFFFF;
   outline: none;
   background: none;
   width: 100%;
 }
 
+.header-form__input::-webkit-input-placeholder {
+  color: #FFFFFF;
+}
+
+.header-form__input:-ms-input-placeholder {
+  color: #FFFFFF;
+}
+
+.header-form__input::-ms-input-placeholder {
+  color: #FFFFFF;
+}
+
+.header-form__input::placeholder {
+  color: #FFFFFF;
+}
+
 .header-form__search {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -212,6 +313,32 @@ button {
   margin: 0;
   outline: none;
   width: 21px;
+}
+
+.is-current {
+  position: relative;
+}
+
+.is-current::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 30px;
+  display: block;
+  width: 100%;
+  height: 3px;
+  background-color: #FF6B08;
+  border-radius: 2px;
+}
+
+.search-error {
+  font-family: 'Roboto';
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.14;
+  text-align: center;
+  color: #FF001B;
+  margin-top: 20px;
 }
 
 .details__backdrop {
