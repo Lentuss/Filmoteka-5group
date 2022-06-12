@@ -24,7 +24,7 @@ function onSearch(e) {
     getResult();
 };
 
-export async function getResult() {
+async function getResult() {
     try {
         const searchFilms = await getFilmsApiService.getFilms();
         onGetSucces(searchFilms);
@@ -32,18 +32,17 @@ export async function getResult() {
         onGetError();
     console.log(error.message);
   }
-}
-
+};
 
 function onGetSucces(searchFilms) {
     console.log(searchFilms);
     listEl.insertAdjacentHTML('beforeend', createListMarkup(searchFilms));
     observer.observe(listEl.lastElementChild);
-}
+};
 
 function onGetError(error) {
     console.log(error);
-}
+};
 
 function createListMarkup(searchFilms) {
     return searchFilms.results.map(({ poster_path, original_title, genre_ids, release_date }) => {
