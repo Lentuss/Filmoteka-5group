@@ -113,6 +113,7 @@
 }
 
 .main__movie-genre {
+    display: inline;
     color: #FF6B08;
 }
 
@@ -123,4 +124,19 @@
     margin: 0 3px;
     display: inline-block;
     background-color: #FF6B08;
+}
+
+.main__movie-raiting {
+    // Для вкладки MyLibrary:
+    // display: inline; 
+    display: none;
+    margin-left: 8px;
+    padding-right: 9px;
+    padding-left: 9px;
+    color: #fff;
+    background-color: #FF6B08;
+    border-radius: 5px;
+    font-size: 12px;
+    line-height: 1.16;
+    font-weight: 500;
 }
