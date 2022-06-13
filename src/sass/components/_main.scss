@@ -1,0 +1,145 @@
+.section {
+    background-color: #fff;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    @media screen and (min-width: 768px) {
+        padding-top: 60px;
+        padding-bottom: 60px;
+    }
+}
+
+.container {
+    padding: 0 20px;
+    margin: 0 auto;
+
+    @media screen and (min-width: 320px) {
+        width: 320px;
+        margin: 0 auto;
+    }
+
+    @media screen and (min-width: 768px) {
+        display: flex;
+        flex-wrap: wrap;
+        width: 768px;
+        padding: 0 32px;
+    }
+
+    @media screen and (min-width: 1024px) {
+        width: 1024px;
+    }
+}
+
+.main__movie-card-list {
+    width: 100%;
+
+    @media screen and (min-width: 768px) {
+        display: flex;
+        flex-wrap: wrap;
+    }
+}
+
+.main__movie-card-item {
+    width: 100%; 
+
+    @media screen and (min-width: 768px) {
+        width: calc((100% - 32px) / 2);
+    }
+
+    @media screen and (min-width: 1024px) {
+        width: calc((100% - 16px * 2) / 3);
+    }
+}
+
+.main__movie-card-item:not(:last-child) {
+    margin-bottom: 20px;
+
+    @media screen and (min-width: 768px) {
+        margin-bottom: 0;
+    }
+}
+
+.main__movie-card-item:not(:nth-last-child(-n+2)) {
+    @media screen and (min-width: 768px) {
+        margin-bottom: 32px;
+    }
+
+    @media screen and (min-width: 1024px) {
+        margin-bottom: 0;
+    }
+}
+
+.main__movie-card-item:nth-child(odd){
+    @media screen and (min-width: 768px) {
+        margin-right: 32px;
+    }
+
+    @media screen and (min-width: 1024px) {
+        margin-right: 0;
+    }    
+}
+
+.main__movie-card-item:not(:nth-last-child(-n+3)) {
+    @media screen and (min-width: 1024px) {
+        margin-bottom: 32px;
+    }
+}
+
+.main__movie-card-item:not(:nth-child(3n)) {
+    @media screen and (min-width: 1024px) {
+        margin-right: 16px;
+    }
+}
+
+.main__movie-img {
+    margin-bottom: 10px;
+    width: 100%;
+    border-radius: 5px;
+
+    @media screen and (min-width: 1024px) {
+        margin-bottom: 8px;
+    }
+}
+
+.main__movie-title {
+    text-transform: uppercase;
+}
+
+.main__movie-title,
+.main__movie-genre {
+    color: var(--main-text-color);
+    font-family: roboto;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.33;
+}
+
+.main__movie-genre {
+    display: inline;
+    color: #ff6b08;
+}
+
+.main_movie-year::before {
+    content: '';
+    width: 1px;
+    height: 10px;
+    margin: 0 3px;
+    display: inline-block;
+    background-color: #ff6b08;
+}
+
+
+.main__movie-raiting {
+    // Для вкладки MyLibrary:
+    // display: inline; 
+    display: none;
+    margin-left: 8px;
+    padding-right: 9px;
+    padding-left: 9px;
+    color: #fff;
+    background-color: #FF6B08;
+    border-radius: 5px;
+    font-size: 12px;
+    line-height: 1.16;
+    font-weight: 500;
+}
