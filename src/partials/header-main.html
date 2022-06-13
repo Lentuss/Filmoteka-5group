@@ -1,13 +1,13 @@
 <header class="header-section header-section__list">
-    <h1 class="visually-hidden">Movies</h1>
+    <h2 class="visually-hidden">Movies</h2>
 
-    <div class="container header-container">
+    <div class="borders header-container">
 
         <nav class="header-section__navigation">
-            <a href="">
+            <a href="./index.html">
                 <div class="header-logo">
-                    <svg class="header-logo__icon" width="20" height="20">
-                        <use href="#" />
+                    <svg class="header-logo__icon" width="25" height="25">
+                        <use href="./images/sprite.svg#film" />
                     </svg>
                     <p class="header-logo__label">Filmoteka</p>
                 </div>
@@ -15,24 +15,25 @@
 
             <ul class="header-btns">
                 <li class="header-btns__item"><button type="button" data-action="header-home-button"
-                        class="header-btns__label">Home</button></li>
+                        class="header-btns__label is-current">Home</button> </li>
                 <li class="header-btns__item"><button type="button" data-action="header-library-button"
                         class="header-btns__label">My library</button></li>
             </ul>
         </nav>
 
         <form class="header-form" id="search-form">
-            <input class="header-form__input" type="text" autocomplete="off" placeholder="Поиск фильмов" name="searchQuery"/>
+            <input class="header-form__input" type="text" autocomplete="off" placeholder="Поиск фильмов" id="input-form" name="searchQuery"/>
 
 
             <button type="submit" data-action="search-button" class="header-form__search">
                 <svg width="12" height="12">
-                    <use href="#" />
+                    <use href="./images/sprite.svg#search" />
                 </svg>
             </button>
         </form>
+
         <p class="header__failed-search-msg">
-            Search result not successful. Enter the correct movie name
+            Search result not successful. Enter the correct movie name.
         </p>
     </div>
 </header>

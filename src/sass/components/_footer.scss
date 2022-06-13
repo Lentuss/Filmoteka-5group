@@ -1,6 +1,3 @@
-p {
-    margin: 0;
-}
 
 .footer {
     background-color: #F7F7F7;
@@ -64,8 +61,10 @@ p {
 
     }
 
-    &__section--heart {
+    &__section--svg {
         margin-right: 10px;
         margin-left: 10px;
+        width: 14px;
+        height: 12px;
     }
 }
