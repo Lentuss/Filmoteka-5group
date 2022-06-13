@@ -1,5 +1,5 @@
 .section {
-    background-color: var(--header-text-color);
+    background-color: #fff;
     padding-top: 20px;
     padding-bottom: 20px;
 
@@ -52,7 +52,7 @@
 }
 
 .main__movie-card-item:not(:last-child) {
-    margin-bottom: var(--mobile-films-vertical-gap);
+    margin-bottom: 20px;
 
     @media screen and (min-width: 768px) {
         margin-bottom: 0;
@@ -61,7 +61,7 @@
 
 .main__movie-card-item:not(:nth-last-child(-n+2)) {
     @media screen and (min-width: 768px) {
-        margin-bottom: var(--tablet-films-vertical-gap);
+        margin-bottom: 32px;
     }
 
     @media screen and (min-width: 1024px) {
@@ -94,7 +94,7 @@
 .main__movie-img {
     margin-bottom: 10px;
     width: 100%;
-    border-radius: var(--border-radius);
+    border-radius: 5px;
 
     @media screen and (min-width: 1024px) {
         margin-bottom: 8px;
@@ -115,7 +115,8 @@
 }
 
 .main__movie-genre {
-    color: var(--accent-color);
+    display: inline;
+    color: #ff6b08;
 }
 
 .main_movie-year::before {
@@ -124,5 +125,21 @@
     height: 10px;
     margin: 0 3px;
     display: inline-block;
-    background-color: var(--accent-color);
+    background-color: #ff6b08;
+}
+
+
+.main__movie-raiting {
+    // Для вкладки MyLibrary:
+    // display: inline; 
+    display: none;
+    margin-left: 8px;
+    padding-right: 9px;
+    padding-left: 9px;
+    color: #fff;
+    background-color: #FF6B08;
+    border-radius: 5px;
+    font-size: 12px;
+    line-height: 1.16;
+    font-weight: 500;
 }
