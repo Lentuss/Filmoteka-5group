@@ -1,9 +1,27 @@
-// Import the functions you need from the SDKs you need
+import { MovieDataBase } from './fireDb';
+import libraryRender from './renderLibrary';
+import Notiflix from 'notiflix';
+Notiflix.Notify.init({
+  timeout: 1500,
+  width: '280px',
+  position: 'center-center',
+  distance: '10px',
+  opacity: 1,
+  clickToClose: true,
+});
+
 import { initializeApp } from 'firebase/app';
+
 // TODO: Add SDKs for Firebase products that you want to use
-import { doc, getFirestore } from 'firebase/firestore';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 // https://firebase.google.com/docs/web/setup#available-libraries
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
+} from 'firebase/auth';
+import { getDatabase, ref, set, onValue, get, once } from 'firebase/database';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -17,81 +35,226 @@ const firebaseConfig = {
   appId: '1:217077508176:web:dbb78c93f591370ec90955',
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+const db = getDatabase(app);
 const auth = getAuth(app);
 
 const Refs = {
-  logInSubmitBtn: document.querySelector('[data-action="logIn-submit-btn"]'),
-  signInSubmitBtn: document.querySelector('[data-action="signIn-submit-btn"]'),
-  singInBtn: document.querySelector('.signInBtn-JS'),
-  logInBtn: document.querySelector('.logInBtn-JS'),
-  modalWindow: document.querySelector('.modal'),
-  headerLogInButton: document.querySelector(
-    '[data-action="header-library-button"]'
-  ),
-  formContainer: document.querySelector('.form-container'),
-
+  headLogInBtn: document.querySelector('[data-action="header-library-button"]'),
   backdrop: document.querySelector('[data-backdrop]'),
   closeModalBtn: document.querySelector('[data-modal-close]'),
+  signUpBtnWindow: document.querySelector('.signUpBtn-JS'),
+  logInBtnWindow: document.querySelector('.logInBtn-JS'),
+  logOutBtn: document.querySelector('.logOutBtn-JS'),
+  signUpDiv: document.querySelector('#signUpDiv'),
+  logInDiv: document.querySelector('#logInDiv'),
+
+  passBtn: document.querySelector('.passwordBtn-JS'),
 };
 
+Refs.passBtn.addEventListener('click', changePass);
+
+function changePass() {
+  const uid = 'cENjF4BKspWHO6DQZ9g0s3BIMco2';
+  const db = getDatabase();
+  set(ref(db, 'users/' + uid + '/watched'), [
+    'asdasdasdsa',
+    'asdadasdas',
+    'asdasdasd',
+  ]);
+}
+
+//============================= AUTH STATUS ========================
+onAuthStateChanged(auth, user => {
+  if (user) {
+    // User is signed in, see docs for a list of available properties
+    // https://firebase.google.com/docs/reference/js/firebase.User
+    Refs.signUpBtnWindow.classList.add('--is-hidden');
+    Refs.logInBtnWindow.classList.add('--is-hidden');
+    Refs.logInDiv.setAttribute('style', 'display:none');
+    Refs.signUpDiv.setAttribute('style', 'display:none');
+    Refs.logOutBtn.classList.remove('--is-hidden');
+    Refs.headLogInBtn.textContent = 'User Profile';
+
+    const uid = user.uid;
+    console.log(`User ${uid} Is Logged In`);
+
+    const allInfo = ref(db, 'users/' + uid);
+    onValue(allInfo, snapshot => {
+      const data = snapshot.val();
+      console.log(data);
+      // updateStarCount(postElement, data);
+    });
+  } else {
+    // User is signed out
+    Refs.signUpBtnWindow.classList.remove('--is-hidden');
+    Refs.logInBtnWindow.classList.remove('--is-hidden');
+    Refs.logOutBtn.classList.add('--is-hidden');
+    Refs.logInDiv.setAttribute('style', 'display:flex');
+    Refs.signUpDiv.setAttribute('style', 'display:flex');
+    Refs.headLogInBtn.textContent = 'Log In';
+    console.log('User Is Signed Out');
+  }
+});
+
+//=================== SIGNUP LOGIC START ==================
+const signupForm = document.querySelector('#signup-form');
+signupForm.addEventListener('submit', onSignUpSubmit);
+
+function onSignUpSubmit(e) {
+  e.preventDefault();
+  //   console.log('Жмакнули Submit');
+  const email = signupForm['signup-input-email'].value;
+  const password = signupForm['signup-input-password'].value;
+  const passwordConfirm = signupForm['passwordConfirm'].value;
+  if (!email || !password || !passwordConfirm) {
+    Notiflix.Notify.warning('Fields cannot be empty ');
+  } else if (password !== passwordConfirm) {
+    Notiflix.Notify.warning('Password fields is  not the same');
+  } else {
+    // console.log(email, password);
+    createUserWithEmailAndPassword(getAuth(), email, password)
+      .then(userCredential => {
+        // Signed in
+        const user = userCredential.user;
+        console.log(userCredential);
+        console.log(user.uid);
+        Notiflix.Notify.success('You Successfully SignUp');
+        const userId = user.uid;
+        writeUserData(userId, email, password);
+      })
+      .catch(error => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorMessage);
+        // ..
+      });
+
+    onCloseModal();
+    signupForm.reset();
+  }
+}
+
+//=================== SIGNUP LOGIC END ==================
+
+//=================== LOGIN LOGIC START ==================
 const formData = {};
 const STORAGE_KEY = 'form_submit';
 
-Refs.singInBtn.addEventListener('click', signInWindow);
-Refs.logInBtn.addEventListener('click', logInWindow);
+const loginForm = document.querySelector('#login-form');
+loginForm.addEventListener('submit', onLogInSubmit);
 
-Refs.headerLogInButton.addEventListener('click', onOpenModal);
-Refs.closeModalBtn.addEventListener('click', onCloseModal);
-Refs.backdrop.addEventListener('click', onBackdropClick);
-
-const signupForm = document.querySelector('#form');
-signupForm.addEventListener('submit', onFormSubmit);
-
-function onFormSubmit(e) {
+function onLogInSubmit(e) {
   e.preventDefault();
-  const email = signupForm['input-email'].value;
-  const password = signupForm['input-password'].value;
-  console.log(email, password);
+  const email = loginForm['input-email'].value;
+  const password = loginForm['input-password'].value;
 
-  formData[e.target.email.name] = e.target.email.value;
-  formData[e.target.password.name] = e.target.password.value;
-
-  const savedString = JSON.stringify(formData);
-  console.log(savedString);
-  localStorage.setItem(STORAGE_KEY, savedString);
-  // console.log(formData);
-  // console.dir(e.target);
-
-  createUserWithEmailAndPassword(getAuth(app), email, password)
+  signInWithEmailAndPassword(getAuth(), email, password)
     .then(userCredential => {
       // Signed in
       const user = userCredential.user;
-      console.log(userCredential);
       console.log(user);
+
+      formData[e.target.email.name] = e.target.email.value;
+      formData[e.target.password.name] = e.target.password.value;
+      const savedString = JSON.stringify(formData);
+      //   console.log(savedString);
+      //   localStorage.setItem(STORAGE_KEY, savedString);
+
+      const userDataBase = {
+        date: new Date().toJSON(),
+        movieID: savedString,
+        user: user,
+      };
+      console.log(userDataBase);
+
+      Notiflix.Notify.success('Enter Success');
+      onCloseModal();
+      setTimeout(() => {
+        loginForm.reset();
+        // libraryRender();
+        MovieDataBase.create(userDataBase);
+      }, 1500);
+
       // ...
     })
     .catch(error => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      // ..
+      console.log(errorCode);
+      console.log(errorMessage);
+      Notiflix.Notify.failure('Login Failed wrong email or password');
+    });
+}
+//=================== LOGIN LOGIC END ==================
+
+Refs.headLogInBtn.addEventListener('click', onOpenModal);
+Refs.closeModalBtn.addEventListener('click', onCloseModal);
+Refs.backdrop.addEventListener('click', onBackdropClick);
+Refs.signUpBtnWindow.addEventListener('click', onShowSignUpWindow);
+Refs.logInBtnWindow.addEventListener('click', onShowLogInWindow);
+Refs.logOutBtn.addEventListener('click', onLogOutBtn);
+
+//=================== LOG OUT LOGIC START ==================
+function onLogOutBtn(e) {
+  //   const auth = getAuth(app);
+  signOut(auth)
+    .then(() => {
+      // Sign-out successful.
+      signupForm.reset();
+      loginForm.reset();
+      setTimeout(() => {
+        console.log('Logout Success');
+      }, 1500);
+    })
+    .catch(error => {
+      // An error happened.
+      console.log(error);
+      console.log('Logout Failed');
     });
 
-  onCloseModal();
+  onAuthStateChanged(auth, user => {
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/firebase.User
+      //   console.log(user);
+      const uid = user.uid;
+      // ...
+    } else {
+      // User is signed out
+      Notiflix.Notify.info('You are successfully Logged Out');
+    }
+  });
+}
+//=================== LOG OUT LOGIC END ==================
 
-  //   console.log(e.target.email.value);
-  //   console.log(e.target.password.value);
-  //   console.dir(FormRefs.emailInput.value);
+function onShowSignUpWindow() {
+  console.log('мы нажали кнопку signUp');
+  Refs.signUpDiv.classList.remove('--is-hidden');
+  Refs.logInDiv.classList.add('--is-hidden');
+}
+
+function onShowLogInWindow() {
+  console.log('мы нажали кнопку logIn');
+  Refs.signUpDiv.classList.add('--is-hidden');
+  Refs.logInDiv.classList.remove('--is-hidden');
+}
+
+function onOpenModal() {
+  Refs.backdrop.classList.toggle('backdrop--is-hidden');
+  window.addEventListener('keydown', closeModalByEsc);
 }
 
 function closeModalByEsc(event) {
-  //   console.log('key: ', event.key);
   const ESC_KEY_CODE = 'Escape';
   if (event.code === ESC_KEY_CODE) {
     onCloseModal();
   }
+}
+
+function onCloseModal() {
+  Refs.backdrop.classList.toggle('backdrop--is-hidden');
+  window.removeEventListener('keydown', closeModalByEsc);
 }
 
 function onBackdropClick(event) {
@@ -100,57 +263,19 @@ function onBackdropClick(event) {
   }
 }
 
-function onOpenModal() {
-  Refs.backdrop.classList.toggle('backdrop--is-hidden');
-  window.addEventListener('keydown', closeModalByEsc);
+function writeUserData(userId, email, password, imageUrl) {
+  const db = getDatabase();
+  set(ref(db, 'users/' + userId), {
+    email,
+    password,
+    // profile_picture: imageUrl,
+  });
 }
 
-function onCloseModal() {
-  Refs.backdrop.classList.toggle('backdrop--is-hidden');
-  window.removeEventListener('keydown', closeModalByEsc);
-}
-
-function logInWindow() {
-  console.log('мы нажали кнопку logIn');
-  Refs.singInBtn.classList.remove('--is-hidden');
-  Refs.logInBtn.classList.add('--is-hidden');
-  Refs.logInSubmitBtn.classList.remove('--is-hidden');
-  Refs.signInSubmitBtn.classList.add('--is-hidden');
-  Refs.formContainer.innerHTML = `
-        <label>
-          Email
-          <input type="email" name="email" id="input-email" />
-        </label>
-
-        <label>
-          Password
-          <input type="password" name="password" id="input-password" />
-        </label>
- `;
-}
-function signInWindow(e) {
-  console.log('мы нажали кнопку signIn');
-  Refs.singInBtn.classList.add('--is-hidden');
-  Refs.logInBtn.classList.remove('--is-hidden');
-  Refs.logInSubmitBtn.classList.add('--is-hidden');
-  Refs.signInSubmitBtn.classList.remove('--is-hidden');
-  Refs.formContainer.innerHTML = `
-      <label>
-          Email
-          <input type="email" name="email" id="input-email" />
-        </label>
-
-        <label>
-          Password
-          <input type="password" name="password" id="input-password" />
-        </label>
-
-      <label>
-        Confirm password
-        <input type="password" name="password-confirmation id="passwordConfirm" />
-      </label>
-
-     
-    
-`;
-}
+const users = {
+  user1: {
+    watched: ['asdasdasdsa', 'asdadasdas', 'asdasdasd'],
+    queue: {},
+  },
+  user2: {},
+};

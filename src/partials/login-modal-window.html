@@ -1,16 +1,26 @@
 <div class="backdrop backdrop--is-hidden" data-backdrop>
   <div class="modal">
-    <div>
-      <form class="logInForm" autocomplete="on" validate id="form">
+    <div id="logInDiv">
+      <form class="logInForm" autocomplete="on" validate id="login-form">
         <div class="form-container">
           <label>
             Email
-            <input type="email" name="email" id="input-email" />
+            <input
+              type="email"
+              class="inputStyle"
+              name="email"
+              id="input-email"
+            />
           </label>
 
           <label>
             Password
-            <input type="password" name="password" id="input-password" />
+            <input
+              type="password"
+              class="inputStyle"
+              name="password"
+              id="input-password"
+            />
           </label>
         </div>
 
@@ -21,10 +31,47 @@
         >
           Log In
         </button>
+      </form>
+    </div>
+    <!-- ==================  SIGN UP =============================== -->
+    <div class="--is-hidden" id="signUpDiv">
+      <form class="logInForm" autocomplete="on" validate id="signup-form">
+        <div class="form-container">
+          <label>
+            Email
+            <input
+              type="email"
+              class="inputStyle"
+              name="email"
+              id="signup-input-email"
+            />
+          </label>
+
+          <label>
+            Password
+            <input
+              type="password"
+              class="inputStyle"
+              name="password"
+              id="signup-input-password"
+            />
+          </label>
+
+          <label>
+            Confirm password
+            <input
+              type="password"
+              class="inputStyle"
+              name="password-confirmation"
+              id="passwordConfirm"
+            />
+          </label>
+        </div>
+
         <button
           type="submit"
-          data-action="signIn-submit-btn"
-          class="signInSubmitBtn --is-hidden"
+          data-action="signup-submit-btn"
+          class="loginSubmitBtn"
         >
           Sign Up
         </button>
@@ -37,10 +84,14 @@
       </svg>
     </button>
     <div>
-      <button type="button" class="logInBtn-JS --is-hidden">
-        Log In Window
+      <button type="button" class="logInBtn-JS btnStyle">Log In Window</button>
+      <button type="button" class="signUpBtn-JS btnStyle">
+        Sign Up Window
       </button>
-      <button type="button" class="signInBtn-JS">Sign Up Window</button>
+      <button type="button" class="logOutBtn-JS btnStyle">Logout</button>
+      <button type="button" class="passwordBtn-JS btnStyle">
+        Change password
+      </button>
     </div>
   </div>
 </div>

@@ -11,7 +11,7 @@ export const getGenreById = async id => {
     const genresArray = genres.genres;
     genresArray.forEach(genre => {
       if (id === genre.id) {
-        console.log(genre.name);
+        // console.log(genre.name);
         return genre.name;
       }
     });
