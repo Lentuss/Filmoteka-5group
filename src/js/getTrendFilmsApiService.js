@@ -1,9 +1,8 @@
 import axios from 'axios';
-import { API_KEY } from './apiVariables';
+import { API_KEY, BASE_URL, TREND_URL } from './apiVariables';
 
 export default class getFilmsApiService {
     constructor() {
-        this.request = '';
         this.page = 1
     }
 
@@ -13,7 +12,7 @@ export default class getFilmsApiService {
     };
 
     async getFilms() {
-        const url = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=Car&page=${this.page}`;
+        const url = `${TREND_URL}?api_key=${API_KEY}&page=${this.page}`;
         const response = await axios(url);
         const data = await this.getData(response);
         return data;
@@ -26,8 +25,4 @@ export default class getFilmsApiService {
     resetPage() {
         this.page = 1;
     };
-    
-    get req() {
-        return this.request;
-    }
 }
