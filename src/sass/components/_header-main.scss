@@ -220,33 +220,20 @@
   }
 }
 
-// .search-error {
-
-
-//   font-family: 'Roboto';
-//   font-weight: 400;
-//   font-size: 14px;
-//   line-height: 1.14;
-
-
-//   text-align: center;
-//   color: #FF001B;
-
-//   margin-top: 20px;
-
-// }
-
-
-
-
-.header__failed-search-msg {
-  display: none;
-  color: #FF001B;
-  font-weight:  400;
-  font-size: 14px; 
+.search-error {
+  font-family: 'Roboto';
+  font-weight: 400;
+  font-size: 14px;
   line-height: 1.14;
-  
+
+
+  text-align: center;
+  color: #FF001B;
+
+  margin-top: 20px;
+
   @media screen and (min-width: 768px) {
     text-align: center;
   }
+
 }
