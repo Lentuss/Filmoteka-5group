@@ -1,5 +1,10 @@
+.slider-section{
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
 .wrapper {
-    width: 1000px;
+    width: 960px;
     margin: 0 auto;
     position: relative;
 }
@@ -20,21 +25,10 @@
     min-width: 200px;
 }
 
-// .slider-item:not(last-child) {
-// margin-right: 10px;
-// }
+.slider-item:not(last-child) {
+border-right: 10px solid white;
+}
 
-// .slider-item:nth-child(3n+1) {
-//     background-color: red;
-// }
-
-// .slider-item:nth-child(3n+2) {
-//     background-color: green;
-// }
-
-// .slider-item:nth-child(3n+3) {
-//     background-color: blue;
-// }
 
 .slider-btns {
     background-color: transparent;

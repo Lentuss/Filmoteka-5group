@@ -2,7 +2,7 @@ import { API_KEY, TREND_URL, IMAGE_URL } from './apiVariables'
 
 let position = 0;
 const slidesToShow = 4;
-const slidesToScroll = 1;
+const slidesToScroll = 2;
 const container = document.querySelector('.slider-container');
 const track = document.querySelector('.slider-track');
 const items = document.querySelectorAll('.slider-item');
@@ -34,28 +34,27 @@ btnPrev.addEventListener('click', () => {
     checkBtns();
 })
 
-const setPositon = () => {
+function setPositon(){
     track.style.transform = `translateX(${position}px)`;
 };
 
-const checkBtns = () => {
+function checkBtns() {
     btnPrev.disabled = position === 0;
     btnNext.disabled = position <= -(itemsCount - slidesToShow) * itemWidth;
 };
-
+getTrendingFilmsForSlider()
 checkBtns();
 
-function getTrendingFilmsForSlider() {
-    const sliderMovies = fetch(`${TREND_URL}?api_key=${API_KEY}`)
+async function getTrendingFilmsForSlider() {
+    const sliderMovies = await fetch(`${TREND_URL}?api_key=${API_KEY}`)
         .then((r) => r.json())
         .then((r) => {
             const sliderFetchResult = r.results.map((el) => `<div class="slider-item">
             <img src="${IMAGE_URL + el.poster_path}" alt="${el.name}" title="${el.name}">
-            </div>`).join('');
-
-            track.innerHTML = sliderFetchResult
+            </div>`).join('')
+            console.log(sliderFetchResult)
+            track.innerHTML = sliderFetchResult;
         })
 
 }
 
-getTrendingFilmsForSlider()
