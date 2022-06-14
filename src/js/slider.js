@@ -50,7 +50,7 @@ async function getTrendingFilmsForSlider() {
         .then((r) => r.json())
         .then((r) => {
             const sliderFetchResult = r.results.map((el) => `<div class="slider-item">
-            <img src="${IMAGE_URL + el.poster_path}" alt="${el.name}" title="${el.name}">
+            <img src="${IMAGE_URL + el.poster_path}" alt="${el.name}">
             </div>`).join('')
             console.log(sliderFetchResult)
             track.innerHTML = sliderFetchResult;
