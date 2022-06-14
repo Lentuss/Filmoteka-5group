@@ -20,6 +20,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
+  child,
 } from 'firebase/auth';
 import { getDatabase, ref, set, onValue, get, once } from 'firebase/database';
 
@@ -48,20 +49,49 @@ const Refs = {
   logOutBtn: document.querySelector('.logOutBtn-JS'),
   signUpDiv: document.querySelector('#signUpDiv'),
   logInDiv: document.querySelector('#logInDiv'),
-
-  passBtn: document.querySelector('.passwordBtn-JS'),
+  //==================== PRACTICE =============
+  watchedBtn: document.querySelector('.watchedBtn-JS'),
+  queuedBtn: document.querySelector('.queueBtn-JS'),
+  movieCards: document.querySelector('#movieCardContainer'),
+  //==================== PRACTICE =============
 };
+const watchedArr = [];
 
-Refs.passBtn.addEventListener('click', changePass);
+//==================== PRACTICE ADD BUTTON LOGIC START =============
 
-function changePass() {
-  const uid = 'cENjF4BKspWHO6DQZ9g0s3BIMco2';
-  const db = getDatabase();
-  set(ref(db, 'users/' + uid + '/watched'), [
-    'asdasdasdsa',
-    'asdadasdas',
-    'asdasdasd',
-  ]);
+//==================== PRACTICE =============
+
+// Refs.watchedBtn.addEventListener('click', addToWatched);
+// Refs.queuedBtn.addEventListener('click', addToQueue);
+Refs.movieCards.addEventListener('click', addToWatched);
+
+//==================== PRACTICE =============
+
+//==================== PRACTICE =============
+
+function addToWatched(event) {
+  // console.log(event.target);
+
+  // const movieCardID = document.querySelectorAll('.movieCardID');
+  const attributeRef = {
+    movieID: event.target.getAttribute('movieID'),
+    img: event.target.previousElementSibling.firstElementChild.getAttribute(
+      'src'
+    ),
+  };
+  console.log(img);
+
+  watchedArr.push(movieID);
+  console.log(watchedArr);
+
+  addMovieInfoToDataBase({ movieID, title, img, genres, year });
+  // console.log(data.watched);
+}
+
+function addToQueue() {
+  const movieCardID = document.querySelector('.movieCardID');
+  const movieID = movieCardID.getAttribute('movieID');
+  set(ref(db, 'users/' + uid + '/queue'), ['new movie3', 'new movie4']);
 }
 
 //============================= AUTH STATUS ========================
@@ -83,7 +113,11 @@ onAuthStateChanged(auth, user => {
     onValue(allInfo, snapshot => {
       const data = snapshot.val();
       console.log(data);
+      // console.log(data.queue);
       // updateStarCount(postElement, data);
+
+      //==================== PRACTICE =============
+      //==================== PRACTICE ADD BUTTON LOGIC END =============
     });
   } else {
     // User is signed out
@@ -93,6 +127,7 @@ onAuthStateChanged(auth, user => {
     Refs.logInDiv.setAttribute('style', 'display:flex');
     Refs.signUpDiv.setAttribute('style', 'display:flex');
     Refs.headLogInBtn.textContent = 'Log In';
+    Notiflix.Notify.info('You are successfully Logged Out');
     console.log('User Is Signed Out');
   }
 });
@@ -173,7 +208,7 @@ function onLogInSubmit(e) {
       setTimeout(() => {
         loginForm.reset();
         // libraryRender();
-        MovieDataBase.create(userDataBase);
+        // MovieDataBase.create(userDataBase);
       }, 1500);
 
       // ...
@@ -213,18 +248,18 @@ function onLogOutBtn(e) {
       console.log('Logout Failed');
     });
 
-  onAuthStateChanged(auth, user => {
-    if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/firebase.User
-      //   console.log(user);
-      const uid = user.uid;
-      // ...
-    } else {
-      // User is signed out
-      Notiflix.Notify.info('You are successfully Logged Out');
-    }
-  });
+  // onAuthStateChanged(auth, user => {
+  //   if (user) {
+  //     // User is signed in, see docs for a list of available properties
+  //     // https://firebase.google.com/docs/reference/js/firebase.User
+  //     //   console.log(user);
+  //     const uid = user.uid;
+  //     // ...
+  //   } else {
+  //     // User is signed out
+  //     Notiflix.Notify.info('You are successfully Logged Out');
+  //   }
+  // });
 }
 //=================== LOG OUT LOGIC END ==================
 
@@ -272,10 +307,27 @@ function writeUserData(userId, email, password, imageUrl) {
   });
 }
 
-const users = {
-  user1: {
-    watched: ['asdasdasdsa', 'asdadasdas', 'asdasdasd'],
-    queue: {},
-  },
-  user2: {},
-};
+function addMovieInfoToDataBase(movieID, title, img, genres, year) {
+  const db = getDatabase();
+
+  set(
+    ref(
+      db,
+      'users/' + 'cENjF4BKspWHO6DQZ9g0s3BIMco2' + '/watched' + `/${movieID}`
+    ),
+    {
+      title,
+      img,
+      genres,
+      year,
+    }
+  );
+}
+///================ STRUCTURE EXAMPLE
+// const users = {
+//   user1: {
+//     watched: ['asdasdasdsa', 'asdadasdas', 'asdasdasd'],
+//     queue: {},
+//   },
+//   user2: {},
+// };

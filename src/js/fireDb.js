@@ -40,5 +40,5 @@ function getFromLocalStorage() {
 }
 
 function toCard(database) {
-  return `<div>Ты не смог пока ничего достать</div>`;
+  return `<div class="movieCardID" movieID="129878456456s789754">Ты не смог пока ничего достать</div>`;
 }
