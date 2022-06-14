@@ -3,6 +3,7 @@ import './sass/index.scss';
 import './js/getFilmsApiService';
 import './js/getTrendFilms';
 import './js/renderFilms';
+import './js/filmSearch';
 import './js/getDetails';
 import './js/getGenres';
 import './js/apiVariables';

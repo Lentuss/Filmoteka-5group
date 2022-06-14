@@ -1,23 +1,42 @@
-import { TREND_URL } from './apiVariables';
+import { BASE_URL } from './apiVariables';
 import { getGenreById } from './getGenres';
 import GetFilmsApiService from './getFilmsApiService';
 import { createListMarkup } from './renderFilms';
 
 const listEl = document.querySelector('.main__movie-card-list');
+const btnDayEl = document.querySelector('.trends-of-day');
+const btnWeekEl = document.querySelector('.trends-of-week');
 
-const getFilmsApiService = new GetFilmsApiService(TREND_URL);
+const getFilmsApiService = new GetFilmsApiService(BASE_URL);
 
-getFilmsApiService.resetPage();
-getTrendFilms();
+btnDayEl.addEventListener('click', onBtnDayClick);
+btnWeekEl.addEventListener('click', onBtnWeekClick);
 
-async function getTrendFilms() {
+renderNewPage();
+
+function renderNewPage() {
+    listEl.innerHTML = '';
+    getFilmsApiService.resetPage();
+    getTrendFilms(); 
+}
+
+function onBtnDayClick() {
+    getFilmsApiService.trendsOfDay();
+    renderNewPage(); 
+}
+
+function onBtnWeekClick() {
+    getFilmsApiService.trendsOfWeek();
+    renderNewPage();    
+}
+
+export async function getTrendFilms() {
     try {
         const requestedFilms = await getFilmsApiService.getFilms();
         onGetSucces(requestedFilms);
     } catch (error) {
         onGetError();
-    console.log(error.message);
-  }
+    }
 };
 
 function onGetSucces(requestedFilms) {
@@ -28,6 +47,7 @@ function onGetSucces(requestedFilms) {
 function onGetError(error) {
     console.log(error);
 };
+
 
 // infinite scroll
 

@@ -1,50 +1,49 @@
 import axios from 'axios';
-import { API_KEY} from './apiVariables';
+import { API_KEY, SEARCH_URL, BASE_URL} from './apiVariables';
 
-export default class getFilmsApiService {
+
+export default class GetFilmsApiService {
     constructor(url) {
-        this.searchRequest = "";
         this.page = 1;
+        this.period = 'day';
+        this.searchRequest = "";
         this.url = url;
     }
-
-    getData({ data }) {
-        this.incrementPage();
-        return data;
-    };
-
+    
     async getFilms() {
-        try {
-            const fetchRequest = await axios.get(`${this.url}`, {
-                    params: {
-                        api_key: API_KEY,
-                        query: this.searchRequest,
-                        page: this.page,                    
-                    }
-            });
-            
-            // const response = await axios(url);
-            const data = await this.getData(fetchRequest);
-            return data;
-                
-        } catch (error) {
-            console.log(error.message);  
-        }        
-    }
+        let searchLink = null;
 
-    incrementPage() {
+        if (this.url === SEARCH_URL) {
+            searchLink = `${this.url}?api_key=${API_KEY}&page=${this.page}&query=${this.searchRequest}`;
+        } else if (this.url === BASE_URL) {
+            searchLink = `${BASE_URL}trending/all/${this.period}?api_key=${API_KEY}&page=${this.page}`;
+        }
+
+        const response = await axios.get(searchLink);
+
+        const data = response.data;
         this.page += 1;
-    };
+        return data;
+    }
 
     resetPage() {
         this.page = 1;
     };
 
-    get query() {
+    trendsOfDay() {
+        this.period = 'day';
+    };
+
+    trendsOfWeek() {
+        this.period = 'week';
+    };
+
+      get query() {
         return this.searchRequest;
     }
 
     set query(newQuery) {
         this.searchRequest = newQuery;
     }
+
 }
