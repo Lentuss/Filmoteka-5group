@@ -3,7 +3,8 @@ import { API_KEY, BASE_URL, TREND_URL } from './apiVariables';
 
 export default class getFilmsApiService {
     constructor() {
-        this.page = 1
+        this.page = 1;
+        this.period = 'day';
     }
 
     getData({ data }) {
@@ -12,7 +13,7 @@ export default class getFilmsApiService {
     };
 
     async getFilms() {
-        const url = `${TREND_URL}?api_key=${API_KEY}&page=${this.page}`;
+        const url = `${BASE_URL}trending/all/${this.period}?api_key=${API_KEY}&page=${this.page}`;
         const response = await axios(url);
         const data = await this.getData(response);
         return data;
@@ -24,5 +25,13 @@ export default class getFilmsApiService {
 
     resetPage() {
         this.page = 1;
+    };
+
+    trendsOfDay() {
+        this.period = 'day';
+    };
+
+    trendsOfWeek() {
+        this.period = 'week';
     };
 }
