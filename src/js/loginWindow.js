@@ -22,7 +22,15 @@ import {
   onAuthStateChanged,
   child,
 } from 'firebase/auth';
-import { getDatabase, ref, set, onValue, get, once } from 'firebase/database';
+import {
+  getDatabase,
+  ref,
+  set,
+  onValue,
+  get,
+  once,
+  remove,
+} from 'firebase/database';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -51,6 +59,7 @@ const Refs = {
   logInDiv: document.querySelector('#logInDiv'),
   //==================== PRACTICE =============
   watchedBtn: document.querySelector('.watchedBtn-JS'),
+  removeBtn: document.querySelector('.removeBtn-JS'),
   queuedBtn: document.querySelector('.queueBtn-JS'),
   movieCards: document.querySelector('#movieCardContainer'),
   //==================== PRACTICE =============
@@ -64,28 +73,50 @@ const watchedArr = [];
 // Refs.watchedBtn.addEventListener('click', addToWatched);
 // Refs.queuedBtn.addEventListener('click', addToQueue);
 Refs.movieCards.addEventListener('click', addToWatched);
+Refs.movieCards.addEventListener('click', removeFromWatched);
 
 //==================== PRACTICE =============
 
 //==================== PRACTICE =============
 
 function addToWatched(event) {
-  // console.log(event.target);
+  if (!event.target.classList.contains('watchedBtn-JS')) {
+    return;
+  }
+  console.log(event);
+  const movieID = event.target.getAttribute('movieID');
+  const img =
+    event.target.previousElementSibling.firstElementChild.getAttribute('src');
+  const title =
+    event.target.previousElementSibling.lastElementChild.firstElementChild
+      .textContent;
+  const genres =
+    event.target.previousElementSibling.lastElementChild.lastElementChild
+      .textContent;
+  const year =
+    event.target.previousElementSibling.lastElementChild.lastElementChild
+      .firstElementChild.textContent;
+  const uid = auth.lastNotifiedUid;
+  // console.log(movieID);
+  console.dir(event.target);
+  // console.log(title);
+  // console.log(genres);
+  // console.log(year);
 
-  // const movieCardID = document.querySelectorAll('.movieCardID');
-  const attributeRef = {
-    movieID: event.target.getAttribute('movieID'),
-    img: event.target.previousElementSibling.firstElementChild.getAttribute(
-      'src'
-    ),
-  };
-  console.log(img);
+  // watchedArr.push(attributeRef.movieID);
+  // console.log(watchedArr)
 
-  watchedArr.push(movieID);
-  console.log(watchedArr);
-
-  addMovieInfoToDataBase({ movieID, title, img, genres, year });
+  addMovieInfoToDataBase(movieID, title, img, genres, year, uid);
   // console.log(data.watched);
+}
+
+function removeFromWatched(event) {
+  if (!event.target.classList.contains('removeBtn-JS')) {
+    return;
+  }
+  const movieID = event.target.getAttribute('movieID');
+  const uid = auth.lastNotifiedUid;
+  removeMovieIDFromDB(uid, movieID);
 }
 
 function addToQueue() {
@@ -93,6 +124,8 @@ function addToQueue() {
   const movieID = movieCardID.getAttribute('movieID');
   set(ref(db, 'users/' + uid + '/queue'), ['new movie3', 'new movie4']);
 }
+//==================== PRACTICE =============
+//==================== PRACTICE ADD BUTTON LOGIC END =============
 
 //============================= AUTH STATUS ========================
 onAuthStateChanged(auth, user => {
@@ -115,9 +148,6 @@ onAuthStateChanged(auth, user => {
       console.log(data);
       // console.log(data.queue);
       // updateStarCount(postElement, data);
-
-      //==================== PRACTICE =============
-      //==================== PRACTICE ADD BUTTON LOGIC END =============
     });
   } else {
     // User is signed out
@@ -307,22 +337,23 @@ function writeUserData(userId, email, password, imageUrl) {
   });
 }
 
-function addMovieInfoToDataBase(movieID, title, img, genres, year) {
+function addMovieInfoToDataBase(movieID, title, img, genres, year, uid) {
   const db = getDatabase();
 
-  set(
-    ref(
-      db,
-      'users/' + 'cENjF4BKspWHO6DQZ9g0s3BIMco2' + '/watched' + `/${movieID}`
-    ),
-    {
-      title,
-      img,
-      genres,
-      year,
-    }
-  );
+  set(ref(db, 'users/' + uid + '/watched' + `/${movieID}`), {
+    title,
+    img,
+    genres,
+    year,
+  });
 }
+
+function removeMovieIDFromDB(uid, movieID) {
+  const db = getDatabase();
+
+  remove(ref(db, 'users/' + uid + '/watched' + `/${movieID}`));
+}
+
 ///================ STRUCTURE EXAMPLE
 // const users = {
 //   user1: {

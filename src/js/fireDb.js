@@ -19,7 +19,7 @@ export class MovieDataBase {
       .then(addToLocalStorage)
       .then(MovieDataBase.renderList);
   }
-  static renderList() {
+  static renderList(aasda) {
     const moviesFromLS = getFromLocalStorage();
     const html = moviesFromLS.length
       ? moviesFromLS.map(toCard).join('')
@@ -41,4 +41,8 @@ function getFromLocalStorage() {
 
 function toCard(database) {
   return `<div class="movieCardID" movieID="129878456456s789754">Ты не смог пока ничего достать</div>`;
+}
+
+function render(data) {
+  const arr = data.map(id => {});
 }
