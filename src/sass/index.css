@@ -1,5 +1,5 @@
 @charset "UTF-8";
-@import url(c:\Users\Lentus\OneDrive\Рабочий стол\WorkCode\Filmoteka-5group\node_modules\modern-normalize\modern-normalize.css);
+@import url(d:\projects\Filmoteka-5group\node_modules\modern-normalize\modern-normalize.css);
 * {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -37,7 +37,8 @@ a {
   padding: 0px;
 }
 
-ul, li {
+ul,
+li {
   list-style: none;
 }
 
@@ -315,6 +316,221 @@ button {
   width: 21px;
 }
 
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(128, 128, 128, 0.5);
+}
+
+.backdrop--is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.modal {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  min-height: 300px;
+  min-width: 600px;
+  padding: 30px;
+  background-color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.modal__closeBtn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  -webkit-transform: translate(50%, -50%);
+          transform: translate(50%, -50%);
+  border-radius: 50%;
+}
+
+.logInForm {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.inputStyle {
+  border: 1px dashed green;
+}
+
+.form-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  margin-top: 50px;
+}
+
+.loginSubmitBtn {
+  margin-top: 30px;
+}
+
+.signInSubmitBtn {
+  margin-top: 30px;
+}
+
+.btnStyle {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.--is-hidden {
+  width: 1px;
+  height: 1px;
+  clip: rect(0 0 0 0);
+  border: 0;
+  margin: -1px;
+  padding: 0;
+  position: absolute;
+  overflow: hidden;
+}
+
+/* Мейн */
+.section {
+  background-color: #E5E5E5;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+@media screen and (min-width: 768px) {
+  .section {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+}
+
+.container {
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
+@media screen and (min-width: 320px) {
+  .container {
+    width: 320px;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    width: 768px;
+    padding: 0 32px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .container {
+    width: 1024px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .main__movie-card-list {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+  }
+}
+
+.main__movie-card-item {
+  width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+  .main__movie-card-item {
+    width: calc((100% - 32px) / 2);
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .main__movie-card-item {
+    width: calc((100% - 16px * 2) / 3);
+  }
+}
+
+.main__movie-card-item:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+@media screen and (min-width: 768px) {
+  .main__movie-card-item:not(:last-child) {
+    margin-bottom: 0;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .main__movie-card-item:not(:nth-last-child(-n+2)) {
+    margin-bottom: 32px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .main__movie-card-item:not(:nth-last-child(-n+2)) {
+    margin-bottom: 0;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .main__movie-card-item:nth-child(odd) {
+    margin-right: 32px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .main__movie-card-item:nth-child(odd) {
+    margin-right: 0;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .main__movie-card-item:not(:nth-last-child(-n+3)) {
+    margin-bottom: 32px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .main__movie-card-item:not(:nth-child(3n)) {
+    margin-right: 16px;
+  }
 .is-current {
   position: relative;
 }
@@ -342,6 +558,12 @@ button {
 }
 
 .details__backdrop {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   position: fixed;
   width: 100%;
   height: 100vh;
@@ -359,27 +581,25 @@ button {
 .details__modal {
   display: block;
   position: absolute;
-  top: 20px;
-  left: 20px;
   width: 90%;
+  top: 20px;
+  z-index: 2;
   padding: 48px 20px 40px;
   background-color: white;
-  z-index: 2;
 }
 
 @media screen and (min-width: 768px) {
   .details__modal {
     top: 219px;
-    left: 32px;
+    width: 704px;
     padding: 40px 72px 40px 36px;
   }
 }
 
-@media screen and (min-width: 768px) and (min-width: 1024px) {
+@media screen and (min-width: 1024px) {
   .details__modal {
     top: 151px;
-    left: 112px;
-    width: 80%;
+    width: 814px;
     padding: 40px 16px;
   }
 }
@@ -398,7 +618,7 @@ button {
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
-    min-width: 100%;
+    width: 100%;
   }
 }
 
