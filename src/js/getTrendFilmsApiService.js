@@ -1,4 +1,4 @@
-// import axios from 'axios';
+import axios from 'axios';
 import { API_KEY, BASE_URL, TREND_URL } from './apiVariables';
 
 export default class getFilmsApiService {
