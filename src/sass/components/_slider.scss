@@ -24,6 +24,11 @@
 
 .slider-item {
     min-width: 124px;
+
+    &:hover,
+    &:focus {
+        cursor: pointer;
+    }
 }
 
 @media screen and (min-width: 768px) {
