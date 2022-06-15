@@ -1,6 +1,5 @@
 import { API_KEY, TREND_URL, IMAGE_URL } from './apiVariables'
 
-
 let position = 0;
 let slidesToShow = 6;
 const slidesToScroll = 2;
@@ -64,7 +63,7 @@ async function getTrendingFilmsForSlider() {
     const sliderMovies = await fetch(`${TREND_URL}?api_key=${API_KEY}`)
         .then((r) => r.json())
         .then((r) => {
-            const sliderFetchResult = r.results.map((el) => `<div class="slider-item">
+            const sliderFetchResult = r.results.map((el) => `<div class="slider-item" tag="${el.id}">
             <img src="${IMAGE_URL + el.poster_path}" alt="${el.name}">
             </div>`).join('')
             track.innerHTML = sliderFetchResult;
