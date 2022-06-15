@@ -32,7 +32,18 @@
                 </svg>
             </button>
         </form>
-
+        <script>
+            const handleChange = (isChecked) =>{
+                if (isChecked) {
+                    document.body.setAttribute("dark", "");
+                } else {
+                    document.body.removeAttribute("dark");
+                }
+            }
+        </script>
+<div class="theme"> 
+    <input type="checkbox" onchange="handleChange(this.checked)">
+</div>
         <p class="search-error visually-hidden">
             Search result not successful. Enter the correct movie name.
         </p>

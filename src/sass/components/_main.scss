@@ -1,3 +1,11 @@
+:root{
+    --var-body-bg:$header-text-color;
+}
+
+[dark] {
+    --var-body-bg:$accent-color;
+}
+
 .section {
     background-color: #fff;
     padding-top: 20px;
