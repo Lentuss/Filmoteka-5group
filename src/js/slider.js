@@ -18,7 +18,7 @@ items.forEach((el) => {
 
 btnNext.addEventListener('click', () => {
     const itemsLeft = itemsCount - (Math.abs(position) + slidesToShow * itemWidth) / itemWidth;
-
+    console.log(`next`)
     position -= itemsLeft >= slidesToScroll ? movePosition : itemsLeft * itemWidth;
 
     setPositon();
@@ -52,7 +52,7 @@ async function getTrendingFilmsForSlider() {
             const sliderFetchResult = r.results.map((el) => `<div class="slider-item">
             <img src="${IMAGE_URL + el.poster_path}" alt="${el.name}">
             </div>`).join('')
-            console.log(sliderFetchResult)
+
             track.innerHTML = sliderFetchResult;
         })
 
