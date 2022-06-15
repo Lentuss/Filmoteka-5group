@@ -13,7 +13,10 @@ let itemsCount = items.length;
 let itemWidth = container.clientWidth / slidesToShow;
 const movePosition = slidesToScroll * itemWidth;
 
-const sliderInterval = window.setInterval(() => {
+let sliderInterval = null;
+
+window.setTimeout(() => {
+    sliderInterval = window.setInterval(() => {
     position -= 2;
     setPositon()
     if (position <= -(itemsCount - slidesToShow) * itemWidth) {
@@ -21,6 +24,7 @@ const sliderInterval = window.setInterval(() => {
     }
     checkBtns();
 }, 50);
+}, 2000)
 
 items.forEach((el) => {
     el.style.minWidth = `${itemWidth}px`
