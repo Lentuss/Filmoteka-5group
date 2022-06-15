@@ -9,18 +9,25 @@ const track = document.querySelector('.slider-track');
 let items = document.querySelectorAll('.slider-item');
 const btnPrev = document.querySelector('.btn-prev');
 const btnNext = document.querySelector('.btn-next');
-const sliderSectionEl = document.querySelector('.slider-section');
 
 let itemsCount = items.length;
 let itemWidth = container.clientWidth / slidesToShow;
 const movePosition = slidesToScroll * itemWidth;
 
+const sliderInterval = window.setInterval(() => {
+    position -= 2;
+    setPositon()
+    if (position <= -(itemsCount - slidesToShow) * itemWidth) {
+        clearInterval(sliderInterval)
+    }
+}, 50);
 
 items.forEach((el) => {
     el.style.minWidth = `${itemWidth}px`
 })
 
 btnNext.addEventListener('click', () => {
+    clearInterval(sliderInterval)
     mediaMatching()
 itemWidth = container.clientWidth / slidesToShow;
     const itemsLeft = itemsCount - (Math.abs(position) + slidesToShow * itemWidth) / itemWidth;
@@ -31,6 +38,7 @@ itemWidth = container.clientWidth / slidesToShow;
 })
 
 btnPrev.addEventListener('click', () => {
+    clearInterval(sliderInterval)
     mediaMatching()
     itemWidth = container.clientWidth / slidesToShow;
     const itemsLeft = Math.abs(position) / itemWidth;
