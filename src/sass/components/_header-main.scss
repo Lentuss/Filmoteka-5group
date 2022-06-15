@@ -225,9 +225,12 @@ font-size: 14px;
 line-height: 1.14;
 
 
-text-align: center;
+text-align: left;
 color: #FF001B;
 
 margin-top: 20px;
 
+@media screen and (min-width: 768px)
+  
+{text-align: center;}
 }
