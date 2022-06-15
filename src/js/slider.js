@@ -1,24 +1,29 @@
 import { API_KEY, TREND_URL, IMAGE_URL } from './apiVariables'
 
+
 let position = 0;
-const slidesToShow = 4;
+let slidesToShow = 6;
 const slidesToScroll = 2;
 const container = document.querySelector('.slider-container');
 const track = document.querySelector('.slider-track');
-const items = document.querySelectorAll('.slider-item');
+let items = document.querySelectorAll('.slider-item');
 const btnPrev = document.querySelector('.btn-prev');
 const btnNext = document.querySelector('.btn-next');
-const itemsCount = items.length
-const itemWidth = container.clientWidth / slidesToShow;
+const sliderSectionEl = document.querySelector('.slider-section');
+
+let itemsCount = items.length;
+let itemWidth = container.clientWidth / slidesToShow;
 const movePosition = slidesToScroll * itemWidth;
+
 
 items.forEach((el) => {
     el.style.minWidth = `${itemWidth}px`
 })
 
 btnNext.addEventListener('click', () => {
+    mediaMatching()
+itemWidth = container.clientWidth / slidesToShow;
     const itemsLeft = itemsCount - (Math.abs(position) + slidesToShow * itemWidth) / itemWidth;
-    console.log(`next`)
     position -= itemsLeft >= slidesToScroll ? movePosition : itemsLeft * itemWidth;
 
     setPositon();
@@ -26,6 +31,8 @@ btnNext.addEventListener('click', () => {
 })
 
 btnPrev.addEventListener('click', () => {
+    mediaMatching()
+    itemWidth = container.clientWidth / slidesToShow;
     const itemsLeft = Math.abs(position) / itemWidth;
     
     position += itemsLeft >= slidesToScroll ? movePosition : itemsLeft * itemWidth;
@@ -52,9 +59,23 @@ async function getTrendingFilmsForSlider() {
             const sliderFetchResult = r.results.map((el) => `<div class="slider-item">
             <img src="${IMAGE_URL + el.poster_path}" alt="${el.name}">
             </div>`).join('')
-
             track.innerHTML = sliderFetchResult;
+        }).then((r) => {
+            items = document.querySelectorAll('.slider-item');
+            itemsCount = items.length;
+            checkBtns();
         })
 
 }
 
+function mediaMatching() {
+        if (window.matchMedia('(min-width: 1024px)').matches){
+        slidesToShow = 6;
+    }
+        if (window.matchMedia('(min-width: 768px) and (max-width: 1023px)').matches) {
+        slidesToShow = 4.5;
+    }
+            if (window.matchMedia('(max-width: 767px)').matches) {
+        slidesToShow = 2.1;
+    }
+}
