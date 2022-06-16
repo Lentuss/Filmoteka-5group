@@ -18,14 +18,17 @@
                 <li class="header-btns__item"><button type="button" data-action="header-home-button"
                         class="header-btns__label is-current">Home</button> </li>
                 <li class="header-btns__item"><button type="button" data-action="header-library-button"
-                        class="header-btns__label">Log
-                        In</button></li>
+                        class="header-btns__label">Log In</button></li>
             </ul>
         </nav>
 
         <form class="header-form" id="search-form">
-            <input class="header-form__input" type="text" autocomplete="off" placeholder="Пошук фільмів" id="input-form"
-                name="searchQuery" />
+            <input class="header-form__input" 
+            type="text" 
+            autocomplete="off" 
+            placeholder="Пошук фільмів" 
+            id="input-form" 
+            name="searchQuery"/>
 
 
             <button type="submit" data-action="search-button" class="header-form__search">
@@ -35,11 +38,21 @@
             </button>
         </form>
 
-
+<!-- color theme switcher -->
         <label class="switch">
             <input type="checkbox" name="color" id="themeSwitcher">
             <span class="slider"></span>
         </label>
+
+<!-- Sort buttons -->
+<label for="select" class="header__label-select">
+    Select by:
+    <select name="select" id="select" class="header__select">
+        <option value="abc">ABC</option>
+        <option value="year">Year</option>
+        <option value="rating">Rating</option>
+    </select>
+</label>
 
         <p class="search-error visually-hidden">
             Search result not successful. Enter the correct movie name.
