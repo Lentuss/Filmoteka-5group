@@ -1,4 +1,5 @@
 import { IMAGE_URL } from './apiVariables';
+import { getTrendFilms } from "./getTrendFilms";
 
 const failedSearch = document.querySelector('.search-error');
 
@@ -6,21 +7,16 @@ export function createListMarkup(requestedFilms) {
     
     if (requestedFilms.results.length === 0) {
         failedSearch.classList.remove("visually-hidden");
+        getTrendFilms();
     } else {
         failedSearch.classList.add("visually-hidden");
     }
     
-    return requestedFilms.results.map(({ poster_path, original_title, original_name, genre_ids, release_date, first_air_date, vote_average }) => {
-        
+    return requestedFilms.results.map(({ id, poster_path, original_title, original_name, genre_ids, release_date, first_air_date, vote_average }) => {
+
         let date = '';
         let name = '';
         
-        // if (release_date !== undefined) {
-        //     date = release_date.slice(0, 4);  
-        // } else if (release_date === undefined) {
-        //     date = first_air_date.slice(0, 4);
-        // };
-
         if (original_title) {
             name = original_title;  
         } else {
@@ -30,6 +26,8 @@ export function createListMarkup(requestedFilms) {
          
         if (release_date !== undefined) {
             date = release_date.slice(0, 4);  
+        } else if (first_air_date) {
+            date = first_air_date.slice(0, 4);
         } else {
             date = "Unknown";
         };
@@ -40,7 +38,7 @@ export function createListMarkup(requestedFilms) {
         } 
         
         return `
-        <li class="main__movie-card-item">
+        <li class="main__movie-card-item" data-movie-id="${id}">
             <img class="main__movie-img" src="${posterPicture}" alt="${original_title}">
             <div class="main__movie-info">
                 <h2 class="main__movie-title">${name}</h2>

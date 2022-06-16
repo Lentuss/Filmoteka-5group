@@ -18,8 +18,9 @@ async function onFormSubmit(e) {
     cleanMarkup();
     galleryEl.innerHTML = `<div class="loader"></div>`;
     loaderEl.style.display = "block";
-
+    
     movieAPIService.query = e.currentTarget.elements.searchQuery.value;
+    e.currentTarget.elements.searchQuery.value = "";
 
     try {
         const movieFromApi = await movieAPIService.getFilms();
@@ -28,20 +29,22 @@ async function onFormSubmit(e) {
 
             mainBtnsEls.style.display = "none";
             
-            const movieForRender = createListMarkup(movieFromApi); 
+            const movieForRender = createListMarkup(movieFromApi);
 
             loaderEl.style.display = "none";
             return galleryEl.innerHTML = movieForRender;
             
         } else {
-
+            
             loaderEl.style.display = "none";
             getTrendFilms();
         }
 
+        
     } catch (error) {
         console.log(error.message);
     }
+
 }
 
 function cleanMarkup() {
@@ -49,4 +52,5 @@ function cleanMarkup() {
 }
 
 // infinite scroll
+
 
