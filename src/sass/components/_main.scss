@@ -30,6 +30,66 @@
     }
 }
 
+.main__button-list {
+    display: flex;
+    margin: 0 auto 20px;
+
+    @media screen and (min-width: 768px) {
+        margin: 0 auto 32px;
+    }
+
+
+}
+
+.main__button-item:first-child {
+    margin-right: 20px;
+
+    @media screen and (min-width: 768px) {
+        margin-right: 32px;
+    }
+
+    @media screen and (min-width: 1024px) {
+        margin-right: 16px;
+    }
+
+
+}
+
+.main__button {
+
+    width: 130px;
+    height: 44px;
+    border-radius: 5px;
+    padding: 13px 36px;
+
+    text-transform: uppercase;
+    font-size: 12px;
+    line-height: 1.33;
+    font-weight: 500;
+
+    border: 1px solid $main-text-color;
+    background-color: $header-text-color;
+
+
+    @include respond-to (tablet) {
+        width: 152px;
+    }
+
+    @include respond-to (desktop) {
+        width: 147px;
+        height: 42px;
+    }
+
+    @include transit(background-color, color, border-color);
+
+    &:hover,
+    &:focus {
+        background-color: $accent-color;
+        color: $header-text-color;
+        border-color: $accent-color;
+    }
+}
+
 .main__movie-card-list {
     width: 100%;
 
@@ -40,7 +100,7 @@
 }
 
 .main__movie-card-item {
-    width: 100%; 
+    width: 100%;
 
     @media screen and (min-width: 768px) {
         width: calc((100% - 32px) / 2);
@@ -69,14 +129,14 @@
     }
 }
 
-.main__movie-card-item:nth-child(odd){
+.main__movie-card-item:nth-child(odd) {
     @media screen and (min-width: 768px) {
         margin-right: 32px;
     }
 
     @media screen and (min-width: 1024px) {
         margin-right: 0;
-    }    
+    }
 }
 
 .main__movie-card-item:not(:nth-last-child(-n+3)) {
@@ -116,7 +176,7 @@
 
 .main__movie-genre {
     display: inline;
-    color: #ff6b08;
+    color: #FF6B08;
 }
 
 .main_movie-year::before {
@@ -127,7 +187,6 @@
     display: inline-block;
     background-color: #ff6b08;
 }
-
 
 .main__movie-raiting {
     // Для вкладки MyLibrary:
