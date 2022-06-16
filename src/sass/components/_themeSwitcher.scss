@@ -3,10 +3,26 @@ body.light-theme {
 }
   
 body.dark-theme {
-    background: rgb(167,104,104);
-    background: radial-gradient(circle, rgba(167,104,104,1) 0%, rgba(20,23,23,1) 100%);
+    background-color: rgb(167,104,104);
+   
+    color: #fff;
+
+    border-color: #333;
+    background-size: cover;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+        url("../images/home-pc-x2.jpg");
   }
 
+  main.light-theme {
+    background-color: #fff;
+}
+main.dark-theme {
+  background-color: rgb(167,104,104);
+ 
+  color: #fff;
+
+  border-color: #333;
+}
 
   /* The switch - the box around the slider */
 .switch {
