@@ -1,7 +1,7 @@
 import './sass/index.scss';
 
 import './js/fireDb';
-import './js/loginWindow';
+// import './js/loginWindow';
 import './js/renderLibrary';
 import './js/getTrendFilmsApiService';
 import './js/renerList';
