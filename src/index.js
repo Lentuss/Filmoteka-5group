@@ -2,10 +2,12 @@ import './sass/index.scss';
 
 import './js/fireDb';
 // import './js/loginWindow';
+import './js/filmSearch';
 import './js/renderLibrary';
-import './js/getTrendFilmsApiService';
-import './js/renerList';
+import './js/getFilmsApiService';
+import './js/renderFilms';
 import './js/getDetails';
+import './js/getTrendFilms';
 import './js/getGenres';
 import './js/apiVariables';
 
