@@ -120,9 +120,9 @@
   }
 }
 
-.header-logo__icon:hover,
-.header-logo__label:hover,
-.header-btns__label:hover {
+
+.header-btns__label:hover,
+.header-logo__label:hover {
   color: #FF6B08;
  
 }
@@ -225,9 +225,52 @@ font-size: 14px;
 line-height: 1.14;
 
 
-text-align: center;
+text-align: left;
 color: #FF001B;
 
 margin-top: 20px;
 
+@media screen and (min-width: 768px)
+  
+{text-align: center;}
 }
+
+.header-logo__icon:hover
+{
+  animation: 1500ms ease 0s normal none 1 running pulse;
+}
+@keyframes pulse {
+  0% {
+      transform: scaleX(1) scaleY(1);
+  }
+  10% {
+      transform: scaleX(0.85) scaleY(0.85);
+  }
+  20% {
+      transform: scaleX(1) scaleY(1);
+  }
+  30% {
+      transform: scaleX(0.85) scaleY(0.85);
+  }
+  40% {
+      transform: scaleX(1) scaleY(1);
+  }
+  50% {
+      transform: scaleX(0.85) scaleY(0.85);
+  }
+  60% {
+      transform: scaleX(1) scaleY(1);
+  }
+  70% {
+      transform: scaleX(0.85) scaleY(0.85);
+  }
+  80% {
+      transform: scaleX(1) scaleY(1);
+  }
+  90% {
+      transform: scaleX(0.85) scaleY(0.85);
+  }
+  100% {
+      transform: scaleX(1) scaleY(1);
+  }
+  }

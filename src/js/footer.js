@@ -13,7 +13,6 @@ refs.modalFooter.classList.toggle('is-hidden');
 
         window.addEventListener("keydown", onModalFooterEscpe);
         function onModalFooterEscpe(event) {
-        event.preventDefault();
         const key = event.code;
             if (key === 'Escape') {
                refs.modalFooter.classList.toggle('is-hidden');

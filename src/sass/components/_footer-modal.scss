@@ -31,6 +31,7 @@
 
         @include respond-to (tablet) {
             width: 720px;
+            padding: 50px;
         }
 
         @include respond-to (desktop) {
@@ -87,6 +88,15 @@
         border-radius: 30px; 
        
         overflow: hidden;
+        @include respond-to(mobile-only){
+            width: 250px;
+            height: 250px;
+        }
+
+        @include respond-to (tablet) {
+                width: 185px;
+                height: 185px;
+            }
         
         @include respond-to (tablet-only){
             &:not(:last-child) {
@@ -176,10 +186,7 @@
           }
     &__description p {
         position: absolute;
-            left: 0;
-            top: 110px;
-
-        // margin-bottom: 20px;
+         
         width: 100%;   
         color: #ff6b08;
         font-family: 'Roboto';
@@ -187,12 +194,19 @@
         font-weight: 500;
         font-size: 14px;
         line-height: 1.33;
+
+        @include respond-to(mobile-only) {
+            top: 110px;
+            }
+        
+        @include respond-to (tablet) {
+            top: 90px;
+            }
     }
         
     &__description h3 {
         position: absolute;
-        left: 0;
-        top: 80px;
+       
         width: 100%;
 
         color: #fff;
@@ -201,19 +215,34 @@
         font-weight: 500;
         font-size: 16px;
         line-height: 1.33;
-        // margin-bottom: 40px;
-        // z-index: 6;
+        
+        @include respond-to(mobile-only) {
+             top: 80px;
+            }
+        
+        @include respond-to (tablet) {
+            top: 38px;
+            }
 
          &::after{
             position: absolute;
-            top: 55px;
-            left: 25px;
+            
             width: 80%;
             height: 3px;
             background-color: #fff;
             content: '';
             transition: transform 0.6s;
             transform: translate3d(-100%, 0, 0);
+
+            @include respond-to(mobile-only) {
+                top: 55px;
+                left: 25px;
+                }
+            
+            @include respond-to (tablet) {
+                    top: 43px;
+                    left: 18px;
+                }
 
     }
 }
@@ -222,10 +251,17 @@
         @include centered;
         margin-bottom: 15px;
         position: absolute;
-        top: 160px;
-        right: 0; 
-
         width: 100%;
+
+        @include respond-to(mobile-only) {
+                top: 160px;
+                right: 0;
+            }
+        
+        @include respond-to (tablet) {
+            top: 117px;
+            left: 6px;
+            }
     }
 
     &__social-link {
