@@ -30,7 +30,6 @@
 
 .slider-item {
     min-width: 124px;
-    border-radius: $border-radius;
 
     &:hover,
     &:focus {
@@ -52,6 +51,10 @@
 
 .slider-item:not(last-child) {
 margin-right: 10px;
+}
+
+.slider-images {
+    border-radius: $border-radius;
 }
 
 .slider-header {
