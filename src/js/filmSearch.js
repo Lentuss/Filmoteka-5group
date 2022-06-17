@@ -17,12 +17,15 @@ async function onFormSubmit(e) {
     e.preventDefault();
     
     cleanMarkup();
-    galleryEl.innerHTML = `<div class="loader"></div>`;
+
+    galleryEl.insertAdjacentHTML('beforeend',`<div class="loader"></div>`);
     loaderEl.style.display = "block";
-    
     movieAPIService.query = e.currentTarget.elements.searchQuery.value;
     e.currentTarget.elements.searchQuery.value = "";
+    getFilms();
+}
 
+async function getFilms() {
     try {
 
         if (movieAPIService.query !== "") {
@@ -37,13 +40,9 @@ async function onFormSubmit(e) {
 
             } else {
 
-                failedSearch.classList.add("visually-hidden");
-                mainBtnsEls.style.display = "none";                
-                const movieForRender = createListMarkup(movieFromApi);
-                loaderEl.style.display = "none";
-                return galleryEl.innerHTML = movieForRender;
+                onGetSucces(movieFromApi);
 
-            } 
+            }
             
         } else {
 
@@ -53,10 +52,26 @@ async function onFormSubmit(e) {
             getTrendFilms();
 
         }
-        
+
     } catch (error) {
         console.log(error.message);
     }
+    
+}
+
+function onGetSucces(movieFromApi) {
+
+    const movieForRender = createListMarkup(movieFromApi);
+    
+    failedSearch.classList.add("visually-hidden");
+    mainBtnsEls.style.display = "none";
+    loaderEl.style.display = "none";
+
+    observer.observe(galleryEl.lastElementChild);
+
+    galleryEl.insertAdjacentHTML('beforeend', movieForRender);
+
+    observer.observe(galleryEl.lastElementChild);
 }
 
 function cleanMarkup() {
@@ -64,3 +79,20 @@ function cleanMarkup() {
 }
 
 // infinite scroll
+
+const options = {
+  intersectionObserver: {
+    root: galleryEl.lastElementChild,
+    rootMargin: "0px 0px 200px 0px",
+    threshold: 1,
+  },
+};
+
+const callback = function (entries, observer) {
+    if (entries[0].isIntersecting) {
+        observer.unobserve(entries[0].target);
+        getFilms(); 
+  }
+};
+ 
+const observer = new IntersectionObserver(callback, options.intersectionObserver);
