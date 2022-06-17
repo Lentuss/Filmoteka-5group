@@ -16,8 +16,8 @@ const movePosition = slidesToScroll * itemWidth;
 let isPaused = false;
 let sliderInterval = null;
 
-track.addEventListener('mouseenter', (e) => { isPaused = true })
-track.addEventListener('mouseleave', (e) => {isPaused = false})
+container.addEventListener('mouseenter', (e) => { isPaused = true })
+container.addEventListener('mouseleave', (e) => {isPaused = false})
 
 const sliderTimeout = window.setTimeout(() => {
     sliderInterval = window.setInterval(() => {
