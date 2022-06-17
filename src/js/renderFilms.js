@@ -38,7 +38,7 @@ export function createListMarkup(requestedFilms) {
         } 
         
         return `
-        <li class="main__movie-card-item" data-movie-id="${id}">
+        <li class="main__movie-card-item" data-movieId="${id}">
             <img class="main__movie-img" src="${posterPicture}" alt="${original_title}">
             <div class="main__movie-info">
                 <h2 class="main__movie-title">${name}</h2>
