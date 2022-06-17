@@ -1,7 +1,13 @@
 .slider-section{
     margin-top: 15px;
     margin-bottom: 15px;
-    // display: none;
+    display: none;
+}
+
+@media screen and (min-width: 768px) {
+    .slider-section {
+        display: block;
+    }
 }
 
 .wrapper {
@@ -24,6 +30,7 @@
 
 .slider-item {
     min-width: 124px;
+    border-radius: $border-radius;
 
     &:hover,
     &:focus {
@@ -47,6 +54,9 @@
 margin-right: 10px;
 }
 
+.slider-header {
+    margin: 0 auto 10px;
+}
 
 .slider-btns {
     background-color: transparent;
