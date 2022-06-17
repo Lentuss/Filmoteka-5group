@@ -2,13 +2,18 @@
     margin-top: 15px;
     margin-bottom: 15px;
     display: none;
+    position: absolute;
+        top: -9999px;
+        left: -9999px;
 }
 
 @media screen and (min-width: 768px) {
     .slider-section {
-        display: block;
+        display: none;
+        position: static;
     }
 }
+
 
 .wrapper {
     width: 100%;
