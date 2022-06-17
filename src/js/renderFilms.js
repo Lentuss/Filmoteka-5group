@@ -1,16 +1,7 @@
 import { IMAGE_URL } from './apiVariables';
 import { getTrendFilms } from "./getTrendFilms";
 
-const failedSearch = document.querySelector('.search-error');
-
 export function createListMarkup(requestedFilms) {
-    
-    // if (requestedFilms.results.length === 0) {
-    //     failedSearch.classList.remove("visually-hidden");
-    //     getTrendFilms();
-    // } else {
-    //     failedSearch.classList.add("visually-hidden");
-    // }
     
     return requestedFilms.results.map(({ id, poster_path, original_title, original_name, genre_ids, release_date, first_air_date, vote_average }) => {
 
@@ -22,8 +13,7 @@ export function createListMarkup(requestedFilms) {
         } else {
             name = original_name;
         };
-        
-         
+                 
         if (release_date !== undefined) {
             date = release_date.slice(0, 4);  
         } else if (first_air_date) {
@@ -42,7 +32,7 @@ export function createListMarkup(requestedFilms) {
             <img class="main__movie-img" src="${posterPicture}" alt="${original_title}">
             <div class="main__movie-info">
                 <h2 class="main__movie-title">${name}</h2>
-                <p class="main__movie-genre">Genre<span class="main_movie-year">${date}</span></p>
+                <p class="main__movie-genre">Genre<span class="main__movie-year">${date}</span></p>
                 <p class="main__movie-raiting">${vote_average}</p>
             </div>
         </li>
