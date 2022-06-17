@@ -1,12 +1,12 @@
 .section {
-    background-color: #fff;
+    background-color: $header-text-color;
     padding-top: 20px;
     padding-bottom: 20px;
 
-    @media screen and (min-width: 768px) {
-        padding-top: 60px;
-        padding-bottom: 60px;
-    }
+    // @media screen and (min-width: 768px) {
+    //     padding-top: 60px;
+    //     padding-bottom: 60px;
+    // }
 }
 
 .container {
@@ -37,8 +37,6 @@
     @media screen and (min-width: 768px) {
         margin: 0 auto 32px;
     }
-
-
 }
 
 .main__button-item:first-child {
@@ -51,8 +49,6 @@
     @media screen and (min-width: 1024px) {
         margin-right: 16px;
     }
-
-
 }
 
 .main__button {
@@ -167,7 +163,7 @@
 
 .main__movie-title,
 .main__movie-genre {
-    color: var(--main-text-color);
+    color: $main-text-color;
     font-family: roboto;
     font-weight: 500;
     font-size: 12px;
@@ -176,7 +172,7 @@
 
 .main__movie-genre {
     display: inline;
-    color: #FF6B08;
+    color: $accent-color;
 }
 
 .main_movie-year::before {
@@ -185,7 +181,7 @@
     height: 10px;
     margin: 0 3px;
     display: inline-block;
-    background-color: #ff6b08;
+    background-color: $accent-color;
 }
 
 .main__movie-raiting {
@@ -195,10 +191,13 @@
     margin-left: 8px;
     padding-right: 9px;
     padding-left: 9px;
-    color: #fff;
-    background-color: #FF6B08;
+    color: $header-text-color;
+    background-color: $accent-color;
     border-radius: 5px;
     font-size: 12px;
     line-height: 1.16;
     font-weight: 500;
 }
+
+
+
