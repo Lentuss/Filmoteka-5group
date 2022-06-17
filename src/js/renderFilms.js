@@ -5,12 +5,12 @@ const failedSearch = document.querySelector('.search-error');
 
 export function createListMarkup(requestedFilms) {
     
-    if (requestedFilms.results.length === 0) {
-        failedSearch.classList.remove("visually-hidden");
-        getTrendFilms();
-    } else {
-        failedSearch.classList.add("visually-hidden");
-    }
+    // if (requestedFilms.results.length === 0) {
+    //     failedSearch.classList.remove("visually-hidden");
+    //     getTrendFilms();
+    // } else {
+    //     failedSearch.classList.add("visually-hidden");
+    // }
     
     return requestedFilms.results.map(({ id, poster_path, original_title, original_name, genre_ids, release_date, first_air_date, vote_average }) => {
 

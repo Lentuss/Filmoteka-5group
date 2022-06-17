@@ -3,12 +3,13 @@ import GetFilmsApiService from './getFilmsApiService';
 import { createListMarkup } from './renderFilms';
 import { getTrendFilms } from "./getTrendFilms";
 
-const movieAPIService = new GetFilmsApiService(SEARCH_URL);
+const movieAPIService = new GetFilmsApiService();
 
 const galleryEl = document.querySelector('.main__movie-card-list');
 const formEl = document.querySelector('.header-form');
 const mainBtnsEls = document.querySelector('.main__button-list');
 const loaderEl = document.querySelector('.loader');
+const failedSearch = document.querySelector('.search-error');
 
 formEl.addEventListener('submit', onFormSubmit);
 
@@ -23,28 +24,39 @@ async function onFormSubmit(e) {
     e.currentTarget.elements.searchQuery.value = "";
 
     try {
-        const movieFromApi = await movieAPIService.getFilms();
 
         if (movieAPIService.query !== "") {
+            const movieFromApi = await movieAPIService.getFilms(SEARCH_URL);
+           
+            if (movieFromApi.total_results === 0) {
 
-            mainBtnsEls.style.display = "none";
-            
-            const movieForRender = createListMarkup(movieFromApi);
+                loaderEl.style.display = "none";
+                mainBtnsEls.style.display = "flex";
+                failedSearch.classList.remove("visually-hidden");
+                getTrendFilms();
 
-            loaderEl.style.display = "none";
-            return galleryEl.innerHTML = movieForRender;
+            } else {
+
+                failedSearch.classList.add("visually-hidden");
+                mainBtnsEls.style.display = "none";                
+                const movieForRender = createListMarkup(movieFromApi);
+                loaderEl.style.display = "none";
+                return galleryEl.innerHTML = movieForRender;
+
+            } 
             
         } else {
-            
-            loaderEl.style.display = "none";
-            getTrendFilms();
-        }
 
+            mainBtnsEls.style.display = "flex";
+            loaderEl.style.display = "none";
+            failedSearch.classList.remove("visually-hidden");
+            getTrendFilms();
+
+        }
         
     } catch (error) {
         console.log(error.message);
     }
-
 }
 
 function cleanMarkup() {
@@ -52,5 +64,3 @@ function cleanMarkup() {
 }
 
 // infinite scroll
-
-
