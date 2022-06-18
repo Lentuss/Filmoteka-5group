@@ -3,14 +3,14 @@ import throttle from 'lodash.throttle';
 // початок
 // import BSN from 'bootstrap.native';
 
-const modal = new BSN.Modal('#exampleModal');
-console.log(modal);
+// const modal = new BSN.Modal('#exampleModal');
+// console.log(modal);
 
-const PROMPT_DELAY = 3000;
+// const PROMPT_DELAY = 3000;
 
-setTimeout(() => {
-  modal.show();
-}, PROMPT_DELAY);
+// setTimeout(() => {
+//   modal.show();
+// }, PROMPT_DELAY);
 // end
 
 const KEY = 'feedback-form-state';
