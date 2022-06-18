@@ -17,8 +17,8 @@ function onSwitchClick(){
       // genres.classList.add('dark-theme');
       // genres.classList.remove('light-theme');
 
-      section.classList.add('.dark-on');
-      section.classList.remove('.light-on');
+      section.classList.add('dark-on');
+      section.classList.remove('light-on');
 
   
       // movieDesc.classList.add('dark-theme');
@@ -36,8 +36,8 @@ function onSwitchClick(){
     //     genres.classList.add('light-theme');
     //     genres.classList.remove('dark-theme');
       
-        section.classList.add('.light-on');
-        section.classList.remove('.dark-on');
+        section.classList.add('light-on');
+        section.classList.remove('dark-on');
 
     //     movieDesc.classList.add('light-theme');
     //     movieDesc.classList.remove('dark-theme');
