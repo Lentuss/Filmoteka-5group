@@ -15,6 +15,7 @@ const detCloseBtn = document.querySelector('.details__close-button');
 //on slider
 ///проверки
 //стили жанров мобилки/таблетки
+//фит фотки
 
 const clickForDetails = e => {
   e.preventDefault();
