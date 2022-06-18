@@ -1,9 +1,7 @@
 import { IMAGE_URL } from './apiVariables';
 import { getTrendFilms } from './getTrendFilms';
 
-export function createListMarkup(requestedFilms) { 
-    return requestedFilms.results.map(({ id, poster_path, original_title, original_name, genre_ids, release_date, first_air_date, vote_average }) => {
-
+export function createListMarkup(requestedFilms) {
   return requestedFilms.results
     .map(
       ({
@@ -22,8 +20,8 @@ export function createListMarkup(requestedFilms) {
         if (original_title) {
           name = original_title;
         } else {
-            name = original_name;
-        };
+          name = original_name;
+        }
 
         if (release_date !== undefined) {
           date = release_date.slice(0, 4);
