@@ -6,7 +6,7 @@ const listEl = document.querySelector('.main__movie-card-list');
 const loaderEl = document.querySelector('.loader');
 const btnDayEl = document.querySelector('.trends-of-day');
 const btnWeekEl = document.querySelector('.trends-of-week');
-const getFilmsApiService = new GetFilmsApiService(BASE_URL);
+const getFilmsApiService = new GetFilmsApiService();
 
 btnDayEl.addEventListener('click', onBtnDayClick);
 btnWeekEl.addEventListener('click', onBtnWeekClick);
@@ -33,7 +33,7 @@ function onBtnWeekClick() {
 
 export async function getTrendFilms() {
     try {
-        const requestedFilms = await getFilmsApiService.getFilms();
+        const requestedFilms = await getFilmsApiService.getFilms(BASE_URL);
         onGetSucces(requestedFilms);
     } catch (error) {
         onGetError();
