@@ -58,10 +58,8 @@ const Refs = {
   signUpDiv: document.querySelector('#signUpDiv'),
   logInDiv: document.querySelector('#logInDiv'),
   //==================== PRACTICE =============
-  watchedBtn: document.querySelector('.watchedBtn-JS'),
-  removeBtn: document.querySelector('.removeBtn-JS'),
-  queuedBtn: document.querySelector('.queueBtn-JS'),
-  movieCards: document.querySelector('#movieCardContainer'),
+  queuedBtn: document.querySelector('[data-action="details-queue-btn"]'),
+  details__modal: document.querySelector('.details__modal'),
   //==================== PRACTICE =============
 };
 const watchedArr = [];
@@ -70,53 +68,57 @@ const watchedArr = [];
 
 //==================== PRACTICE =============
 
-// Refs.watchedBtn.addEventListener('click', addToWatched);
+Refs.details__modal.addEventListener('click', addToWatched);
 // Refs.queuedBtn.addEventListener('click', addToQueue);
-Refs.movieCards.addEventListener('click', addToWatched);
-Refs.movieCards.addEventListener('click', removeFromWatched);
+// Refs.details__buttonSet.addEventListener('click', addToWatched);
+Refs.details__modal.addEventListener('click', removeFromWatched);
 
 //==================== PRACTICE =============
 
 //==================== PRACTICE =============
 
 function addToWatched(event) {
-  if (!event.target.classList.contains('watchedBtn-JS')) {
+  const addBtn = Refs.details__modal.querySelector('.addToWatchedBtn-JS');
+  const removeBtn = Refs.details__modal.querySelector(
+    '.removeFromWatchedBtn-JS'
+  );
+
+  if (!event.target.classList.contains('addToWatchedBtn-JS')) {
     return;
   }
-  console.log(event);
-  const movieID = event.target.getAttribute('movieID');
-  const img =
-    event.target.previousElementSibling.firstElementChild.getAttribute('src');
-  const title =
-    event.target.previousElementSibling.lastElementChild.firstElementChild
-      .textContent;
+  const movieID = event.target.closest('.details__box').getAttribute('data-id');
+  const imgPoster = Refs.details__modal
+    .querySelector('.details__image')
+    .getAttribute('src');
+  const titleDetails =
+    Refs.details__modal.querySelector('.details__title').textContent;
   const genres =
-    event.target.previousElementSibling.lastElementChild.lastElementChild
-      .textContent;
-  const year =
-    event.target.previousElementSibling.lastElementChild.lastElementChild
-      .firstElementChild.textContent;
+    Refs.details__modal.querySelector('.details__genre').textContent;
+  const year = event.target.closest('.details__box').getAttribute('data-date');
   const uid = auth.lastNotifiedUid;
-  // console.log(movieID);
-  console.dir(event.target);
-  // console.log(title);
-  // console.log(genres);
-  // console.log(year);
-
   // watchedArr.push(attributeRef.movieID);
   // console.log(watchedArr)
 
-  addMovieInfoToDataBase(movieID, title, img, genres, year, uid);
+  addMovieInfoToDataBase(movieID, titleDetails, imgPoster, genres, year, uid);
+  addBtn.classList.add('isHidden');
+  removeBtn.classList.remove('isHidden');
+  // console.log(Refs.watchedBtn);
   // console.log(data.watched);
 }
 
 function removeFromWatched(event) {
-  if (!event.target.classList.contains('removeBtn-JS')) {
+  const addBtn = Refs.details__modal.querySelector('.addToWatchedBtn-JS');
+  const removeBtn = Refs.details__modal.querySelector(
+    '.removeFromWatchedBtn-JS'
+  );
+  if (!event.target.classList.contains('removeFromWatchedBtn-JS')) {
     return;
   }
-  const movieID = event.target.getAttribute('movieID');
+  const movieID = event.target.closest('.details__box').getAttribute('data-id');
   const uid = auth.lastNotifiedUid;
   removeMovieIDFromDB(uid, movieID);
+  addBtn.classList.remove('isHidden');
+  removeBtn.classList.add('isHidden');
 }
 
 function addToQueue() {
@@ -157,7 +159,6 @@ onAuthStateChanged(auth, user => {
     Refs.logInDiv.setAttribute('style', 'display:flex');
     Refs.signUpDiv.setAttribute('style', 'display:flex');
     Refs.headLogInBtn.textContent = 'Log In';
-    Notiflix.Notify.info('You are successfully Logged Out');
     console.log('User Is Signed Out');
   }
 });
@@ -186,7 +187,7 @@ function onSignUpSubmit(e) {
         console.log(user.uid);
         Notiflix.Notify.success('You Successfully SignUp');
         const userId = user.uid;
-        writeUserData(userId, email, password);
+        // writeUserData(userId, email, password);
       })
       .catch(error => {
         const errorCode = error.code;
@@ -269,6 +270,7 @@ function onLogOutBtn(e) {
       signupForm.reset();
       loginForm.reset();
       setTimeout(() => {
+        Notiflix.Notify.success('Logout Success');
         console.log('Logout Success');
       }, 1500);
     })
