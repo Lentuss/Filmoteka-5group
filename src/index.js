@@ -16,4 +16,4 @@ import './js/apiVariables';
 import './js/scrollUp';
 import './js/footer';
 import './js/themeSwitcher';
-import './js/describe-window';
+// import './js/describe-window';
