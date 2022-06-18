@@ -13,10 +13,17 @@ let itemsCount = items.length;
 let itemWidth = container.clientWidth / slidesToShow;
 const movePosition = slidesToScroll * itemWidth;
 
+let isPaused = false;
 let sliderInterval = null;
 
-window.setTimeout(() => {
+container.addEventListener('mouseenter', (e) => { isPaused = true })
+container.addEventListener('mouseleave', (e) => {isPaused = false})
+
+const sliderTimeout = window.setTimeout(() => {
     sliderInterval = window.setInterval(() => {
+        if (isPaused) {
+            return
+        }
     position -= 2;
     setPositon()
     if (position <= -(itemsCount - slidesToShow) * itemWidth) {
@@ -31,6 +38,7 @@ items.forEach((el) => {
 })
 
 btnNext.addEventListener('click', () => {
+    clearTimeout(sliderTimeout)
     clearInterval(sliderInterval)
     mediaMatching()
     itemWidth = container.clientWidth / slidesToShow;
@@ -42,6 +50,7 @@ btnNext.addEventListener('click', () => {
 })
 
 btnPrev.addEventListener('click', () => {
+    clearTimeout(sliderTimeout)
     clearInterval(sliderInterval)
     mediaMatching()
     itemWidth = container.clientWidth / slidesToShow;
@@ -68,7 +77,7 @@ async function getTrendingFilmsForSlider() {
         .then((r) => r.json())
         .then((r) => {
             const sliderFetchResult = r.results.map((el) => `<div class="slider-item" tag="${el.id}">
-            <img src="${IMAGE_URL + el.poster_path}" alt="${el.name}">
+            <img src="${IMAGE_URL + el.poster_path}" alt="${el.name}" class="slider-images">
             </div>`).join('')
             track.innerHTML = sliderFetchResult;
         }).then((r) => {
