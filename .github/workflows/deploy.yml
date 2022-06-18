@@ -2,7 +2,7 @@ name: Build and deploy to GitHub Pages
 
 on:
   push:
-    branches: [dev]
+    branches: [38-th]
 
 jobs:
   build-and-deploy:
