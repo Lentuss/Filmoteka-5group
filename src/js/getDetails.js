@@ -39,23 +39,40 @@ const detCloseBtn = document.querySelector('.details__close-button');
 
 const clickForDetails = e => {
   e.preventDefault();
-  const addBtn = document.querySelector('.addToWatchedBtn-JS');
-  const removeBtn = document.querySelector('.removeFromWatchedBtn-JS');
+
   const uid = auth.lastNotifiedUid;
+  let watchedArr = [];
+  let queueArr = [];
 
-  const allInfo = ref(db, 'users/' + uid);
-  const ifOnValue = onValue(allInfo, snapshot => {
-    const data = snapshot.val();
-    // console.log(data);
-  });
+  if (uid) {
+    const allInfo = ref(db, 'users/' + uid);
+    const ifOnValue = onValue(allInfo, snapshot => {
+      const data = snapshot.val();
+      // console.log(Object.keys(data.watched));
 
-  console.log(allInfo);
+      // console.log(data);
+
+      if (!data) {
+        console.log('All Data Base Is Empty');
+      } else {
+        if (!data.watched) {
+          console.log('watched Base Is Empty');
+        } else {
+          watchedArr = Object.keys(data.watched);
+        }
+
+        if (!data.queue) {
+          console.log('queue Base Is Empty');
+        } else {
+          queueArr = Object.keys(data.queue);
+        }
+      }
+    });
+  }
+
+  // console.log(watchedArr);
 
   clearInfo();
-  if (ifOnValue) {
-    addBtn.classList.add('isHidden');
-    removeBtn.classList.remove('isHidden');
-  }
 
   detailsModal.classList.remove('isHidden');
 
@@ -63,6 +80,25 @@ const clickForDetails = e => {
     return;
   }
   const movieId = e.target.closest('LI').dataset.movieid;
+
+  for (const item of watchedArr) {
+    if (item === movieId) {
+      console.log('we found same ID');
+      const addBtn = document.querySelector('.addToWatchedBtn-JS');
+      const removeBtn = document.querySelector('.removeFromWatchedBtn-JS');
+      addBtn.classList.add('isHidden');
+      removeBtn.classList.remove('isHidden');
+    }
+  }
+  for (const item of queueArr) {
+    if (item === movieId) {
+      const addBtn = document.querySelector('.addToQueueBtn-JS');
+      const removeBtn = document.querySelector('.removeFromQueueBtn-JS');
+      addBtn.classList.add('isHidden');
+      removeBtn.classList.remove('isHidden');
+    }
+  }
+
   console.log(movieId);
   getDetails(movieId);
 };

@@ -69,9 +69,9 @@ const watchedArr = [];
 //==================== PRACTICE =============
 
 Refs.details__modal.addEventListener('click', addToWatched);
-// Refs.queuedBtn.addEventListener('click', addToQueue);
-// Refs.details__buttonSet.addEventListener('click', addToWatched);
+Refs.details__modal.addEventListener('click', addToQueue);
 Refs.details__modal.addEventListener('click', removeFromWatched);
+Refs.details__modal.addEventListener('click', removeFromQueue);
 
 //==================== PRACTICE =============
 
@@ -83,9 +83,6 @@ function addToWatched(event) {
     '.removeFromWatchedBtn-JS'
   );
 
-  if (!event.target.classList.contains('addToWatchedBtn-JS')) {
-    return;
-  }
   const movieID = event.target.closest('.details__box').getAttribute('data-id');
   const imgPoster = Refs.details__modal
     .querySelector('.details__image')
@@ -96,12 +93,22 @@ function addToWatched(event) {
     Refs.details__modal.querySelector('.details__genre').textContent;
   const year = event.target.closest('.details__box').getAttribute('data-date');
   const uid = auth.lastNotifiedUid;
-  // watchedArr.push(attributeRef.movieID);
-  // console.log(watchedArr)
 
-  addMovieInfoToDataBase(movieID, titleDetails, imgPoster, genres, year, uid);
-  addBtn.classList.add('isHidden');
-  removeBtn.classList.remove('isHidden');
+  if (!event.target.classList.contains('addToWatchedBtn-JS')) {
+    return;
+  } else if (uid) {
+    addMovieInfoToDataBaseWatch(
+      movieID,
+      titleDetails,
+      imgPoster,
+      genres,
+      year,
+      uid
+    );
+    addBtn.classList.add('isHidden');
+    removeBtn.classList.remove('isHidden');
+  }
+
   // console.log(Refs.watchedBtn);
   // console.log(data.watched);
 }
@@ -116,15 +123,52 @@ function removeFromWatched(event) {
   }
   const movieID = event.target.closest('.details__box').getAttribute('data-id');
   const uid = auth.lastNotifiedUid;
-  removeMovieIDFromDB(uid, movieID);
+  removeMovieIDFromWatched(uid, movieID);
   addBtn.classList.remove('isHidden');
   removeBtn.classList.add('isHidden');
 }
 
-function addToQueue() {
-  const movieCardID = document.querySelector('.movieCardID');
-  const movieID = movieCardID.getAttribute('movieID');
-  set(ref(db, 'users/' + uid + '/queue'), ['new movie3', 'new movie4']);
+function addToQueue(event) {
+  const addBtn = Refs.details__modal.querySelector('.addToQueueBtn-JS');
+  const removeBtn = Refs.details__modal.querySelector('.removeFromQueueBtn-JS');
+  const movieID = event.target.closest('.details__box').getAttribute('data-id');
+  const imgPoster = Refs.details__modal
+    .querySelector('.details__image')
+    .getAttribute('src');
+  const titleDetails =
+    Refs.details__modal.querySelector('.details__title').textContent;
+  const genres =
+    Refs.details__modal.querySelector('.details__genre').textContent;
+  const year = event.target.closest('.details__box').getAttribute('data-date');
+  const uid = auth.lastNotifiedUid;
+
+  if (!event.target.classList.contains('addToQueueBtn-JS')) {
+    return;
+  } else if (uid) {
+    addMovieInfoToDataBaseQueue(
+      movieID,
+      titleDetails,
+      imgPoster,
+      genres,
+      year,
+      uid
+    );
+    addBtn.classList.add('isHidden');
+    removeBtn.classList.remove('isHidden');
+  }
+}
+
+function removeFromQueue(event) {
+  const addBtn = Refs.details__modal.querySelector('.addToQueueBtn-JS');
+  const removeBtn = Refs.details__modal.querySelector('.removeFromQueueBtn-JS');
+  if (!event.target.classList.contains('removeFromQueueBtn-JS')) {
+    return;
+  }
+  const movieID = event.target.closest('.details__box').getAttribute('data-id');
+  const uid = auth.lastNotifiedUid;
+  removeMovieIDFromQueue(uid, movieID);
+  addBtn.classList.remove('isHidden');
+  removeBtn.classList.add('isHidden');
 }
 //==================== PRACTICE =============
 //==================== PRACTICE ADD BUTTON LOGIC END =============
@@ -339,7 +383,7 @@ function writeUserData(userId, email, password, imageUrl) {
   });
 }
 
-function addMovieInfoToDataBase(movieID, title, img, genres, year, uid) {
+function addMovieInfoToDataBaseWatch(movieID, title, img, genres, year, uid) {
   const db = getDatabase();
 
   set(ref(db, 'users/' + uid + '/watched' + `/${movieID}`), {
@@ -350,10 +394,27 @@ function addMovieInfoToDataBase(movieID, title, img, genres, year, uid) {
   });
 }
 
-function removeMovieIDFromDB(uid, movieID) {
+function removeMovieIDFromWatched(uid, movieID) {
   const db = getDatabase();
 
   remove(ref(db, 'users/' + uid + '/watched' + `/${movieID}`));
+}
+
+function addMovieInfoToDataBaseQueue(movieID, title, img, genres, year, uid) {
+  const db = getDatabase();
+
+  set(ref(db, 'users/' + uid + '/queue' + `/${movieID}`), {
+    title,
+    img,
+    genres,
+    year,
+  });
+}
+
+function removeMovieIDFromQueue(uid, movieID) {
+  const db = getDatabase();
+
+  remove(ref(db, 'users/' + uid + '/queue' + `/${movieID}`));
 }
 
 ///================ STRUCTURE EXAMPLE
