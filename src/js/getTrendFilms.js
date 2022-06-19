@@ -14,7 +14,8 @@ btnWeekEl.addEventListener('click', onBtnWeekClick);
 
 renderNewPage();
 
-function renderNewPage() {
+
+export function renderNewPage() {
     loaderEl.style.display = "block";
     listEl.innerHTML = '';
     getFilmsApiService.resetPage();
