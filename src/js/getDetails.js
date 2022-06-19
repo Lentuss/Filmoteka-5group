@@ -4,6 +4,7 @@ import axios from 'axios';
 const moviesList = document.querySelector('.main__movie-card-list');
 const detailsModal = document.querySelector('.details');
 const backdropDetails = document.querySelector('.details__backdrop');
+const modal = document.querySelector('.details__modal');
 const box = document.querySelector('.details__box');
 const detCloseBtn = document.querySelector('.details__close-button');
 
@@ -12,20 +13,27 @@ const detCloseBtn = document.querySelector('.details__close-button');
 //если нет бекдропа
 //если нет ничего
 //очистка
-//on slider
+//on slider??
 ///проверки
 //стили жанров мобилки/таблетки
-//фит фотки
 //убрать клик с жанров
 //курсор поинтер
 
 const clickForDetails = e => {
   e.preventDefault();
+
   clearInfo();
 
-  detailsModal.classList.remove('isHidden');
-
-  if (e.target.nodeName === 'UL') {
+  const modalIsOpen = setTimeout(() => {
+    detailsModal.classList.remove('isHidden');
+  }, 500);
+  console.log(e.target);
+  if (
+    e.target.nodeName === 'UL'
+    // ||
+    // e.target.nodeName === 'SPAN' ||
+    // e.target.nodeName === 'P'
+  ) {
     return;
   }
   const movieId = e.target.closest('LI').dataset.movieid;
@@ -54,15 +62,19 @@ export async function getDetails(movieId) {
     release_date,
   } = details;
 
-  const genreArr = genres.map(genre => genre.name);
-
-  box.setAttribute('data-id', `${id}`);
-  box.setAttribute('data-date', `${release_date.slice(0, 4)}`);
-
   backdropDetails.style.backgroundImage = `url(${
     BACKDROP_URL + backdrop_path
   })`;
   //дописать логику отсутствия
+
+  const genreArr = genres.map(genre => genre.name);
+
+  setTimeout(() => {
+    modal.style.opacity = '1'; //на транзишн и повторы исправить
+  }, 1500);
+
+  box.setAttribute('data-id', `${id}`);
+  box.setAttribute('data-date', `${release_date.slice(0, 4)}`);
 
   const infoBox = document.querySelector('.details__info');
 
@@ -132,6 +144,8 @@ const clearInfo = () => {
 
 const onClose = e => {
   detailsModal.classList.add('isHidden');
+  backdropDetails.style.backgroundColor = 'black';
+  backdropDetails.style.backgroundImage = 'url(#)';
 };
 
 const closeByEsc = e => {
