@@ -1,5 +1,23 @@
 import { API_KEY, DETAILS_URL, IMAGE_URL, BACKDROP_URL } from './apiVariables';
 import axios from 'axios';
+import { getAuth } from 'firebase/auth';
+import { initializeApp } from 'firebase/app';
+
+import { getDatabase, ref, onValue } from 'firebase/database';
+const firebaseConfig = {
+  apiKey: 'AIzaSyAXr3vyab8PJtuI-kO5zXVUNDPWQzN3ayY',
+  authDomain: 'filmoteka-group5.firebaseapp.com',
+  databaseURL:
+    'https://filmoteka-group5-default-rtdb.europe-west1.firebasedatabase.app',
+  projectId: 'filmoteka-group5',
+  storageBucket: 'filmoteka-group5.appspot.com',
+  messagingSenderId: '217077508176',
+  appId: '1:217077508176:web:dbb78c93f591370ec90955',
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getDatabase(app);
 
 const moviesList = document.querySelector('.main__movie-card-list');
 const detailsModal = document.querySelector('.details');
@@ -22,12 +40,39 @@ const detCloseBtn = document.querySelector('.details__close-button');
 const clickForDetails = e => {
   e.preventDefault();
 
+  const uid = auth.lastNotifiedUid;
+  let watchedArr = [];
+  let queueArr = [];
+
+  if (uid) {
+    const allInfo = ref(db, 'users/' + uid);
+    const ifOnValue = onValue(allInfo, snapshot => {
+      const data = snapshot.val();
+
+      if (!data) {
+        console.log('All Data Base Is Empty');
+      } else {
+        if (!data.watched) {
+          console.log('watched Base Is Empty');
+        } else {
+          watchedArr = Object.keys(data.watched);
+        }
+
+        if (!data.queue) {
+          console.log('queue Base Is Empty');
+        } else {
+          queueArr = Object.keys(data.queue);
+        }
+      }
+    });
+  }
+
   clearInfo();
 
   const modalIsOpen = setTimeout(() => {
     detailsModal.classList.remove('isHidden');
   }, 500);
-  console.log(e.target);
+  // console.log(e.target);// начнем-с
   if (
     e.target.nodeName === 'UL'
     // ||
@@ -37,6 +82,10 @@ const clickForDetails = e => {
     return;
   }
   const movieId = e.target.closest('LI').dataset.movieid;
+
+  checkArr(watchedArr, movieId, 'Watched');
+  checkArr(queueArr, movieId, 'Queue');
+
   console.log(movieId);
   getDetails(movieId);
 };
@@ -161,6 +210,21 @@ const onBackdropClose = e => {
     onClose();
   }
 };
+
+function checkArr(arr, movieID, arrName) {
+  const selector = arrName;
+
+  for (const item of arr) {
+    if (item === movieID) {
+      console.log('we found same ID');
+
+      const addBtn = document.querySelector(`.addTo${selector}Btn-JS`);
+      const removeBtn = document.querySelector(`.removeFrom${selector}Btn-JS`);
+      addBtn.classList.add('isHidden');
+      removeBtn.classList.remove('isHidden');
+    }
+  }
+}
 
 window.addEventListener('keydown', closeByEsc);
 detCloseBtn.addEventListener('click', onClose);
