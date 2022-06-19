@@ -1,10 +1,9 @@
 
 const body = document.querySelector('body');
 const checkbox = document.querySelector('input[type="checkbox"]');
-const genres = document.querySelector('main__movie-genre');
-const movieDesc = document.querySelector('main__movie-card-item');
-const backdrop = document.querySelector('details__backdrop');
 const section = document.querySelector("#section-switch");
+const footer = document.querySelector("footer");
+const button = document.querySelector("#button-color");
 
 checkbox.addEventListener("change", onSwitchClick);
 
@@ -14,36 +13,36 @@ function onSwitchClick(){
   {
       body.classList.add('dark-theme');
       body.classList.remove('light-theme');
-      // genres.classList.add('dark-theme');
-      // genres.classList.remove('light-theme');
+      
 
       section.classList.add('dark-on');
       section.classList.remove('light-on');
 
+      button.classList.add('dark-on');
+      button.classList.remove('light-on');
+
+      footer.classList.add('dark-on');
+      footer.classList.remove('light-on');
   
-      // movieDesc.classList.add('dark-theme');
-      // movieDesc.classList.remove('light-theme');
-      
-      // backdrop.classList.add('dark-theme');
-      // backdrop.classList.remove('light-theme');
-      
       } 
       
       else {
         body.classList.add('light-theme');
         body.classList.remove('dark-theme');
   
-    //     genres.classList.add('light-theme');
-    //     genres.classList.remove('dark-theme');
+       
       
         section.classList.add('light-on');
         section.classList.remove('dark-on');
+        button.classList.add('light-on');
+        button.classList.remove('dark-on');
 
-    //     movieDesc.classList.add('light-theme');
-    //     movieDesc.classList.remove('dark-theme');
-        
-    //     backdrop.classList.add('light-theme');
-    //     backdrop.classList.remove('dark-theme');
+
+
+       footer.classList.add('light-on');
+        footer.classList.remove('dark-on');
+
+    
   
     }
   }; 

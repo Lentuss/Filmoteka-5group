@@ -1,29 +1,28 @@
 body.light-theme {
   background-color: #fff;
+  color: #000000;
 }
 
-.light-on {
 
-  
-background-color: rgb(20, 208, 64);
+.light-on {  
+background-color: #fff;
+color: #000000;
 }
 
 .dark-on {
-background-color: rgb(136, 62, 27);
+  background-color: #333;
+  width: 100%;
+
 
 color: #fff;
-
 
 }
 
 body.dark-theme {
 
-background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
-url("../images/home-pc-x2.jpg");
+  background-color: #333;
   color: #fff;
-  background-size: cover;
-  
-  width: 100%;
+
 }
 
 
