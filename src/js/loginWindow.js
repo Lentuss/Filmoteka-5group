@@ -112,9 +112,6 @@ function addToWatched(event) {
       removeBtn.classList.remove('isHidden');
     }
   }
-
-  // console.log(Refs.watchedBtn);
-  // console.log(data.watched);
 }
 
 function removeFromWatched(event) {
