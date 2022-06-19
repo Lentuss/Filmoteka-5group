@@ -7,12 +7,14 @@ import './js/renderLibrary';
 import './js/getFilmsApiService';
 import './js/renderFilms';
 import './js/getDetails';
+import './js/setDetails';
 import './js/getTrendFilms';
 import './js/getGenres';
 import './js/apiVariables';
-import './js/slider';
+// import './js/slider';
 
 import './js/scrollUp';
 import './js/footer';
 import './js/themeSwitcher';
-import './js/describe-window';
+
+import './js/getFiler';

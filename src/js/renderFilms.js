@@ -31,30 +31,35 @@ export function createListMarkup(requestedFilms) {
         }
 
         // Назва
+
+
         let name = '';
-        
+
         if (original_title) {
-            name = original_title;  
+          name = original_title;
         } else {
+
             name = original_name;
         };
         
         // Дата
         let date = '';
+
         if (release_date !== undefined) {
-            date = release_date.slice(0, 4);  
+          date = release_date.slice(0, 4);
         } else if (first_air_date) {
-            date = first_air_date.slice(0, 4);
+          date = first_air_date.slice(0, 4);
         } else {
-            date = "Unknown";
-        };
+          date = 'Unknown';
+        }
 
         // Постер
         let posterPicture = `${IMAGE_URL + poster_path}`;
         if (poster_path === null) {
-            posterPicture = "https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg";
-        } 
-        
+          posterPicture =
+            'https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg';
+        }
+
         return `
         <li class="main__movie-card-item" data-movieId="${id}">
         <img class="main__movie-img" src="${posterPicture}" alt="${original_title}">
@@ -64,8 +69,8 @@ export function createListMarkup(requestedFilms) {
         <p class="main__movie-raiting">${vote_average}</p>
         </div>
         </li>
-        `
-    }).join('');
-    
-};
-
+        `;
+      }
+    )
+    .join('');
+}
