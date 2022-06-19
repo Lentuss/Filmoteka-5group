@@ -62,7 +62,6 @@ const Refs = {
   details__modal: document.querySelector('.details__modal'),
   //==================== PRACTICE =============
 };
-const watchedArr = [];
 
 //==================== PRACTICE ADD BUTTON LOGIC START =============
 
@@ -82,31 +81,36 @@ function addToWatched(event) {
   const removeBtn = Refs.details__modal.querySelector(
     '.removeFromWatchedBtn-JS'
   );
-
-  const movieID = event.target.closest('.details__box').getAttribute('data-id');
-  const imgPoster = Refs.details__modal
-    .querySelector('.details__image')
-    .getAttribute('src');
-  const titleDetails =
-    Refs.details__modal.querySelector('.details__title').textContent;
-  const genres =
-    Refs.details__modal.querySelector('.details__genre').textContent;
-  const year = event.target.closest('.details__box').getAttribute('data-date');
   const uid = auth.lastNotifiedUid;
+  if (uid) {
+    const movieID = event.target
+      .closest('.details__box')
+      .getAttribute('data-id');
+    const imgPoster = Refs.details__modal
+      .querySelector('.details__image')
+      .getAttribute('src');
+    const titleDetails =
+      Refs.details__modal.querySelector('.details__title').textContent;
+    const genres =
+      Refs.details__modal.querySelector('.details__genre').textContent;
+    const year = event.target
+      .closest('.details__box')
+      .getAttribute('data-date');
 
-  if (!event.target.classList.contains('addToWatchedBtn-JS')) {
-    return;
-  } else if (uid) {
-    addMovieInfoToDataBaseWatch(
-      movieID,
-      titleDetails,
-      imgPoster,
-      genres,
-      year,
-      uid
-    );
-    addBtn.classList.add('isHidden');
-    removeBtn.classList.remove('isHidden');
+    if (!event.target.classList.contains('addToWatchedBtn-JS')) {
+      return;
+    } else if (uid) {
+      addMovieInfoToDataBaseWatch(
+        movieID,
+        titleDetails,
+        imgPoster,
+        genres,
+        year,
+        uid
+      );
+      addBtn.classList.add('isHidden');
+      removeBtn.classList.remove('isHidden');
+    }
   }
 
   // console.log(Refs.watchedBtn);
@@ -131,30 +135,36 @@ function removeFromWatched(event) {
 function addToQueue(event) {
   const addBtn = Refs.details__modal.querySelector('.addToQueueBtn-JS');
   const removeBtn = Refs.details__modal.querySelector('.removeFromQueueBtn-JS');
-  const movieID = event.target.closest('.details__box').getAttribute('data-id');
-  const imgPoster = Refs.details__modal
-    .querySelector('.details__image')
-    .getAttribute('src');
-  const titleDetails =
-    Refs.details__modal.querySelector('.details__title').textContent;
-  const genres =
-    Refs.details__modal.querySelector('.details__genre').textContent;
-  const year = event.target.closest('.details__box').getAttribute('data-date');
   const uid = auth.lastNotifiedUid;
+  if (uid) {
+    const movieID = event.target
+      .closest('.details__box')
+      .getAttribute('data-id');
+    const imgPoster = Refs.details__modal
+      .querySelector('.details__image')
+      .getAttribute('src');
+    const titleDetails =
+      Refs.details__modal.querySelector('.details__title').textContent;
+    const genres =
+      Refs.details__modal.querySelector('.details__genre').textContent;
+    const year = event.target
+      .closest('.details__box')
+      .getAttribute('data-date');
 
-  if (!event.target.classList.contains('addToQueueBtn-JS')) {
-    return;
-  } else if (uid) {
-    addMovieInfoToDataBaseQueue(
-      movieID,
-      titleDetails,
-      imgPoster,
-      genres,
-      year,
-      uid
-    );
-    addBtn.classList.add('isHidden');
-    removeBtn.classList.remove('isHidden');
+    if (!event.target.classList.contains('addToQueueBtn-JS')) {
+      return;
+    } else if (uid) {
+      addMovieInfoToDataBaseQueue(
+        movieID,
+        titleDetails,
+        imgPoster,
+        genres,
+        year,
+        uid
+      );
+      addBtn.classList.add('isHidden');
+      removeBtn.classList.remove('isHidden');
+    }
   }
 }
 
@@ -307,7 +317,6 @@ Refs.logOutBtn.addEventListener('click', onLogOutBtn);
 
 //=================== LOG OUT LOGIC START ==================
 function onLogOutBtn(e) {
-  //   const auth = getAuth(app);
   signOut(auth)
     .then(() => {
       // Sign-out successful.
@@ -323,19 +332,6 @@ function onLogOutBtn(e) {
       console.log(error);
       console.log('Logout Failed');
     });
-
-  // onAuthStateChanged(auth, user => {
-  //   if (user) {
-  //     // User is signed in, see docs for a list of available properties
-  //     // https://firebase.google.com/docs/reference/js/firebase.User
-  //     //   console.log(user);
-  //     const uid = user.uid;
-  //     // ...
-  //   } else {
-  //     // User is signed out
-  //     Notiflix.Notify.info('You are successfully Logged Out');
-  //   }
-  // });
 }
 //=================== LOG OUT LOGIC END ==================
 
@@ -374,15 +370,6 @@ function onBackdropClick(event) {
   }
 }
 
-function writeUserData(userId, email, password, imageUrl) {
-  const db = getDatabase();
-  set(ref(db, 'users/' + userId), {
-    email,
-    password,
-    // profile_picture: imageUrl,
-  });
-}
-
 function addMovieInfoToDataBaseWatch(movieID, title, img, genres, year, uid) {
   const db = getDatabase();
 
@@ -416,12 +403,3 @@ function removeMovieIDFromQueue(uid, movieID) {
 
   remove(ref(db, 'users/' + uid + '/queue' + `/${movieID}`));
 }
-
-///================ STRUCTURE EXAMPLE
-// const users = {
-//   user1: {
-//     watched: ['asdasdasdsa', 'asdadasdas', 'asdasdasd'],
-//     queue: {},
-//   },
-//   user2: {},
-// };

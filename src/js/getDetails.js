@@ -48,9 +48,6 @@ const clickForDetails = e => {
     const allInfo = ref(db, 'users/' + uid);
     const ifOnValue = onValue(allInfo, snapshot => {
       const data = snapshot.val();
-      // console.log(Object.keys(data.watched));
-
-      // console.log(data);
 
       if (!data) {
         console.log('All Data Base Is Empty');
@@ -70,8 +67,6 @@ const clickForDetails = e => {
     });
   }
 
-  // console.log(watchedArr);
-
   clearInfo();
 
   detailsModal.classList.remove('isHidden');
@@ -81,23 +76,8 @@ const clickForDetails = e => {
   }
   const movieId = e.target.closest('LI').dataset.movieid;
 
-  for (const item of watchedArr) {
-    if (item === movieId) {
-      console.log('we found same ID');
-      const addBtn = document.querySelector('.addToWatchedBtn-JS');
-      const removeBtn = document.querySelector('.removeFromWatchedBtn-JS');
-      addBtn.classList.add('isHidden');
-      removeBtn.classList.remove('isHidden');
-    }
-  }
-  for (const item of queueArr) {
-    if (item === movieId) {
-      const addBtn = document.querySelector('.addToQueueBtn-JS');
-      const removeBtn = document.querySelector('.removeFromQueueBtn-JS');
-      addBtn.classList.add('isHidden');
-      removeBtn.classList.remove('isHidden');
-    }
-  }
+  checkArr(watchedArr, movieId, 'Watched');
+  checkArr(queueArr, movieId, 'Queue');
 
   console.log(movieId);
   getDetails(movieId);
@@ -217,6 +197,21 @@ const onBackdropClose = e => {
     onClose();
   }
 };
+
+function checkArr(arr, movieID, arrName) {
+  const selector = arrName;
+
+  for (const item of arr) {
+    if (item === movieID) {
+      console.log('we found same ID');
+
+      const addBtn = document.querySelector(`.addTo${selector}Btn-JS`);
+      const removeBtn = document.querySelector(`.removeFrom${selector}Btn-JS`);
+      addBtn.classList.add('isHidden');
+      removeBtn.classList.remove('isHidden');
+    }
+  }
+}
 
 window.addEventListener('keydown', closeByEsc);
 detCloseBtn.addEventListener('click', onClose);
