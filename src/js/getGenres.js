@@ -20,6 +20,3 @@ export const getGenreById = async id => {
     console.log(error.message);
   }
 };
-
-//тест
-getGenreById(12);
