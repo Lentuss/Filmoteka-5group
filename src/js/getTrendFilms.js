@@ -12,7 +12,7 @@ btnDayEl.addEventListener('click', onBtnDayClick);
 btnWeekEl.addEventListener('click', onBtnWeekClick);
 renderNewPage();
 
-function renderNewPage() {
+export function renderNewPage() {
     listEl.innerHTML = '';
     getFilmsApiService.resetPage();
     getTrendFilms(); 
