@@ -1,5 +1,14 @@
 
 /* preloader4 */
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  background-color: black;
+}
 
 
 .container-preload {
@@ -10,7 +19,8 @@
     bottom: 0;
     left: 0;
     right: 0;
-    margin: auto;
+    margin:auto;
+
   }
   
   .item {
@@ -77,20 +87,35 @@
     75% {transform: translate(0, -100px)} 
   }
   
-  .satodsan-uvemopag h1, p {
+  .satodsan-uvemopag .preloader-title, .preloader-label{
     color: #e29508;
     font-family: monospace;
     overflow: hidden;
     border-right: .17em solid #e29508;  
     white-space: nowrap;  
-    margin: 0 auto;  
+    margin-top: 80px;  
     letter-spacing: .17em;
     animation:  
     typing 3.5s steps(30, end),
     blink-caret .7s step-end infinite;
+   
     
   }
-  p{margin-top: 40px;}
+  .preloader-label, .preloader-title
+  {
+  text-align: center;
+  font-weight: 800;
+  font-size: 30px;
+}
+
+.preloader__text-container{
+  width: 500px;
+  height: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+  padding-right: 100px;
+}
   
   @keyframes typing {
     from { width: 0 }
