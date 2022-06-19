@@ -91,24 +91,18 @@
         @include respond-to(mobile-only){
             width: 250px;
             height: 250px;
-        }
-
-        @include respond-to (tablet) {
-                width: 185px;
-                height: 185px;
-            }
-        
-        @include respond-to (tablet-only){
             &:not(:last-child) {
                 margin-bottom: 20px;
             }
         }
 
-        @include respond-to (desktop) {
+        @include respond-to (tablet) {
+            width: 185px;
+            height: 185px;
             &:nth-child(-n+6) {
                 margin-bottom: 20px;
             }
-        }
+         }  
     }
        
     &__item--container{
