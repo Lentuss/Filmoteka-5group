@@ -12,3 +12,16 @@ import './js/apiVariables';
 import './js/scrollUp';
 import './js/footer';
 import './js/themeSwitcher';
+
+
+import './js/getFiler';
+
+
+
+
+
+
+
+
+
+
