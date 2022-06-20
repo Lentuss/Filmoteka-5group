@@ -26,16 +26,12 @@ const modal = document.querySelector('.details__modal');
 const box = document.querySelector('.details__box');
 const detCloseBtn = document.querySelector('.details__close-button');
 
-/// если нет деталей
 // если нет постера
 //если нет бекдропа
-//если нет ничего
-//очистка
 //on slider??
 ///проверки
 //стили жанров мобилки/таблетки
 //убрать клик с жанров
-//курсор поинтер
 
 const clickForDetails = e => {
   e.preventDefault();
@@ -44,7 +40,7 @@ const clickForDetails = e => {
   backdropDetails.classList.add('isAppeared');
   setTimeout(() => {
     modal.classList.add('isAppeared');
-  }, 2500);
+  }, 1000);
 
   const uid = auth.lastNotifiedUid;
   let watchedArr = [];
