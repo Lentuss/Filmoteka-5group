@@ -1,32 +1,34 @@
 import axios from 'axios';
-import { API_KEY, SEARCH_URL, BASE_URL} from './apiVariables';
-
+import { API_KEY } from './apiVariables';
 export default class GetFilmsApiService {
-    constructor(url) {
+    constructor() {
         this.page = 1;
         this.period = 'day';
         this.searchRequest = "";
-        this.url = url;
     }
     
-    async getFilms() {
-        let searchLink = null;
+    async getTrendFilms(url) {
         try {
-            
-            if (this.url === SEARCH_URL) {
-                searchLink = `${this.url}?api_key=${API_KEY}&page=${this.page}&query=${this.searchRequest}`;
-            } else if (this.url === BASE_URL) {
-                searchLink = `${BASE_URL}trending/all/${this.period}?api_key=${API_KEY}&page=${this.page}`;
-            }
-            
-            const response = await axios.get(searchLink);
-            const data = response.data;
-            this.page += 1;
-            return data;
-            
+            const searchLink = `${url}trending/movie/${this.period}?api_key=${API_KEY}&page=${this.page}`;
+            return await this.queryFilms(searchLink);
         } catch(error) {
             console.log(error.message);
         }        
+    }
+    async getSearchedFilms(url) {
+        try {
+            const searchLink = `${url}?api_key=${API_KEY}&page=${this.page}&query=${this.searchRequest}`;
+            return await this.queryFilms(searchLink);
+        } catch(error) {
+            console.log(error.message);
+        }        
+    }
+    
+    async queryFilms(searchLink) {
+        const response = await axios.get(searchLink);
+        const data = response.data;
+        this.page += 1;
+        return data;
     }
     resetPage() {
         this.page = 1;

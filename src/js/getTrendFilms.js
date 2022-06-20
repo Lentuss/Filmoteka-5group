@@ -1,15 +1,17 @@
 import { BASE_URL } from './apiVariables';
-import { getGenreById } from './getGenres';
+// import { getGenreById } from './getGenres';
 import GetFilmsApiService from './getFilmsApiService';
 import { createListMarkup } from './renderFilms';
 
 const listEl = document.querySelector('.main__movie-card-list');
 const btnDayEl = document.querySelector('.trends-of-day');
 const btnWeekEl = document.querySelector('.trends-of-week');
-const getFilmsApiService = new GetFilmsApiService(BASE_URL);
+
+const getFilmsApiService = new GetFilmsApiService();
 
 btnDayEl.addEventListener('click', onBtnDayClick);
 btnWeekEl.addEventListener('click', onBtnWeekClick);
+
 renderNewPage();
 
 function renderNewPage() {
@@ -30,7 +32,7 @@ function onBtnWeekClick() {
 
 export async function getTrendFilms() {
     try {
-        const requestedFilms = await getFilmsApiService.getFilms();
+        const requestedFilms = await getFilmsApiService.getTrendFilms(BASE_URL);
         onGetSucces(requestedFilms);
     } catch (error) {
         onGetError();
@@ -55,6 +57,7 @@ const options = {
     threshold: 1,
   },
 };
+
 const callback = function (entries, observer) {
     if (entries[0].isIntersecting) {
         observer.unobserve(entries[0].target);

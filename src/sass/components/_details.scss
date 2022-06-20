@@ -13,8 +13,10 @@
         transition: 0.5s linear;
 
         overflow-y: scroll;
+        opacity: 0;
+        transition: opacity 1000ms linear;
       
-        background-image: url(https://image.tmdb.org/t/p/original/rlCRM7U5g2hcU1O8ylGcqsMYHIP.jpg);
+        // background-image: url(https://image.tmdb.org/t/p/original/rlCRM7U5g2hcU1O8ylGcqsMYHIP.jpg);
         background-repeat: no-repeat;
         background-size: cover;
     }
@@ -27,10 +29,15 @@
         top: 20px;
 
         z-index: 2;
+        opacity: 0;
         
         padding: 48px 20px 40px;
 
         background-color: rgb(255, 255, 255);
+        opacity: 0;
+        transition: opacity 1500ms linear;
+
+        box-shadow: 5px 5px 5px 8px $accent-color,-5px -5px -5px 8px $accent-color;
     
  
         @include respond-to (tablet){
@@ -99,11 +106,11 @@
         width: 100%;
 
         @include respond-to (tablet) {
-            width: 264px;
+        
             height: 374px;
         }
         @include respond-to (desktop){
-            width: 375px;
+        
             height: 478px;
         }    
         }
@@ -261,4 +268,9 @@
     padding: 0;
     clip: rect(0 0 0 0);
     overflow: hidden;
+}
+
+.isAppeared{
+    opacity: 1;
+    
 }
