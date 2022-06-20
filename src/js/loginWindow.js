@@ -85,7 +85,10 @@ function addToWatched(event) {
     '.removeFromWatchedBtn-JS'
   );
   const uid = auth.lastNotifiedUid;
-  if (uid) {
+
+  if (!event.target.classList.contains('addToWatchedBtn-JS')) {
+    return;
+  } else if (uid) {
     const movieID = event.target
       .closest('.details__box')
       .getAttribute('data-id');
@@ -100,20 +103,16 @@ function addToWatched(event) {
       .closest('.details__box')
       .getAttribute('data-date');
 
-    if (!event.target.classList.contains('addToWatchedBtn-JS')) {
-      return;
-    } else if (uid) {
-      addMovieInfoToDataBaseWatch(
-        movieID,
-        titleDetails,
-        imgPoster,
-        genres,
-        year,
-        uid
-      );
-      addBtn.classList.add('isHidden');
-      removeBtn.classList.remove('isHidden');
-    }
+    addMovieInfoToDataBaseWatch(
+      movieID,
+      titleDetails,
+      imgPoster,
+      genres,
+      year,
+      uid
+    );
+    addBtn.classList.add('isHidden');
+    removeBtn.classList.remove('isHidden');
   }
 }
 
@@ -136,7 +135,9 @@ function addToQueue(event) {
   const addBtn = Refs.details__modal.querySelector('.addToQueueBtn-JS');
   const removeBtn = Refs.details__modal.querySelector('.removeFromQueueBtn-JS');
   const uid = auth.lastNotifiedUid;
-  if (uid) {
+  if (!event.target.classList.contains('addToQueueBtn-JS')) {
+    return;
+  } else if (uid) {
     const movieID = event.target
       .closest('.details__box')
       .getAttribute('data-id');
@@ -151,20 +152,16 @@ function addToQueue(event) {
       .closest('.details__box')
       .getAttribute('data-date');
 
-    if (!event.target.classList.contains('addToQueueBtn-JS')) {
-      return;
-    } else if (uid) {
-      addMovieInfoToDataBaseQueue(
-        movieID,
-        titleDetails,
-        imgPoster,
-        genres,
-        year,
-        uid
-      );
-      addBtn.classList.add('isHidden');
-      removeBtn.classList.remove('isHidden');
-    }
+    addMovieInfoToDataBaseQueue(
+      movieID,
+      titleDetails,
+      imgPoster,
+      genres,
+      year,
+      uid
+    );
+    addBtn.classList.add('isHidden');
+    removeBtn.classList.remove('isHidden');
   }
 }
 
