@@ -1,5 +1,6 @@
 body.light-theme {
   background-color: #fff;
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
   color: #000000;
 
   transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1), background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -8,6 +9,7 @@ body.light-theme {
 
 .light-on {  
 background-color: #fff;
+transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 color: #000000;
 
 transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1), background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -16,6 +18,7 @@ transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1), background-color 250ms cub
 .dark-on {
 
 background-color: rgb(75, 75, 75);
+transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
  color: #fff;
 
  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1), background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -24,12 +27,14 @@ background-color: rgb(75, 75, 75);
 body.dark-theme {
 
   background-color: rgb(75, 75, 75);
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
   color: #fff;
 
   transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1), background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .button-light{
   background-color: #fff;
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
   color: #000000;
 
   transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1), background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -37,6 +42,7 @@ body.dark-theme {
 
 .button-dark{
   background-color: rgba(128, 128, 128, 0.349);
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
   color: #fff;
 
   transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1), background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
