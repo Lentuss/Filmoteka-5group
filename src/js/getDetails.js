@@ -1,5 +1,23 @@
 import { API_KEY, DETAILS_URL, IMAGE_URL, BACKDROP_URL } from './apiVariables';
 import axios from 'axios';
+import { getAuth } from 'firebase/auth';
+import { initializeApp } from 'firebase/app';
+
+import { getDatabase, ref, onValue } from 'firebase/database';
+const firebaseConfig = {
+  apiKey: 'AIzaSyAXr3vyab8PJtuI-kO5zXVUNDPWQzN3ayY',
+  authDomain: 'filmoteka-group5.firebaseapp.com',
+  databaseURL:
+    'https://filmoteka-group5-default-rtdb.europe-west1.firebasedatabase.app',
+  projectId: 'filmoteka-group5',
+  storageBucket: 'filmoteka-group5.appspot.com',
+  messagingSenderId: '217077508176',
+  appId: '1:217077508176:web:dbb78c93f591370ec90955',
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getDatabase(app);
 
 const moviesList = document.querySelector('.main__movie-card-list');
 const detailsModal = document.querySelector('.details');
@@ -8,26 +26,46 @@ const modal = document.querySelector('.details__modal');
 const box = document.querySelector('.details__box');
 const detCloseBtn = document.querySelector('.details__close-button');
 
-/// если нет деталей
 // если нет постера
 //если нет бекдропа
-//если нет ничего
-//очистка
 //on slider??
 ///проверки
 //стили жанров мобилки/таблетки
 //убрать клик с жанров
-//курсор поинтер
 
 const clickForDetails = e => {
   e.preventDefault();
+  windowAppear();
+
+  const uid = auth.lastNotifiedUid;
+  let watchedArr = [];
+  let queueArr = [];
+
+  if (uid) {
+    const allInfo = ref(db, 'users/' + uid);
+    const ifOnValue = onValue(allInfo, snapshot => {
+      const data = snapshot.val();
+
+      if (!data) {
+        console.log('All Data Base Is Empty');
+      } else {
+        if (!data.watched) {
+          console.log('watched Base Is Empty');
+        } else {
+          watchedArr = Object.keys(data.watched);
+        }
+
+        if (!data.queue) {
+          console.log('queue Base Is Empty');
+        } else {
+          queueArr = Object.keys(data.queue);
+        }
+      }
+    });
+  }
 
   clearInfo();
 
-  const modalIsOpen = setTimeout(() => {
-    detailsModal.classList.remove('isHidden');
-  }, 500);
-  console.log(e.target);
   if (
     e.target.nodeName === 'UL'
     // ||
@@ -37,6 +75,10 @@ const clickForDetails = e => {
     return;
   }
   const movieId = e.target.closest('LI').dataset.movieid;
+
+  checkArr(watchedArr, movieId, 'Watched');
+  checkArr(queueArr, movieId, 'Queue');
+
   console.log(movieId);
   getDetails(movieId);
 };
@@ -62,16 +104,15 @@ export async function getDetails(movieId) {
     release_date,
   } = details;
 
-  backdropDetails.style.backgroundImage = `url(${
-    BACKDROP_URL + backdrop_path
-  })`;
+  const backdropImg = `url(${BACKDROP_URL + backdrop_path})`;
+  if (backdrop_path === null) {
+    backdropDetails.style.backgroundColor = 'rgba(0, 0, 0, 0.8';
+  } else {
+    backdropDetails.style.backgroundImage = backdropImg;
+  }
   //дописать логику отсутствия
 
   const genreArr = genres.map(genre => genre.name);
-
-  setTimeout(() => {
-    modal.style.opacity = '1'; //на транзишн и повторы исправить
-  }, 1500);
 
   box.setAttribute('data-id', `${id}`);
   box.setAttribute('data-date', `${release_date.slice(0, 4)}`);
@@ -146,21 +187,46 @@ const onClose = e => {
   detailsModal.classList.add('isHidden');
   backdropDetails.style.backgroundColor = 'black';
   backdropDetails.style.backgroundImage = 'url(#)';
+  modal.classList.remove('isAppeared');
+  backdropDetails.classList.remove('isAppeared');
 };
 
 const closeByEsc = e => {
-  //   e.preventDefault();
   if (e.code === 'Escape') {
     detailsModal.classList.add('isHidden');
+    modal.classList.remove('isAppeared');
+    backdropDetails.classList.remove('isAppeared');
   }
 };
 
 const onBackdropClose = e => {
-  //   e.preventDefault();
   if (e.target === e.currentTarget) {
     onClose();
   }
 };
+
+function checkArr(arr, movieID, arrName) {
+  const selector = arrName;
+
+  for (const item of arr) {
+    if (item === movieID) {
+      console.log('we found same ID');
+
+      const addBtn = document.querySelector(`.addTo${selector}Btn-JS`);
+      const removeBtn = document.querySelector(`.removeFrom${selector}Btn-JS`);
+      addBtn.classList.add('isHidden');
+      removeBtn.classList.remove('isHidden');
+    }
+  }
+}
+
+function windowAppear() {
+  detailsModal.classList.remove('isHidden');
+  backdropDetails.classList.add('isAppeared');
+  setTimeout(() => {
+    modal.classList.add('isAppeared');
+  }, 1000);
+}
 
 window.addEventListener('keydown', closeByEsc);
 detCloseBtn.addEventListener('click', onClose);

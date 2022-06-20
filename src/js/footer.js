@@ -15,6 +15,6 @@ refs.modalFooter.classList.toggle('is-hidden');
         function onModalFooterEscpe(event) {
         const key = event.code;
             if (key === 'Escape') {
-               refs.modalFooter.classList.toggle('is-hidden');
+               refs.modalFooter.classList.add('is-hidden');
             }
         }
