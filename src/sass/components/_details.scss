@@ -36,6 +36,8 @@
         background-color: rgb(255, 255, 255);
         opacity: 0;
         transition: opacity 1500ms linear;
+
+        box-shadow: 5px 5px 5px 8px $accent-color,-5px -5px -5px 8px $accent-color;
     
  
         @include respond-to (tablet){
