@@ -104,13 +104,16 @@ export async function getDetails(movieId) {
     release_date,
   } = details;
 
-  const backdropImg = `url(${BACKDROP_URL + backdrop_path})`;
-  if (backdrop_path === null) {
-    backdropDetails.style.backgroundColor = 'rgba(0, 0, 0, 0.8';
-  } else {
-    backdropDetails.style.backgroundImage = backdropImg;
+  checkBackdrop(backdrop_path); //////переробити
+
+  function checkBackdrop(backdrop_path) {
+    const backdropImg = `url(${BACKDROP_URL + backdrop_path})`;
+    if (backdrop_path === null) {
+      backdropDetails.style.backgroundColor = 'rgba(0, 0, 0, 0.8';
+    } else {
+      backdropDetails.style.backgroundImage = backdropImg;
+    }
   }
-  //дописать логику отсутствия
 
   const genreArr = genres.map(genre => genre.name);
 
