@@ -1,28 +1,26 @@
-
 import throttle from 'lodash.throttle';
 
-
 const refs = {
-  modal: document.querySelector('.describe-modal'),
-  closeBtn: document.querySelector(".describe-modal__close")
-}
+  describeModal: document.querySelector('.describe-modal'),
+  describeCloseBtn: document.querySelector('.describe-modal__close'),
+};
 
 setTimeout(() => {
-  refs.modal.classList.remove("isHidden")
+  refs.describeModal.classList.remove('isHidden');
 }, 5000);
 
 function closeModal() {
-  refs.modal.classList.add("isHidden")
+  refs.describeModal.classList.add('isHidden');
 }
 
 function closeByEscape(event) {
-  if (event.code === "Escape") {
+  if (event.code === 'Escape') {
     closeModal();
   }
 }
 
-refs.closeBtn.addEventListener('click', closeModal)
-window.addEventListener('keydown',closeByEscape)
+refs.describeCloseBtn.addEventListener('click', closeModal);
+window.addEventListener('keydown', closeByEscape);
 
 const KEY = 'describe-form';
 const inputData = {};
@@ -42,14 +40,13 @@ function updateForm() {
     form.email.value = email;
     inputData.username = username;
     inputData.email = email;
-    
   }
 }
 
 function onFormInput(event) {
   inputData.username = form.elements.username.value;
   inputData.email = form.elements.email.value;
-  
+
   localStorage.setItem(KEY, JSON.stringify(inputData));
 }
 
@@ -66,4 +63,3 @@ function onFormSubmit(event) {
 
   console.log(inputData);
 }
-
