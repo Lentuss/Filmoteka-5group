@@ -1,7 +1,7 @@
 import MovieFilter from './fetchFilter';
-// import { renderNewPage } from './getTrendFilms';
+import { renderNewPage } from './getTrendFilms';
 import { IMAGE_URL } from './apiVariables';
-
+import { createListMarkup } from './renderFilms';
 
 const genres = [
   {
@@ -91,19 +91,28 @@ const filterListGeners = document.querySelector('.filter--list__genres');
 const listEl = document.querySelector('.main__movie-card-list');
 const loaderEl = document.querySelector('.loader');
 const filtersEl = document.querySelector('.filters');
+const mainBtnsEls = document.querySelector('.main__button-list');
 
 export let selectedGenre = [];
 export let selectedYear = [];
  
 setGenre();
 setYear();
-
 async function getFilerFilms() {
-    await movieFilter.sortByGenre();
+    const resp = await movieFilter.sortByGenre();
+    const response = await resp.json();
+    const results = await response;
+   
+    get(results);
+   
+}
+function get(data) {
+      const sortedMovieForRender = createListMarkup(data);
     loaderFilms();
+    listEl.insertAdjacentHTML('beforeend', sortedMovieForRender);
     observer.observe(listEl.lastElementChild);
 }
-
+   
 function loaderFilms() {
     loaderEl.style.display = "block";
      setTimeout(() => {
@@ -135,12 +144,7 @@ function setGenre() {
           selectedGenre.push(genre.id);
           t.classList.add('filter-item__color');
       }
-      if (selectedGenre.length > 0 || selectedYear.length > 0) {
-          getFilerFilms();
-          renderClearBtn();
-      } else {
-        //   renderNewPage();
-      }
+        renderFilteredList();
     });
       genresEl.append(t);
   });
@@ -175,16 +179,19 @@ function setYear() {
                 y.classList.add('filter-item__color');
             }
             console.log(selectedYear);
-            if (selectedGenre.length > 0 || selectedYear.length > 0) {
-                getFilerFilms();
-                renderClearBtn();
-            } else {
-                // renderNewPage();
-            }
+            renderFilteredList();
         });
     }
 }
-
+function renderFilteredList() {
+    if (selectedGenre.length > 0 || selectedYear.length > 0) {
+                getFilerFilms();
+                renderClearBtn();
+                mainBtnsEls.style.display = "none";
+            } else {
+                renderNewPage();
+            } 
+}
 function renderClearBtn() {
     let clearBtn = document.getElementById('clear');
     if (clearBtn) {
@@ -197,18 +204,20 @@ function renderClearBtn() {
         filtersEl.append(clear);
     }
     clear.addEventListener('click', () => {
-         selectedGenre = [];
-         selectedYear = [];
-        //  renderNewPage();
-         filterListYears.classList.add('is-hidden');
-        filterListGeners.classList.add('is-hidden');
-         setYear();
-         setGenre();
-         
-         clear.remove();
+        clearList();
         });
 };
 
+function clearList() {
+    selectedGenre = [];
+    selectedYear = [];
+    renderNewPage();
+    filterListYears.classList.add('is-hidden');
+    filterListGeners.classList.add('is-hidden');
+    setYear();
+    setGenre();
+    clear.remove();
+ }
 filterYears.addEventListener('click', () => {
   filterListYears.classList.toggle('is-hidden');
   filterListGeners.classList.add('is-hidden');
@@ -239,52 +248,3 @@ const callback = function (entries, observer) {
   options.intersectionObserver
 );
 
-export function renderFilterList(data) {
-  data.map(movie => {
-    const {
-      id,
-      poster_path,
-      original_title,
-      original_name,
-      genre_ids,
-      release_date,
-      first_air_date,
-      vote_average,
-    } = movie;
-    let date = '';
-    let name = '';
-
-    if (release_date !== undefined) {
-      date = release_date.slice(0, 4);
-    } else if (first_air_date) {
-      date = first_air_date.slice(0, 4);
-    } else {
-      date = 'Unknown';
-    }
-
-    if (original_title) {
-      name = original_title;
-    } else {
-      name = original_name;
-    }
-
-    let posterPicture = `${IMAGE_URL + poster_path}`;
-    if (poster_path === null) {
-      posterPicture =
-        'https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg';
-    }
-
-    const movieEL = document.createElement('li');
-    movieEL.classList.add('main__movie-card-item');
-    movieEL.setAttribute('data-movieId', `${id}`);
-    movieEL.innerHTML = `
-            <img class="main__movie-img" src="${posterPicture}" alt="${original_title}">
-            <div class="main__movie-info">
-                <h2 class="main__movie-title">${name}</h2>
-                <p class="main__movie-genre">Genres<span class="main__movie-year">${date}</span></p>
-                <p class="main__movie-raiting">${vote_average}</p>
-            </div>
-        `;
-    listEl.append(movieEL);
-  });
-}
