@@ -1,6 +1,3 @@
-
-
-
 const body = document.querySelector('body');
 const checkbox = document.querySelector('input[type="checkbox"]');
 const section = document.querySelector("#section-switch");
@@ -21,6 +18,7 @@ function onSwitchClick(){
       body.classList.add('dark-theme');
       body.classList.remove('light-theme');
       
+      document.getElementById("title-color").style.color = '#fff';
 
       section.classList.add('dark-on');
       section.classList.remove('light-on');
@@ -43,6 +41,8 @@ function onSwitchClick(){
         body.classList.add('light-theme');
         body.classList.remove('dark-theme');
 
+        document.getElementById("title-color").style.color = '#333';
+
         section.classList.add('light-on');
         section.classList.remove('dark-on');
 
@@ -62,5 +62,3 @@ function onSwitchClick(){
   
     }
   }; 
-
-    
