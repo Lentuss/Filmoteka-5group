@@ -13,6 +13,7 @@ import './js/getGenres';
 import './js/apiVariables';
 import './js/slider';
 import './js/preloader';
+import './js/makeSort';
 
 import './js/scrollUp';
 import './js/footer';
