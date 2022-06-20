@@ -2,29 +2,49 @@ import throttle from 'lodash.throttle';
 
 
 const refs = {
-notification: document.querySelector(`.js-alert`)
+  modal: document.querySelector('.describe-modal'),
+  closeBtn: document.querySelector(".describe-modal__close")
 }
 
-refs.notification.addEventListener('click', onNotificationClick);
-showNotification();
+setTimeout(() => {
+  refs.modal.classList.remove("isHidden")
+}, 5000);
 
-function onNotificationClick() {
-  hideNotification();
+function closeModal() {
+  refs.modal.classList.add("isHidden")
 }
 
-function showNotification() {
-  refs.notification.classList.add('is-visible');
+function closeByEscape(event) {
+  if (event.code === "Escape") {
+    closeModal();
+  }
 }
 
-function hideNotification() {
-refs.notification.classList.remove('is-visible')
-}
+refs.closeBtn.addEventListener('click', closeModal)
+window.addEventListener('keydown',closeByEscape)
 
-const modal = document.querySelector('.describe-modal');
-const PROMPT_DELAY = 3000;
-  setTimeout(() => {
-  modal.show();
- }, PROMPT_DELAY);
+
+
+// refs.notification.addEventListener('click', onNotificationClick);
+// showNotification();
+
+// function onNotificationClick() {
+//   hideNotification();
+// }
+
+// function showNotification() {
+//   refs.notification.classList.add('is-visible');
+// }
+
+// function hideNotification() {
+// refs.notification.classList.remove('is-visible')
+// }
+
+
+// const PROMPT_DELAY = 3000;
+  // setTimeout(() => {
+  // modal.show();
+//  }, PROMPT_DELAY);
 // // початок
 // // import BSN from 'bootstrap.native';
 
