@@ -10,7 +10,7 @@
                     <svg class="header-logo__icon" width="25" height="25">
                         <use href="./images/sprite.svg#film" />
                     </svg>
-                    <p class="header-logo__label">Filmoteka</p>
+                    <p class="header-logo__label bounce">Filmoteka</p>
                 </div>
             </a>
 
@@ -20,8 +20,21 @@
                 <li class="header-btns__item"><button type="button" data-action="header-library-button"
                         class="header-btns__label">Log In</button></li>
             </ul>
-        </nav>
 
+           
+  
+        </nav>
+ <!-- color theme switcher -->
+   <div class="switch-container">
+    <svg class="switch-icon" width="10" height="10">
+                <use href="./images/sprite.svg#icon-lamp-light-bulb-outline-svgrepo-com" />
+            </svg>
+        <label class="switch ">
+            
+            <input type="checkbox" name="color" id="themeSwitcher">
+            <span class="slider" ></span>
+        </label>
+    </div>
         <form class="header-form" id="search-form">
             <input class="header-form__input" 
             type="text" 
@@ -38,13 +51,7 @@
             </button>
         </form>
 
-<!-- color theme switcher -->
-   
-        <label class="switch ">
-            <input type="checkbox" name="color" id="themeSwitcher">
-            <span class="slider"></span>
-        </label>
-  
+
 
 <!-- Sort buttons -->
 <label for="select" class="header__label-select">
