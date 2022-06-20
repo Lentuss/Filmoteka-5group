@@ -23,42 +23,6 @@ function closeByEscape(event) {
 refs.closeBtn.addEventListener('click', closeModal)
 window.addEventListener('keydown',closeByEscape)
 
-
-
-// refs.notification.addEventListener('click', onNotificationClick);
-// showNotification();
-
-// function onNotificationClick() {
-//   hideNotification();
-// }
-
-// function showNotification() {
-//   refs.notification.classList.add('is-visible');
-// }
-
-// function hideNotification() {
-// refs.notification.classList.remove('is-visible')
-// }
-
-
-// const PROMPT_DELAY = 3000;
-  // setTimeout(() => {
-  // modal.show();
-//  }, PROMPT_DELAY);
-// // початок
-// // import BSN from 'bootstrap.native';
-
-// const modal = new Modal('#exampleModal');
-// console.log(modal);
-
-// const PROMPT_DELAY = 3000;
-
-// setTimeout(() => {
-//   modal.show();
-// }, PROMPT_DELAY);
-// // end
-
-// const KEY = 'feedback-form-state';
 const KEY = 'describe-form';
 const inputData = {};
 
