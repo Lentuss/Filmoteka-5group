@@ -192,7 +192,7 @@ function renderFilteredList() {
                 renderNewPage();
             } 
 }
-function renderClearBtn() {
+export function renderClearBtn() {
     let clearBtn = document.getElementById('clear');
     if (clearBtn) {
         return;
@@ -217,7 +217,16 @@ function clearList() {
     setYear();
     setGenre();
     clear.remove();
+    mainBtnsEls.style.display = "flex";
  }
+
+// listEl.addEventListener('click', onBackdropClose);
+//  const onBackdropClose = e => {
+//   if (e.target === e.currentTarget) {
+//      filterListYears.classList.add('is-hidden');
+//   }
+// };
+
 filterYears.addEventListener('click', () => {
   filterListYears.classList.toggle('is-hidden');
   filterListGeners.classList.add('is-hidden');
