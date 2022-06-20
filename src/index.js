@@ -12,6 +12,7 @@ import './js/getTrendFilms';
 import './js/getGenres';
 import './js/apiVariables';
 import './js/slider';
+import './js/preloader';
 
 import './js/scrollUp';
 import './js/footer';
