@@ -17,62 +17,84 @@
             <ul class="header-btns">
                 <li class="header-btns__item"><button type="button" data-action="header-home-button"
                         class="header-btns__label is-current">Home</button> </li>
-                <li class="header-btns__item"><button type="button" data-action="header-library-button"
-                        class="header-btns__label">Log In</button></li>
+                <li class="header-btns__item">
+                    <button type="button" data-action="header-library-button" class="header-btns__label --is-hidden">
+                        My library
+                    </button>
+                </li>
+                <li class="header-btns__item">
+                    <button type="button" data-action="header-login-button" class="header-btns__label">
+                        Log In
+                    </button>
+                </li>
             </ul>
 
-           
-  
+
+
         </nav>
- <!-- color theme switcher -->
-   <div class="switch-container">
-    <svg class="switch-icon" width="19" height="19">
+        <!-- color theme switcher -->
+        <div class="switch-container">
+            <svg class="switch-icon" width="19" height="19">
                 <use href="./images/sprite.svg#icon-lamp-light-bulb-outline-svgrepo-com" />
             </svg>
-        <label class="switch ">
-            
-            <input type="checkbox" name="color" id="themeSwitcher">
-            <span class="slider" ></span>
-        </label>
-    </div>
-        <form class="header-form" id="search-form">
-            <input class="header-form__input" 
-            type="text" 
-            autocomplete="off" 
-            placeholder="Пошук фільмів" 
-            id="input-form" 
-            name="searchQuery"/>
+            <label class="switch ">
+
+                <input type="checkbox" name="color" id="themeSwitcher">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <div class="header-main">
+            <form class="header-form" id="search-form">
+                <input class="header-form__input" type="text" autocomplete="off" placeholder="Пошук фільмів"
+                    id="input-form" name="searchQuery" />
 
 
-            <button type="submit" data-action="search-button" class="header-form__search">
-                <svg width="12" height="12">
-                    <use href="./images/sprite.svg#search" />
-                </svg>
-            </button>
-        </form>
+                <button type="submit" data-action="search-button" class="header-form__search">
+                    <svg width="12" height="12">
+                        <use href="./images/sprite.svg#search" />
+                    </svg>
+                </button>
+            </form>
 
 
 
-<!-- Sort buttons -->
-<div class="filters">
-    <div class="filter filter__ganres ">
-        <p class="filter--title filter--title__genres">GENRES &#9660</p>
-        <ul class="filter--list filter--list__genres is-hidden"></ul>
-    </div>
-    <div class="filter filter__years">
-        <p class="filter--title filter--title__years ">YEARS &#9660</p>
-        <ul class="filter--list filter--list__years is-hidden"></ul>
-    </div>
-     <!-- Sort buttons -->
-    <select name="select" id="select" class="filter header__select">
-        <option class="filter--title">SORT BY &#9660</option>
-        <option class="header__select--item" value="popularity-descending">Popularity&#129047</option>
-        <option value="popularity-ascending">Popularity&#129045</option>
-        <option value="date-descending">Date&#129047</option>
-        <option value="date-ascending">Date&#129045</option>
-        <option value="title-a">Title (A-Z)</option>
-        <option value="title-z">Title (Z-A)</option>
-    </select>
-</div>
+            <!-- Sort buttons -->
+            <div class="filters">
+                <div class="filter filter__ganres ">
+                    <p class="filter--title filter--title__genres">GENRES &#9660</p>
+                    <ul class="filter--list filter--list__genres is-hidden"></ul>
+                </div>
+                <div class="filter filter__years">
+                    <p class="filter--title filter--title__years ">YEARS &#9660</p>
+                    <ul class="filter--list filter--list__years is-hidden"></ul>
+                </div>
+                <!-- Sort buttons -->
+                <select name="select" id="select" class="filter header__select">
+                    <option class="filter--title">SORT BY &#9660</option>
+                    <option class="header__select--item" value="popularity-descending">Popularity&#129047</option>
+                    <option value="popularity-ascending">Popularity&#129045</option>
+                    <option value="date-descending">Date&#129047</option>
+                    <option value="date-ascending">Date&#129045</option>
+                    <option value="title-a">Title (A-Z)</option>
+                    <option value="title-z">Title (Z-A)</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="header-main__library --is-hidden">
+            <ul class="header-library__list">
+                <li class="header-library__item">
+                    <button class="header-library__btn">
+                        WATCHED
+                    </button>
+                </li>
+                <li class="header-library__item">
+                    <button class="header-library__btn">
+                        QUEUE
+                    </button>
+                </li>
+            </ul>
+        </div>
 
 </header>
