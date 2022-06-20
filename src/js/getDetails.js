@@ -35,12 +35,7 @@ const detCloseBtn = document.querySelector('.details__close-button');
 
 const clickForDetails = e => {
   e.preventDefault();
-
-  detailsModal.classList.remove('isHidden');
-  backdropDetails.classList.add('isAppeared');
-  setTimeout(() => {
-    modal.classList.add('isAppeared');
-  }, 1000);
+  windowAppear();
 
   const uid = auth.lastNotifiedUid;
   let watchedArr = [];
@@ -71,14 +66,6 @@ const clickForDetails = e => {
 
   clearInfo();
 
-  // setTimeout(() => {
-  // detailsModal.classList.remove('isHidden');
-  // backdropDetails.classList.add('isAppeared');
-  // setTimeout(() => {
-  //   modal.classList.add('isAppeared');
-  // }, 2500);
-  // }, 500);
-  // console.log(e.target);// начнем-с
   if (
     e.target.nodeName === 'UL'
     // ||
@@ -117,9 +104,12 @@ export async function getDetails(movieId) {
     release_date,
   } = details;
 
-  backdropDetails.style.backgroundImage = `url(${
-    BACKDROP_URL + backdrop_path
-  })`;
+  const backdropImg = `url(${BACKDROP_URL + backdrop_path})`;
+  if (backdrop_path === null) {
+    backdropDetails.style.backgroundColor = 'rgba(0, 0, 0, 0.8';
+  } else {
+    backdropDetails.style.backgroundImage = backdropImg;
+  }
   //дописать логику отсутствия
 
   const genreArr = genres.map(genre => genre.name);
@@ -228,6 +218,14 @@ function checkArr(arr, movieID, arrName) {
       removeBtn.classList.remove('isHidden');
     }
   }
+}
+
+function windowAppear() {
+  detailsModal.classList.remove('isHidden');
+  backdropDetails.classList.add('isAppeared');
+  setTimeout(() => {
+    modal.classList.add('isAppeared');
+  }, 1000);
 }
 
 window.addEventListener('keydown', closeByEsc);
