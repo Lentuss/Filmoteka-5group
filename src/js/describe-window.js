@@ -1,16 +1,16 @@
 import throttle from 'lodash.throttle';
 
-const refs = {
-  describeModal: document.querySelector('.describe-modal'),
-  describeCloseBtn: document.querySelector('.describe-modal__close'),
-};
+
+const describeModal = document.querySelector('.describe-modal');
+const describeCloseBtn = document.querySelector('.describe-modal__close');
+
 
 setTimeout(() => {
-  refs.describeModal.classList.remove('isHidden');
-}, 5000);
+  describeModal.classList.remove('isHidden');
+}, 10000);
 
 function closeModal() {
-  refs.describeModal.classList.add('isHidden');
+  describeModal.classList.add('isHidden');
 }
 
 function closeByEscape(event) {
@@ -19,7 +19,7 @@ function closeByEscape(event) {
   }
 }
 
-refs.describeCloseBtn.addEventListener('click', closeModal);
+describeModal.addEventListener('click', closeModal);
 window.addEventListener('keydown', closeByEscape);
 
 const KEY = 'describe-form';
