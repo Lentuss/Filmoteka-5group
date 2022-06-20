@@ -1,22 +1,48 @@
 import throttle from 'lodash.throttle';
 
-// початок
-// import BSN from 'bootstrap.native';
 
-const modal = new BSN.Modal('#exampleModal');
-console.log(modal);
+const refs = {
+notification: document.querySelector(`.js-alert`)
+}
 
+refs.notification.addEventListener('click', onNotificationClick);
+showNotification();
+
+function onNotificationClick() {
+  hideNotification();
+}
+
+function showNotification() {
+  refs.notification.classList.add('is-visible');
+}
+
+function hideNotification() {
+refs.notification.classList.remove('is-visible')
+}
+
+const modal = document.querySelector('.describe-modal');
 const PROMPT_DELAY = 3000;
-
-setTimeout(() => {
+  setTimeout(() => {
   modal.show();
-}, PROMPT_DELAY);
-// end
+ }, PROMPT_DELAY);
+// // початок
+// // import BSN from 'bootstrap.native';
 
-const KEY = 'feedback-form-state';
+// const modal = new Modal('#exampleModal');
+// console.log(modal);
+
+// const PROMPT_DELAY = 3000;
+
+// setTimeout(() => {
+//   modal.show();
+// }, PROMPT_DELAY);
+// // end
+
+// const KEY = 'feedback-form-state';
+const KEY = 'describe-form';
 const inputData = {};
 
-const form = document.querySelector('.feedback-form');
+const form = document.querySelector('.describe-form');
 
 form.addEventListener('submit', onFormSubmit);
 form.addEventListener('input', throttle(onFormInput, 500));
@@ -26,17 +52,19 @@ updateForm();
 function updateForm() {
   const savedData = localStorage.getItem(KEY);
   if (savedData) {
-    const { email, message } = JSON.parse(savedData);
+    const { username, email } = JSON.parse(savedData);
+    form.username.value = username;
     form.email.value = email;
-    form.message.value = message;
+    inputData.username = username;
     inputData.email = email;
-    inputData.message = message;
+    
   }
 }
 
 function onFormInput(event) {
+  inputData.username = form.elements.username.value;
   inputData.email = form.elements.email.value;
-  inputData.message = form.elements.message.value;
+  
   localStorage.setItem(KEY, JSON.stringify(inputData));
 }
 
