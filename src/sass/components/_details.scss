@@ -13,6 +13,8 @@
         transition: 0.5s linear;
 
         overflow-y: scroll;
+        opacity: 0;
+        transition: opacity 500ms linear;
       
         // background-image: url(https://image.tmdb.org/t/p/original/rlCRM7U5g2hcU1O8ylGcqsMYHIP.jpg);
         background-repeat: no-repeat;
@@ -27,11 +29,13 @@
         top: 20px;
 
         z-index: 2;
+        opacity: 0;
         
         padding: 48px 20px 40px;
 
         background-color: rgb(255, 255, 255);
         opacity: 0;
+        transition: opacity 1500ms linear;
     
  
         @include respond-to (tablet){
@@ -262,4 +266,9 @@
     padding: 0;
     clip: rect(0 0 0 0);
     overflow: hidden;
+}
+
+.isAppeared{
+    opacity: 1;
+    
 }

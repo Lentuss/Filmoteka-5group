@@ -40,6 +40,12 @@ const detCloseBtn = document.querySelector('.details__close-button');
 const clickForDetails = e => {
   e.preventDefault();
 
+  detailsModal.classList.remove('isHidden');
+  backdropDetails.classList.add('isAppeared');
+  setTimeout(() => {
+    modal.classList.add('isAppeared');
+  }, 2500);
+
   const uid = auth.lastNotifiedUid;
   let watchedArr = [];
   let queueArr = [];
@@ -69,9 +75,13 @@ const clickForDetails = e => {
 
   clearInfo();
 
-  const modalIsOpen = setTimeout(() => {
-    detailsModal.classList.remove('isHidden');
-  }, 500);
+  // setTimeout(() => {
+  // detailsModal.classList.remove('isHidden');
+  // backdropDetails.classList.add('isAppeared');
+  // setTimeout(() => {
+  //   modal.classList.add('isAppeared');
+  // }, 2500);
+  // }, 500);
   // console.log(e.target);// начнем-с
   if (
     e.target.nodeName === 'UL'
@@ -117,10 +127,6 @@ export async function getDetails(movieId) {
   //дописать логику отсутствия
 
   const genreArr = genres.map(genre => genre.name);
-
-  setTimeout(() => {
-    modal.style.opacity = '1'; //на транзишн и повторы исправить
-  }, 1500);
 
   box.setAttribute('data-id', `${id}`);
   box.setAttribute('data-date', `${release_date.slice(0, 4)}`);
@@ -195,17 +201,19 @@ const onClose = e => {
   detailsModal.classList.add('isHidden');
   backdropDetails.style.backgroundColor = 'black';
   backdropDetails.style.backgroundImage = 'url(#)';
+  modal.classList.remove('isAppeared');
+  backdropDetails.classList.remove('isAppeared');
 };
 
 const closeByEsc = e => {
-  //   e.preventDefault();
   if (e.code === 'Escape') {
     detailsModal.classList.add('isHidden');
+    modal.classList.remove('isAppeared');
+    backdropDetails.classList.remove('isAppeared');
   }
 };
 
 const onBackdropClose = e => {
-  //   e.preventDefault();
   if (e.target === e.currentTarget) {
     onClose();
   }
