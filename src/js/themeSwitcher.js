@@ -11,6 +11,7 @@ const buttonWeek = document.querySelector("#button-color-week");
 
 // footer.setAttribute("id","footer-switch");
 
+
 checkbox.addEventListener("change", onSwitchClick);
 
 

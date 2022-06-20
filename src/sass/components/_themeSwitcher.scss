@@ -10,8 +10,9 @@ color: #000000;
 }
 
 .dark-on {
-  background-color: #333;
-  width: 100%;
+
+background: rgb(13,6,0);
+background: radial-gradient(circle, rgba(13,6,0,0.8491771708683473) 86%, rgba(18,1,1,0.8855917366946778) 100%);
  color: #fff;
 }
 
