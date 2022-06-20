@@ -2,15 +2,16 @@
     @include centered;
     margin: 0 auto;
     font-family: 'Roboto';
-    @include respond-to(mobile) {
+    @include respond-to(mobile-only) {
+        width: 300px;
         flex-wrap: wrap;
+        align-items: center;
     }
 }
 
 .filter{
     cursor: pointer;
     position: relative;
-    margin-right: 15px;
     background-color:rgba($color: $footer-text-color, $alpha: 0.8);
         &:hover .filter--title::after{
         width: 100%;
@@ -20,9 +21,15 @@
         &:hover .filter--list{
             left: 0;
         }
+        &:not(:last-child){
+            margin-right: 15px;
+        }
         @include respond-to(mobile-only) {
             &:not(:last-child) {
                 margin-bottom: 20px;
+                &:nth-child(2n+2){
+                    margin-right: 0;
+                }    
             }
         } 
 }
