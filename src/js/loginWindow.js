@@ -49,7 +49,10 @@ const db = getDatabase(app);
 const auth = getAuth(app);
 
 const Refs = {
-  headLogInBtn: document.querySelector('[data-action="header-library-button"]'),
+  headLogInBtn: document.querySelector('[data-action="header-login-button"]'),
+  headLibraryBtn: document.querySelector(
+    '[data-action="header-library-button"]'
+  ),
   backdrop: document.querySelector('[data-backdrop]'),
   closeModalBtn: document.querySelector('[data-modal-close]'),
   signUpBtnWindow: document.querySelector('.signUpBtn-JS'),
@@ -191,6 +194,7 @@ onAuthStateChanged(auth, user => {
     Refs.signUpDiv.setAttribute('style', 'display:none');
     Refs.logOutBtn.classList.remove('--is-hidden');
     Refs.headLogInBtn.textContent = 'User Profile';
+    Refs.headLibraryBtn.classList.remove('--is-hidden');
 
     const uid = user.uid;
     console.log(`User ${uid} Is Logged In`);
@@ -210,6 +214,8 @@ onAuthStateChanged(auth, user => {
     Refs.logInDiv.setAttribute('style', 'display:flex');
     Refs.signUpDiv.setAttribute('style', 'display:flex');
     Refs.headLogInBtn.textContent = 'Log In';
+    Refs.headLibraryBtn.classList.add('--is-hidden');
+
     console.log('User Is Signed Out');
   }
 });

@@ -18,3 +18,5 @@ import './js/footer';
 import './js/themeSwitcher';
 
 import './js/getFiler';
+
+import './js/myLibrary';
