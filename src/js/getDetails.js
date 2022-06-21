@@ -221,7 +221,10 @@ const onClose = e => {
   modal.classList.remove('isAppeared');
   backdropDetails.classList.remove('isAppeared');
 
-  if (headerLibraryWatchedBtn.classList.contains('--is-active')) {
+  if (
+    myLibBtn.classList.contains('is-current') &&
+    headerLibraryWatchedBtn.classList.contains('--is-active')
+  ) {
     activeLibraryList(watchedDataBase);
   } else if (headerLibraryQueueBtn.classList.contains('--is-active')) {
     activeLibraryList(queueDataBase);
