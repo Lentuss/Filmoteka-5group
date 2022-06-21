@@ -51,7 +51,7 @@ export async function getTrendFilms() {
   try {
     const requestedFilms = await getFilmsApiService.getTrendFilms(BASE_URL);
     onGetSucces(requestedFilms);
-    console.log(requestedFilms);
+    // console.log(requestedFilms);
   } catch (error) {
     onGetError();
   }
