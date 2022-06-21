@@ -18,7 +18,8 @@
                 <li class="header-btns__item"><button type="button" data-action="header-home-button"
                         class="header-btns__label is-current homeBtn">Home</button> </li>
                 <li class="header-btns__item">
-                    <button type="button" data-action="header-library-button" class="header-btns__label --is-hidden libraryBtn">
+                    <button type="button" data-action="header-library-button"
+                        class="header-btns__label --is-hidden libraryBtn">
                         My library
                     </button>
                 </li>
@@ -57,10 +58,7 @@
                 </button>
             </form>
 
-<!-- Error-message -->
-        <p class="search-error visually-hidden">
-            Search result not successful. Enter the correct movie name.
-        </p>
+
 
             <!-- Sort buttons -->
             <div class="filters">
@@ -75,13 +73,14 @@
                 <!-- Sort buttons -->
                 <select name="select" id="select" class="filter header__select">
                     <option class="filter--title">SORT BY &#9660</option>
-                    <option class="header__select--item" value="popularity-descending">Popularity&#129047</option>
-                    <option value="popularity-ascending">Popularity&#129045</option>
-                    <option value="date-descending">Date&#129047</option>
-                    <option value="date-ascending">Date&#129045</option>
-                    <option value="title-a">Title (A-Z)</option>
-                    <option value="title-z">Title (Z-A)</option>
+                    <option value="popularity.desc">Popularity Up</option>
+                    <option value="popularity.asc">Popularity Down</option>
+                    <option value="release_date.desc">Date Up</option>
+                    <option value="release_date.asc">Date Down</option>
+                    <option value="original_title.asc">Title (A-Z)</option>
+                    <option value="original_title.desc">Title (Z-A)</option>
                 </select>
+
             </div>
         </div>
 

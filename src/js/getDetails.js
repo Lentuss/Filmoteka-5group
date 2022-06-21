@@ -44,12 +44,11 @@ const backdropDetails = document.querySelector('.details__backdrop');
 const modal = document.querySelector('.details__modal');
 const box = document.querySelector('.details__box');
 const detCloseBtn = document.querySelector('.details__close-button');
+const sliderItem = document.querySelector('.slider-item');
+const sliderTrack = document.querySelector('.slider-track');
 
-// если нет постера
-//если нет бекдропа
 //on slider??
 ///проверки
-//стили жанров мобилки/таблетки
 //убрать клик с жанров
 
 const clickForDetails = e => {
@@ -92,7 +91,8 @@ const clickForDetails = e => {
   ) {
     return;
   }
-  const movieId = e.target.closest('LI').dataset.movieid;
+
+  const movieId = e.target.closest('[data-movieId]').dataset.movieid;
 
   checkArr(watchedArr, movieId, 'Watched');
   checkArr(queueArr, movieId, 'Queue');
@@ -133,7 +133,13 @@ export async function getDetails(movieId) {
     }
   }
 
-  const genreArr = genres.map(genre => genre.name);
+  let posterPicture = `${IMAGE_URL + poster_path}`;
+  if (poster_path === null) {
+    posterPicture =
+      'https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg';
+  }
+
+  const allGenres = genres.map(genre => genre.name).join(', ');
 
   box.setAttribute('data-id', `${id}`);
   box.setAttribute('data-date', `${release_date.slice(0, 4)}`);
@@ -142,7 +148,7 @@ export async function getDetails(movieId) {
 
   const markupImg = `<div class="details__poster">
                     <img class="details__image"
-                        src="${IMAGE_URL + poster_path}" alt="${title}poster"
+                        src="${posterPicture}" alt="${title}poster"
                         width="375px" />
                 </div>`;
 
@@ -172,7 +178,7 @@ export async function getDetails(movieId) {
                         <li>
                             <span class="details__attribute">Genre
                             </span>
-                            <span class="details__attribute-value details__genre">${genreArr}</span>
+                            <span class="details__attribute-value details__genre">${allGenres}</span>
                         </li>
                     </ul>
                     <p class="details__subtitle">about</p>
@@ -182,6 +188,8 @@ export async function getDetails(movieId) {
   box.insertAdjacentHTML('afterbegin', markupImg);
   infoBox.insertAdjacentHTML('afterbegin', markup);
 }
+
+sliderTrack.addEventListener('click', clickForDetails);
 
 //+++++close-modal++++++
 
@@ -231,6 +239,10 @@ const onBackdropClose = e => {
     onClose();
   }
 };
+
+window.addEventListener('keydown', closeByEsc);
+detCloseBtn.addEventListener('click', onClose);
+backdropDetails.addEventListener('click', onBackdropClose);
 
 function checkArr(arr, movieID, arrName) {
   const selector = arrName;
