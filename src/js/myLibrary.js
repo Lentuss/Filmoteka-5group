@@ -1,5 +1,5 @@
 // убрать margin у наташи
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { getAuth } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 
 import { getDatabase, ref, onValue } from 'firebase/database';
@@ -48,9 +48,11 @@ headerLibraryWatchedBtn.addEventListener('click', onCLickWatchedBtn);
 headerLibraryQueueBtn.addEventListener('click', onClickQueueBtn);
 
 function onClickQueueBtn() {
+  headerLibraryQueueBtn.classList.add('--is-active');
+  headerLibraryWatchedBtn.classList.remove('--is-active');
   listEl.innerHTML = '';
   loaderEl.style.display = 'block';
-  createMurkUpLibraryList(queueDataBase);
+  createMarkUpLibraryList(queueDataBase);
   listEl.classList.add('--is-hidden');
 
   setTimeout(() => {
@@ -60,9 +62,11 @@ function onClickQueueBtn() {
 }
 
 function onCLickWatchedBtn() {
+  headerLibraryQueueBtn.classList.remove('--is-active');
+  headerLibraryWatchedBtn.classList.add('--is-active');
   listEl.innerHTML = '';
   loaderEl.style.display = 'block';
-  createMurkUpLibraryList(watchedDataBase);
+  createMarkUpLibraryList(watchedDataBase);
   listEl.classList.add('--is-hidden');
 
   setTimeout(() => {
@@ -95,7 +99,7 @@ function onClickLibraryBtn(e) {
     watchedDataBase = data.watched;
     queueDataBase = data.queue;
   });
-  createMurkUpLibraryList(watchedDataBase);
+  createMarkUpLibraryList(watchedDataBase);
   listEl.classList.add('--is-hidden');
 
   setTimeout(() => {
@@ -123,17 +127,33 @@ function onClickHomeBtn(e) {
   }, 1000);
 }
 
-function createMurkUpLibraryList(requestedFilms) {
+export function createMarkUpLibraryList(requestedFilms) {
   for (const key in requestedFilms) {
     if (Object.hasOwnProperty.call(requestedFilms, key)) {
       const element = requestedFilms[key];
       const { movieID, title, img, genres, year } = element;
 
+      // console.log(genres);
+      const splittedGenre = genres.split(',');
+
+      const [firstGenre, secondGenre] = splittedGenre;
+      const genresForRender = [];
+
+      if (splittedGenre.length > 2) {
+        genresForRender.push(firstGenre, secondGenre, 'Other');
+      } else if (splittedGenre.length === 2) {
+        genresForRender.push(firstGenre, secondGenre);
+      } else if (splittedGenre.length === 1) {
+        genresForRender.push(firstGenre);
+      } else {
+        genresForRender.push('Unknown');
+      }
+
       const r = `<li class="main__movie-card-item" data-movieId="${movieID}">
         <img class="main__movie-img" src="${img}" alt="${title}">
         <div class="main__movie-info">
         <h2 class="main__movie-title" id="title-color">${title}</h2>
-        <p class="main__movie-genre">${genres}<span class="main__movie-year">${year}</span></p>
+        <p class="main__movie-genre">${genresForRender}<span class="main__movie-year">${year}</span></p>
         </div>
         </li>`;
 
