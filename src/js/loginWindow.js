@@ -373,6 +373,7 @@ function addMovieInfoToDataBaseWatch(movieID, title, img, genres, year, uid) {
   const db = getDatabase();
 
   set(ref(db, 'users/' + uid + '/watched' + `/${movieID}`), {
+    movieID,
     title,
     img,
     genres,
@@ -390,6 +391,7 @@ function addMovieInfoToDataBaseQueue(movieID, title, img, genres, year, uid) {
   const db = getDatabase();
 
   set(ref(db, 'users/' + uid + '/queue' + `/${movieID}`), {
+    movieID,
     title,
     img,
     genres,

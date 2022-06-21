@@ -19,6 +19,25 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getDatabase(app);
 
+// ===================================
+import { createMarkUpLibraryList } from './myLibrary';
+let watchedDataBase = [];
+let queueDataBase = [];
+let watchedArr = [];
+let queueArr = [];
+
+const homeBtn = document.querySelector('[data-action="header-home-button"]');
+const myLibBtn = document.querySelector(
+  '[data-action="header-library-button"]'
+);
+const headerLibraryWatchedBtn = document.querySelector(
+  '#header-libraryWatched__btn'
+);
+const headerLibraryQueueBtn = document.querySelector(
+  '#header-libraryQueue__btn'
+);
+// ======================================
+
 const moviesList = document.querySelector('.main__movie-card-list');
 const detailsModal = document.querySelector('.details');
 const backdropDetails = document.querySelector('.details__backdrop');
@@ -37,20 +56,21 @@ const clickForDetails = e => {
   windowAppear();
 
   const uid = auth.lastNotifiedUid;
-  let watchedArr = [];
-  let queueArr = [];
 
   if (uid) {
     const allInfo = ref(db, 'users/' + uid);
     const ifOnValue = onValue(allInfo, snapshot => {
       const data = snapshot.val();
-
       if (!data) {
         console.log('All Data Base Is Empty');
       } else {
         if (!data.watched) {
+          watchedDataBase = data.watched;
+
           console.log('watched Base Is Empty');
         } else {
+          queueDataBase = data.queue;
+
           watchedArr = Object.keys(data.watched);
         }
 
@@ -200,6 +220,12 @@ const onClose = e => {
   backdropDetails.style.backgroundImage = 'url(#)';
   modal.classList.remove('isAppeared');
   backdropDetails.classList.remove('isAppeared');
+
+  if (headerLibraryWatchedBtn.classList.contains('--is-active')) {
+    activeLibraryList(watchedDataBase);
+  } else if (headerLibraryQueueBtn.classList.contains('--is-active')) {
+    activeLibraryList(queueDataBase);
+  }
 };
 
 const closeByEsc = e => {
@@ -242,3 +268,13 @@ function windowAppear() {
     modal.classList.add('isAppeared');
   }, 1000);
 }
+
+function activeLibraryList(arr) {
+  const listEl = document.querySelector('.main__movie-card-list');
+  listEl.innerHTML = '';
+  createMarkUpLibraryList(arr);
+}
+
+window.addEventListener('keydown', closeByEsc);
+detCloseBtn.addEventListener('click', onClose);
+backdropDetails.addEventListener('click', onBackdropClose);
