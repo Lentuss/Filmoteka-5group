@@ -1,8 +1,6 @@
 import { SEARCH_URL } from "./apiVariables";
 import GetFilmsApiService from './getFilmsApiService';
 import { createListMarkup } from './renderFilms';
-import { getTrendingFilmsForSlider } from './slider'
-// import { getTrendFilms } from "./getTrendFilms";
 
 const movieAPIService = new GetFilmsApiService();
 
@@ -38,8 +36,7 @@ async function getFilms() {
             if (movieFromApi.total_results === 0) {                
                 loaderEl.style.display = "none";
                 mainBtnsEls.style.display = "none";
-                failedSearch.classList.remove("visually-hidden");
-                // getTrendFilms();     
+                failedSearch.classList.remove("visually-hidden");    
             } else {                
                 onGetSucces(movieFromApi);                
             }
@@ -47,8 +44,7 @@ async function getFilms() {
         } else {
             mainBtnsEls.style.display = "none";
             loaderEl.style.display = "none";
-            failedSearch.classList.remove("visually-hidden");
-            // getTrendFilms();            
+            failedSearch.classList.remove("visually-hidden");          
         }
         
     } catch (error) {
@@ -77,7 +73,6 @@ function cleanMarkup() {
 }
 
 // infinite scroll
-
 
 const options = {
     intersectionObserver: {

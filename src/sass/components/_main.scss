@@ -2,11 +2,6 @@
     background-color: $header-text-color;
     padding-top: 20px;
     padding-bottom: 20px;
-
-    // @media screen and (min-width: 768px) {
-    //     padding-top: 60px;
-    //     padding-bottom: 60px;
-    // }
 }
 
 .container {
@@ -172,7 +167,7 @@
     content: '';
     width: 1px;
     height: 10px;
-    margin: 0 3px;
+    margin: 0 5px;
     display: inline-block;
     background-color: $accent-color;
 }
