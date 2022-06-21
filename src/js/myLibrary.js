@@ -20,30 +20,7 @@ const db = getDatabase(app);
 const uid = auth.lastNotifiedUid;
 
 import { renderNewPage } from './getTrendFilms';
-
 import { createListMarkup } from './renderFilms';
-
-// onAuthStateChanged(auth, user => {
-//   if (user) {
-//     // User is signed in, see docs for a list of available properties
-//     // https://firebase.google.com/docs/reference/js/firebase.User
-
-//     const uid = user.uid;
-//     // console.log(`User ${uid} Is Logged In`);
-
-//     const allInfo = ref(db, 'users/' + uid);
-//     onValue(allInfo, snapshot => {
-//       const data = snapshot.val();
-//       console.log(data);
-//       // console.log(data.queue);
-//       // updateStarCount(postElement, data);
-//     });
-//   } else {
-//     // User is signed out
-
-//     console.log('User Is Signed Out');
-//   }
-// });
 
 const myLibBtn = document.querySelector(
   '[data-action="header-library-button"]'
@@ -66,6 +43,7 @@ function onClickLibraryBtn(e) {
   mainBtnList.classList.add('--is-hidden');
   homeBtn.classList.remove('is-current');
   myLibBtn.classList.add('is-current');
+  listEl.innerHTML = '';
 
   let watchedDataBase = {};
   const uid = auth.lastNotifiedUid;
