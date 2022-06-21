@@ -7,7 +7,7 @@ const describeCloseBtn = document.querySelector('.describe-modal__close');
 
 setTimeout(() => {
   describeModal.classList.remove('isHidden');
-}, 10000);
+}, 8000);
 
 function closeModal() {
   describeModal.classList.add('isHidden');
@@ -19,7 +19,7 @@ function closeByEscape(event) {
   }
 }
 
-describeModal.addEventListener('click', closeModal);
+describeCloseBtn.addEventListener('click', closeModal);
 window.addEventListener('keydown', closeByEscape);
 
 const KEY = 'describe-form';
