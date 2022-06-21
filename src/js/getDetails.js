@@ -25,6 +25,7 @@ const backdropDetails = document.querySelector('.details__backdrop');
 const modal = document.querySelector('.details__modal');
 const box = document.querySelector('.details__box');
 const detCloseBtn = document.querySelector('.details__close-button');
+const sliderItem = document.querySelector('.slider-item');
 
 // если нет постера
 //если нет бекдропа
@@ -115,6 +116,12 @@ export async function getDetails(movieId) {
     }
   }
 
+  let posterPicture = `${IMAGE_URL + poster_path}`;
+  if (poster_path === null) {
+    posterPicture =
+      'https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg';
+  }
+
   const genreArr = genres.map(genre => genre.name);
 
   box.setAttribute('data-id', `${id}`);
@@ -124,7 +131,7 @@ export async function getDetails(movieId) {
 
   const markupImg = `<div class="details__poster">
                     <img class="details__image"
-                        src="${IMAGE_URL + poster_path}" alt="${title}poster"
+                        src="${posterPicture}" alt="${title}poster"
                         width="375px" />
                 </div>`;
 
