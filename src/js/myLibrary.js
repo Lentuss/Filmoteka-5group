@@ -35,6 +35,10 @@ const headerLibraryWatchedBtn = document.querySelector(
 const headerLibraryQueueBtn = document.querySelector(
   '#header-libraryQueue__btn'
 );
+const loaderEl = document.querySelector('.loader');
+
+loaderEl.style.display = 'none';
+
 let watchedDataBase = [];
 let queueDataBase = [];
 
@@ -45,18 +49,33 @@ headerLibraryQueueBtn.addEventListener('click', onClickQueueBtn);
 
 function onClickQueueBtn() {
   listEl.innerHTML = '';
-
+  loaderEl.style.display = 'block';
   createMurkUpLibraryList(queueDataBase);
+  listEl.classList.add('--is-hidden');
+
+  setTimeout(() => {
+    listEl.classList.remove('--is-hidden');
+    loaderEl.style.display = 'none';
+  }, 1000);
 }
 
 function onCLickWatchedBtn() {
   listEl.innerHTML = '';
-
+  loaderEl.style.display = 'block';
   createMurkUpLibraryList(watchedDataBase);
+  listEl.classList.add('--is-hidden');
+
+  setTimeout(() => {
+    listEl.classList.remove('--is-hidden');
+
+    loaderEl.style.display = 'none';
+  }, 1000);
 }
 
 function onClickLibraryBtn(e) {
   e.preventDefault();
+  loaderEl.style.display = 'block';
+
   headerMain.classList.add('--is-hidden');
   headLib.classList.remove('--is-hidden');
   mainBtnList.classList.add('--is-hidden');
@@ -70,19 +89,38 @@ function onClickLibraryBtn(e) {
   onValue(allInfo, snapshot => {
     const data = snapshot.val();
     // console.log(data);
+    if (!data) {
+      return;
+    }
     watchedDataBase = data.watched;
+    queueDataBase = data.queue;
   });
   createMurkUpLibraryList(watchedDataBase);
+  listEl.classList.add('--is-hidden');
+
+  setTimeout(() => {
+    listEl.classList.remove('--is-hidden');
+
+    loaderEl.style.display = 'none';
+  }, 1000);
 }
 
 function onClickHomeBtn(e) {
   e.preventDefault();
+  loaderEl.style.display = 'block';
+
   headerMain.classList.remove('--is-hidden');
   headLib.classList.add('--is-hidden');
   mainBtnList.classList.remove('--is-hidden');
   homeBtn.classList.add('is-current');
   myLibBtn.classList.remove('is-current');
   renderNewPage();
+  listEl.classList.add('--is-hidden');
+
+  setTimeout(() => {
+    listEl.classList.remove('--is-hidden');
+    loaderEl.style.display = 'none';
+  }, 1000);
 }
 
 function createMurkUpLibraryList(requestedFilms) {
