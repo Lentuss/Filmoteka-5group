@@ -26,12 +26,10 @@ const modal = document.querySelector('.details__modal');
 const box = document.querySelector('.details__box');
 const detCloseBtn = document.querySelector('.details__close-button');
 const sliderItem = document.querySelector('.slider-item');
+const sliderTrack = document.querySelector('.slider-track');
 
-// если нет постера
-//если нет бекдропа
 //on slider??
 ///проверки
-//стили жанров мобилки/таблетки
 //убрать клик с жанров
 
 const clickForDetails = e => {
@@ -75,7 +73,8 @@ const clickForDetails = e => {
   ) {
     return;
   }
-  const movieId = e.target.closest('LI').dataset.movieid;
+
+  const movieId = e.target.closest('[data-movieId]').dataset.movieid;
 
   checkArr(watchedArr, movieId, 'Watched');
   checkArr(queueArr, movieId, 'Queue');
@@ -171,6 +170,8 @@ export async function getDetails(movieId) {
   box.insertAdjacentHTML('afterbegin', markupImg);
   infoBox.insertAdjacentHTML('afterbegin', markup);
 }
+
+sliderTrack.addEventListener('click', clickForDetails);
 
 //+++++close-modal++++++
 
