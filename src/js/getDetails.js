@@ -208,6 +208,10 @@ const onBackdropClose = e => {
   }
 };
 
+window.addEventListener('keydown', closeByEsc);
+detCloseBtn.addEventListener('click', onClose);
+backdropDetails.addEventListener('click', onBackdropClose);
+
 function checkArr(arr, movieID, arrName) {
   const selector = arrName;
 
@@ -230,7 +234,3 @@ function windowAppear() {
     modal.classList.add('isAppeared');
   }, 1000);
 }
-
-window.addEventListener('keydown', closeByEsc);
-detCloseBtn.addEventListener('click', onClose);
-backdropDetails.addEventListener('click', onBackdropClose);
