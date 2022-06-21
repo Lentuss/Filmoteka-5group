@@ -1,15 +1,12 @@
-
-
-
 const body = document.querySelector('body');
 const checkbox = document.querySelector('input[type="checkbox"]');
 const section = document.querySelector("#section-switch");
-// const footer = document.querySelector("#footer-switch");
+const footer = document.querySelector("#footer-switch");
 
 const buttonDay = document.querySelector("#button-color-day");
 const buttonWeek = document.querySelector("#button-color-week");
 
-// footer.setAttribute("id","footer-switch");
+const movieTitle = document.querySelector("#title-color");
 
 
 checkbox.addEventListener("change", onSwitchClick);
@@ -21,6 +18,7 @@ function onSwitchClick(){
       body.classList.add('dark-theme');
       body.classList.remove('light-theme');
       
+      document.getElementById("title-color").style.color = '#fff';
 
       section.classList.add('dark-on');
       section.classList.remove('light-on');
@@ -31,14 +29,19 @@ function onSwitchClick(){
       buttonWeek.classList.add('button-dark');
       buttonWeek.classList.remove('button-ligh');
 
-      // footer.classList.add('dark-on');
-      // footerSwitch.classList.remove('light-on');
+      footer.classList.add('footer-dark');
+      footer.classList.remove('footer-light');
+
+      // movieTitle.classList.add('title-dark');
+      // movieTitle.classList.remove('title-light');
   
       } 
       
       else {
         body.classList.add('light-theme');
         body.classList.remove('dark-theme');
+
+        document.getElementById("title-color").style.color = '#333';
 
         section.classList.add('light-on');
         section.classList.remove('dark-on');
@@ -49,10 +52,13 @@ function onSwitchClick(){
         buttonWeek.classList.add('button-ligh');
         buttonWeek.classList.remove('button-dark');
 
-        // footer.classList.add('light-on');
-        // footer.classList.remove('dark-on');
+      footer.classList.add('footer-light');
+      footer.classList.remove('footer-dark');
+
+      // movieTitle.classList.add("title-light");
+      // movieTitle.classList.remove('title-dark');
+
+
   
     }
   }; 
-
-    

@@ -1,9 +1,7 @@
 import throttle from 'lodash.throttle';
 
-
 const describeModal = document.querySelector('.describe-modal');
 const describeCloseBtn = document.querySelector('.describe-modal__close');
-
 
 setTimeout(() => {
   describeModal.classList.remove('isHidden');
