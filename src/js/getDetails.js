@@ -122,7 +122,7 @@ export async function getDetails(movieId) {
       'https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg';
   }
 
-  const genreArr = genres.map(genre => genre.name);
+  const allGenres = genres.map(genre => genre.name).join(', ');
 
   box.setAttribute('data-id', `${id}`);
   box.setAttribute('data-date', `${release_date.slice(0, 4)}`);
@@ -161,7 +161,7 @@ export async function getDetails(movieId) {
                         <li>
                             <span class="details__attribute">Genre
                             </span>
-                            <span class="details__attribute-value details__genre">${genreArr}</span>
+                            <span class="details__attribute-value details__genre">${allGenres}</span>
                         </li>
                     </ul>
                     <p class="details__subtitle">about</p>
