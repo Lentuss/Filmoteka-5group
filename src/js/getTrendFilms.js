@@ -7,22 +7,12 @@ const listEl = document.querySelector('.main__movie-card-list');
 const btnDayEl = document.querySelector('.trends-of-day');
 const btnWeekEl = document.querySelector('.trends-of-week');
 
-// alex
-const myLibBtn = document.querySelector(
-  '[data-action="header-library-button"]'
-);
-const homeBtn = document.querySelector('[data-action="header-home-button"]');
-const headerMain = document.querySelector('.header-main');
-const headLib = document.querySelector('.header-main__library');
-const mainCont = document.querySelector('#main-container');
-//alex
-
 const getFilmsApiService = new GetFilmsApiService();
 
 btnDayEl.addEventListener('click', onBtnDayClick);
 btnWeekEl.addEventListener('click', onBtnWeekClick);
 
-// renderNewPage();
+renderNewPage();
 
 export function renderNewPage() {
   listEl.innerHTML = '';
@@ -44,6 +34,7 @@ export async function getTrendFilms() {
   try {
     const requestedFilms = await getFilmsApiService.getTrendFilms(BASE_URL);
     onGetSucces(requestedFilms);
+    console.log(requestedFilms);
   } catch (error) {
     onGetError();
   }
@@ -79,25 +70,3 @@ const observer = new IntersectionObserver(
   callback,
   options.intersectionObserver
 );
-
-// alex
-function onClickHomeBtn(e) {
-  const myLibBtn = document.querySelector(
-    '[data-action="header-library-button"]'
-  );
-  const homeBtn = document.querySelector('[data-action="header-home-button"]');
-  const headerMain = document.querySelector('.header-main');
-  const headLib = document.querySelector('.header-main__library');
-  const mainCont = document.querySelector('#main-container');
-
-  headerMain.classList.remove('--is-hidden');
-  headLib.classList.add('--is-hidden');
-  homeBtn.classList.add('is-current');
-  myLibBtn.classList.remove('is-current');
-  renderNewPage();
-}
-// alex
-
-// alex
-homeBtn.addEventListener('click', onClickHomeBtn);
-// alex

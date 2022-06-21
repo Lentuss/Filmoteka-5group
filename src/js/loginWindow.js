@@ -20,7 +20,6 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
-  child,
 } from 'firebase/auth';
 import {
   getDatabase,
