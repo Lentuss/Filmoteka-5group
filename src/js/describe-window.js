@@ -1,9 +1,7 @@
 import throttle from 'lodash.throttle';
 
-
 const describeModal = document.querySelector('.describe-modal');
 const describeCloseBtn = document.querySelector('.describe-modal__close');
-
 
 setTimeout(() => {
   describeModal.classList.remove('isHidden');
@@ -19,7 +17,7 @@ function closeByEscape(event) {
   }
 }
 
-describeModal.addEventListener('click', closeModal);
+describeCloseBtn.addEventListener('click', closeModal);
 window.addEventListener('keydown', closeByEscape);
 
 const KEY = 'describe-form';
