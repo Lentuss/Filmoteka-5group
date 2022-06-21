@@ -120,6 +120,8 @@ function onClickHomeBtn(e) {
   myLibBtn.classList.remove('is-current');
   renderNewPage();
   listEl.classList.add('--is-hidden');
+  headerLibraryWatchedBtn.classList.remove('--is-active');
+  headerLibraryQueueBtn.classList.remove('--is-active');
 
   setTimeout(() => {
     listEl.classList.remove('--is-hidden');

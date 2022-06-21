@@ -61,14 +61,16 @@ const clickForDetails = e => {
     const allInfo = ref(db, 'users/' + uid);
     const ifOnValue = onValue(allInfo, snapshot => {
       const data = snapshot.val();
-      watchedDataBase = data.watched;
-      queueDataBase = data.queue;
       if (!data) {
         console.log('All Data Base Is Empty');
       } else {
         if (!data.watched) {
+          watchedDataBase = data.watched;
+
           console.log('watched Base Is Empty');
         } else {
+          queueDataBase = data.queue;
+
           watchedArr = Object.keys(data.watched);
         }
 
