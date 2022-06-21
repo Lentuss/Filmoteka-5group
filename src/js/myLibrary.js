@@ -20,7 +20,6 @@ const db = getDatabase(app);
 const uid = auth.lastNotifiedUid;
 
 import { renderNewPage } from './getTrendFilms';
-import { createListMarkup } from './renderFilms';
 
 const myLibBtn = document.querySelector(
   '[data-action="header-library-button"]'
@@ -30,11 +29,31 @@ const headerMain = document.querySelector('.header-main');
 const headLib = document.querySelector('.header-main__library');
 const listEl = document.querySelector('.main__movie-card-list');
 const mainBtnList = document.querySelector('.main__button-list');
-
-// const mainCont = document.querySelector('#main-container');
+const headerLibraryWatchedBtn = document.querySelector(
+  '#header-libraryWatched__btn'
+);
+const headerLibraryQueueBtn = document.querySelector(
+  '#header-libraryQueue__btn'
+);
+let watchedDataBase = [];
+let queueDataBase = [];
 
 myLibBtn.addEventListener('click', onClickLibraryBtn);
 homeBtn.addEventListener('click', onClickHomeBtn);
+headerLibraryWatchedBtn.addEventListener('click', onCLickWatchedBtn);
+headerLibraryQueueBtn.addEventListener('click', onClickQueueBtn);
+
+function onClickQueueBtn() {
+  listEl.innerHTML = '';
+
+  createMurkUpLibraryList(queueDataBase);
+}
+
+function onCLickWatchedBtn() {
+  listEl.innerHTML = '';
+
+  createMurkUpLibraryList(watchedDataBase);
+}
 
 function onClickLibraryBtn(e) {
   e.preventDefault();
@@ -45,18 +64,15 @@ function onClickLibraryBtn(e) {
   myLibBtn.classList.add('is-current');
   listEl.innerHTML = '';
 
-  let watchedDataBase = {};
   const uid = auth.lastNotifiedUid;
   const allInfo = ref(db, 'users/' + uid);
 
   onValue(allInfo, snapshot => {
     const data = snapshot.val();
+    // console.log(data);
     watchedDataBase = data.watched;
-    // console.log(data.watched);
-    // console.log(data.queue);
   });
-  console.log(watchedDataBase);
-  //   createListMarkup(watchedDataBase);
+  createMurkUpLibraryList(watchedDataBase);
 }
 
 function onClickHomeBtn(e) {
@@ -67,4 +83,23 @@ function onClickHomeBtn(e) {
   homeBtn.classList.add('is-current');
   myLibBtn.classList.remove('is-current');
   renderNewPage();
+}
+
+function createMurkUpLibraryList(requestedFilms) {
+  for (const key in requestedFilms) {
+    if (Object.hasOwnProperty.call(requestedFilms, key)) {
+      const element = requestedFilms[key];
+      const { movieID, title, img, genres, year } = element;
+
+      const r = `<li class="main__movie-card-item" data-movieId="${movieID}">
+        <img class="main__movie-img" src="${img}" alt="${title}">
+        <div class="main__movie-info">
+        <h2 class="main__movie-title" id="title-color">${title}</h2>
+        <p class="main__movie-genre">${genres}<span class="main__movie-year">${year}</span></p>
+        </div>
+        </li>`;
+
+      listEl.insertAdjacentHTML('beforeend', r);
+    }
+  }
 }
