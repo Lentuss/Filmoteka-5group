@@ -1,7 +1,6 @@
 import { SEARCH_URL } from "./apiVariables";
 import GetFilmsApiService from './getFilmsApiService';
 import { createListMarkup } from './renderFilms';
-import { getTrendFilms } from "./getTrendFilms";
 
 const movieAPIService = new GetFilmsApiService();
 
@@ -9,7 +8,7 @@ const galleryEl = document.querySelector('.main__movie-card-list');
 const formEl = document.querySelector('.header-form');
 const mainBtnsEls = document.querySelector('.main__button-list');
 const loaderEl = document.querySelector('.loader');
-const failedSearch = document.querySelector('.search-error');
+const failedSearch = document.querySelector('.main__search-error');
 const sliderSection = document.querySelector('.slider-section');
 
 formEl.addEventListener('submit', onFormSubmit);
@@ -36,18 +35,16 @@ async function getFilms() {
             
             if (movieFromApi.total_results === 0) {                
                 loaderEl.style.display = "none";
-                mainBtnsEls.style.display = "flex";
-                failedSearch.classList.remove("visually-hidden");
-                getTrendFilms();                
+                mainBtnsEls.style.display = "none";
+                failedSearch.classList.remove("visually-hidden");    
             } else {                
                 onGetSucces(movieFromApi);                
             }
             
         } else {
-            mainBtnsEls.style.display = "flex";
+            mainBtnsEls.style.display = "none";
             loaderEl.style.display = "none";
-            failedSearch.classList.remove("visually-hidden");
-            getTrendFilms();            
+            failedSearch.classList.remove("visually-hidden");          
         }
         
     } catch (error) {
@@ -76,7 +73,6 @@ function cleanMarkup() {
 }
 
 // infinite scroll
-
 
 const options = {
     intersectionObserver: {

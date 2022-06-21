@@ -64,7 +64,7 @@ export function createListMarkup(requestedFilms) {
         <li class="main__movie-card-item" data-movieId="${id}">
         <img class="main__movie-img" src="${posterPicture}" alt="${original_title}">
         <div class="main__movie-info">
-        <h2 class="main__movie-title" id="title-color">${name}</h2>
+        <h2 class="main__movie-title">${name}</h2>
         <p class="main__movie-genre">${genresForRender.join(', ')}<span class="main__movie-year">${date}</span></p>
         <p class="main__movie-raiting">${vote_average}</p>
         </div>
