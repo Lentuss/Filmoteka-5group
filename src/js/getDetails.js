@@ -2,7 +2,6 @@ import { API_KEY, DETAILS_URL, IMAGE_URL, BACKDROP_URL } from './apiVariables';
 import axios from 'axios';
 import { getAuth } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
-import Notiflix from 'notiflix';
 
 import { getDatabase, ref, onValue } from 'firebase/database';
 const firebaseConfig = {
@@ -20,7 +19,6 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getDatabase(app);
 
-// ===================================
 import { createMarkUpLibraryList } from './myLibrary';
 import {
   addMovieInfoToDataBaseWatch,
@@ -34,17 +32,12 @@ let queueDataBase = [];
 let watchedArr = [];
 let queueArr = [];
 
-const homeBtn = document.querySelector('[data-action="header-home-button"]');
-const myLibBtn = document.querySelector(
-  '[data-action="header-library-button"]'
-);
 const headerLibraryWatchedBtn = document.querySelector(
   '#header-libraryWatched__btn'
 );
 const headerLibraryQueueBtn = document.querySelector(
   '#header-libraryQueue__btn'
 );
-// ======================================
 
 const moviesList = document.querySelector('.main__movie-card-list');
 const detailsModal = document.querySelector('.details');
@@ -55,19 +48,11 @@ const detCloseBtn = document.querySelector('.details__close-button');
 const sliderItem = document.querySelector('.slider-item');
 const sliderTrack = document.querySelector('.slider-track');
 
-//on slider??
-///проверки
-//убрать клик с жанров
-
 const clickForDetails = e => {
   e.preventDefault();
   windowAppear();
 
   const uid = auth.lastNotifiedUid;
-  const removeQBtn = document.querySelector(`.removeFromQueueBtn-JS`);
-  const addQBtn = document.querySelector(`.addToQueueBtn-JS`);
-  const removeWBtn = document.querySelector(`.removeFromWatchedBtn-JS`);
-  const addWBtn = document.querySelector(`.addToWatchedBtn-JS`);
   if (uid) {
     const allInfo = ref(db, 'users/' + uid);
     const ifOnValue = onValue(allInfo, snapshot => {
@@ -77,11 +62,11 @@ const clickForDetails = e => {
         watchedDataBase = [];
         queueArr = [];
         watchedArr = [];
-        console.log('All Data Base Is Empty');
+        // console.log('All Data Base Is Empty');
       } else {
         if (!data.watched) {
           watchedDataBase = [];
-          console.log('watched Base Is Empty');
+          // console.log('watched Base Is Empty');
         } else {
           watchedDataBase = data.watched;
           watchedArr = Object.keys(data.watched);
@@ -89,7 +74,7 @@ const clickForDetails = e => {
 
         if (!data.queue) {
           queueDataBase = [];
-          console.log('queue Base Is Empty');
+          // console.log('queue Base Is Empty');
         } else {
           queueDataBase = data.queue;
           queueArr = Object.keys(data.queue);
@@ -100,42 +85,36 @@ const clickForDetails = e => {
 
   clearInfo();
 
-  if (
-    e.target.nodeName === 'UL'
-    // ||
-    // e.target.nodeName === 'SPAN' ||
-    // e.target.nodeName === 'P'
-  ) {
+  if (e.target.nodeName === 'UL') {
     return;
   }
 
   const movieId = e.target.closest('[data-movieId]').dataset.movieid;
 
-  for (const item of watchedArr) {
-    if (item === movieId) {
-      console.log('we found same ID');
+  // for (const item of watchedArr) {
+  //   if (item === movieId) {
+  //     console.log('we found same ID');
 
-      const addBtn = document.querySelector(`.addToWatchedBtn-JS`);
-      const removeBtn = document.querySelector(`.removeFromWatchedBtn-JS`);
-      addBtn.classList.add('isHidden');
-      removeBtn.classList.remove('isHidden');
-    }
-  }
+  //     const addBtn = document.querySelector(`.addToWatchedBtn-JS`);
+  //     const removeBtn = document.querySelector(`.removeFromWatchedBtn-JS`);
+  //     addBtn.classList.add('isHidden');
+  //     removeBtn.classList.remove('isHidden');
+  //   }
+  // }
 
-  for (const item of queueArr) {
-    if (item === movieId) {
-      console.log('we found same ID');
+  // for (const item of queueArr) {
+  //   if (item === movieId) {
+  //     console.log('we found same ID');
 
-      const addBtn = document.querySelector(`.addToQueueBtn-JS`);
-      const removeBtn = document.querySelector(`.removeFromQueueBtn-JS`);
-      addBtn.classList.add('isHidden');
-      removeBtn.classList.remove('isHidden');
-    }
-  }
-  console.log(watchedArr);
-  console.log(queueArr);
-  // checkArr(watchedArr, movieId, 'Watched');
-  // checkArr(queueArr, movieId, 'Queue');
+  //     const addBtn = document.querySelector(`.addToQueueBtn-JS`);
+  //     const removeBtn = document.querySelector(`.removeFromQueueBtn-JS`);
+  //     addBtn.classList.add('isHidden');
+  //     removeBtn.classList.remove('isHidden');
+  //   }
+  // }
+
+  checkArr(watchedArr, movieId, 'Watched');
+  checkArr(queueArr, movieId, 'Queue');
 
   getDetails(movieId);
 };
@@ -263,8 +242,6 @@ const onClose = e => {
   } else if (headerLibraryQueueBtn.classList.contains('--is-active')) {
     activeLibraryList(queueDataBase);
   }
-  console.log(watchedArr);
-  console.log(queueArr);
 };
 
 const closeByEsc = e => {
@@ -285,20 +262,20 @@ window.addEventListener('keydown', closeByEsc);
 detCloseBtn.addEventListener('click', onClose);
 backdropDetails.addEventListener('click', onBackdropClose);
 
-// export function checkArr(arr, movieID, arrName) {
-//   const selector = arrName;
+function checkArr(arr, movieID, arrName) {
+  const selector = arrName;
 
-//   for (const item of arr) {
-//     if (item === movieID) {
-//       console.log('we found same ID');
+  for (const item of arr) {
+    if (item === movieID) {
+      console.log('we found same ID');
 
-//       const addBtn = document.querySelector(`.addTo${selector}Btn-JS`);
-//       const removeBtn = document.querySelector(`.removeFrom${selector}Btn-JS`);
-//       addBtn.classList.add('isHidden');
-//       removeBtn.classList.remove('isHidden');
-//     }
-//   }
-// }
+      const addBtn = document.querySelector(`.addTo${selector}Btn-JS`);
+      const removeBtn = document.querySelector(`.removeFrom${selector}Btn-JS`);
+      addBtn.classList.add('isHidden');
+      removeBtn.classList.remove('isHidden');
+    }
+  }
+}
 
 function windowAppear() {
   detailsModal.classList.remove('isHidden');
@@ -318,24 +295,14 @@ window.addEventListener('keydown', closeByEsc);
 detCloseBtn.addEventListener('click', onClose);
 backdropDetails.addEventListener('click', onBackdropClose);
 
-//==================== PRACTICE =============
 const Refs = {
   details__modal: document.querySelector('.details__modal'),
-  //==================== PRACTICE =============
 };
-
-//==================== PRACTICE ADD BUTTON LOGIC START =============
-
-//==================== PRACTICE =============
 
 Refs.details__modal.addEventListener('click', addToWatched);
 Refs.details__modal.addEventListener('click', addToQueue);
 Refs.details__modal.addEventListener('click', removeFromWatched);
 Refs.details__modal.addEventListener('click', removeFromQueue);
-
-//==================== PRACTICE =============
-
-//==================== PRACTICE =============
 
 function addToWatched(event) {
   const addBtn = Refs.details__modal.querySelector('.addToWatchedBtn-JS');
@@ -437,5 +404,3 @@ function removeFromQueue(event) {
   removeBtn.classList.add('isHidden');
   queueArr = [];
 }
-//==================== PRACTICE =============
-//==================== PRACTICE ADD BUTTON LOGIC END =============

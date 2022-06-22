@@ -1,5 +1,3 @@
-import { MovieDataBase } from './fireDb';
-import libraryRender from './renderLibrary';
 import Notiflix from 'notiflix';
 Notiflix.Notify.init({
   timeout: 1000,
@@ -22,17 +20,8 @@ import {
   signOut,
   onAuthStateChanged,
 } from 'firebase/auth';
-import {
-  getDatabase,
-  ref,
-  set,
-  onValue,
-  get,
-  once,
-  remove,
-} from 'firebase/database';
+import { getDatabase, ref, set, onValue, remove } from 'firebase/database';
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: 'AIzaSyAXr3vyab8PJtuI-kO5zXVUNDPWQzN3ayY',
   authDomain: 'filmoteka-group5.firebaseapp.com',
@@ -75,12 +64,11 @@ onAuthStateChanged(auth, user => {
     Refs.headLibraryBtn.classList.remove('--is-hidden');
 
     const uid = user.uid;
-    console.log(`User ${uid} Is Logged In`);
+    // console.log(`User ${uid} Is Logged In`);
 
     const allInfo = ref(db, 'users/' + uid);
     onValue(allInfo, snapshot => {
       const data = snapshot.val();
-      console.log(data);
 
       const userLifeTime = flatpickr.formatDate(
         new Date(user.metadata.creationTime),
@@ -94,7 +82,6 @@ onAuthStateChanged(auth, user => {
     You are with us since <span class="user-data">${userLifeTime}</span>
   </p>;`;
       Refs.logoutDiv.insertAdjacentHTML('afterbegin', userProfile);
-      console.log(user);
     });
   } else {
     // User is signed out
@@ -126,16 +113,14 @@ function onSignUpSubmit(e) {
   } else if (password !== passwordConfirm) {
     Notiflix.Notify.warning('Password fields is  not the same');
   } else {
-    // console.log(email, password);
     createUserWithEmailAndPassword(getAuth(), email, password)
       .then(userCredential => {
         // Signed in
         const user = userCredential.user;
-        console.log(userCredential);
-        console.log(user.uid);
+        // console.log(userCredential);
+        // console.log(user.uid);
         Notiflix.Notify.success('You Successfully SignUp');
         const userId = user.uid;
-        // writeUserData(userId, email, password);
       })
       .catch(error => {
         const errorCode = error.code;
@@ -172,8 +157,6 @@ function onLogInSubmit(e) {
       formData[e.target.email.name] = e.target.email.value;
       formData[e.target.password.name] = e.target.password.value;
       const savedString = JSON.stringify(formData);
-      //   console.log(savedString);
-      //   localStorage.setItem(STORAGE_KEY, savedString);
 
       const userDataBase = {
         date: new Date().toJSON(),
@@ -216,13 +199,13 @@ function onLogOutBtn(e) {
       loginForm.reset();
       setTimeout(() => {
         Notiflix.Notify.success('Logout Success');
-        console.log('Logout Success');
+        // console.log('Logout Success');
       }, 1500);
     })
     .catch(error => {
       // An error happened.
       console.log(error);
-      console.log('Logout Failed');
+      // console.log('Logout Failed');
     });
 }
 //=================== LOG OUT LOGIC END ==================
