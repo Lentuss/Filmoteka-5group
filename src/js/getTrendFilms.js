@@ -23,11 +23,15 @@ export function renderNewPage() {
 function onBtnDayClick() {
   getFilmsApiService.trendsOfDay();
   renderNewPage();
+  btnWeekEl.classList.remove('is-active');
+  btnDaykEl.classList.add('is-active');
 }
 
 function onBtnWeekClick() {
   getFilmsApiService.trendsOfWeek();
   renderNewPage();
+  btnWeekEl.classList.add('is-active');
+  btnDayEl.classList.remove('is-active');
 }
 
 export async function getTrendFilms() {
