@@ -19,18 +19,36 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getDatabase(app);
 
+// ===================================
+import { createMarkUpLibraryList } from './myLibrary';
+let watchedDataBase = [];
+let queueDataBase = [];
+let watchedArr = [];
+let queueArr = [];
+
+const homeBtn = document.querySelector('[data-action="header-home-button"]');
+const myLibBtn = document.querySelector(
+  '[data-action="header-library-button"]'
+);
+const headerLibraryWatchedBtn = document.querySelector(
+  '#header-libraryWatched__btn'
+);
+const headerLibraryQueueBtn = document.querySelector(
+  '#header-libraryQueue__btn'
+);
+// ======================================
+
 const moviesList = document.querySelector('.main__movie-card-list');
 const detailsModal = document.querySelector('.details');
 const backdropDetails = document.querySelector('.details__backdrop');
 const modal = document.querySelector('.details__modal');
 const box = document.querySelector('.details__box');
 const detCloseBtn = document.querySelector('.details__close-button');
+const sliderItem = document.querySelector('.slider-item');
+const sliderTrack = document.querySelector('.slider-track');
 
-// если нет постера
-//если нет бекдропа
 //on slider??
 ///проверки
-//стили жанров мобилки/таблетки
 //убрать клик с жанров
 
 const clickForDetails = e => {
@@ -38,20 +56,21 @@ const clickForDetails = e => {
   windowAppear();
 
   const uid = auth.lastNotifiedUid;
-  let watchedArr = [];
-  let queueArr = [];
 
   if (uid) {
     const allInfo = ref(db, 'users/' + uid);
     const ifOnValue = onValue(allInfo, snapshot => {
       const data = snapshot.val();
-
       if (!data) {
         console.log('All Data Base Is Empty');
       } else {
         if (!data.watched) {
+          watchedDataBase = data.watched;
+
           console.log('watched Base Is Empty');
         } else {
+          queueDataBase = data.queue;
+
           watchedArr = Object.keys(data.watched);
         }
 
@@ -74,7 +93,8 @@ const clickForDetails = e => {
   ) {
     return;
   }
-  const movieId = e.target.closest('LI').dataset.movieid;
+
+  const movieId = e.target.closest('[data-movieId]').dataset.movieid;
 
   checkArr(watchedArr, movieId, 'Watched');
   checkArr(queueArr, movieId, 'Queue');
@@ -115,7 +135,13 @@ export async function getDetails(movieId) {
     }
   }
 
-  const genreArr = genres.map(genre => genre.name);
+  let posterPicture = `${IMAGE_URL + poster_path}`;
+  if (poster_path === null) {
+    posterPicture =
+      'https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg';
+  }
+
+  const allGenres = genres.map(genre => genre.name).join(', ');
 
   box.setAttribute('data-id', `${id}`);
   box.setAttribute('data-date', `${release_date.slice(0, 4)}`);
@@ -124,7 +150,7 @@ export async function getDetails(movieId) {
 
   const markupImg = `<div class="details__poster">
                     <img class="details__image"
-                        src="${IMAGE_URL + poster_path}" alt="${title}poster"
+                        src="${posterPicture}" alt="${title}poster"
                         width="375px" />
                 </div>`;
 
@@ -135,7 +161,7 @@ export async function getDetails(movieId) {
                             <span class="details__attribute"> Vote/Votes
                             </span>
                             <span class="details__attribute-value">
-                                <span class="details__attribute-vote">${vote_count}</span> / ${vote_average}</span>
+                                <span class="details__attribute-vote">${vote_average}</span> / ${vote_count}</span>
                         </li>
                         <li>
                             <span class="details__attribute">Popularity
@@ -154,7 +180,7 @@ export async function getDetails(movieId) {
                         <li>
                             <span class="details__attribute">Genre
                             </span>
-                            <span class="details__attribute-value details__genre">${genreArr}</span>
+                            <span class="details__attribute-value details__genre">${allGenres}</span>
                         </li>
                     </ul>
                     <p class="details__subtitle">about</p>
@@ -164,6 +190,8 @@ export async function getDetails(movieId) {
   box.insertAdjacentHTML('afterbegin', markupImg);
   infoBox.insertAdjacentHTML('afterbegin', markup);
 }
+
+sliderTrack.addEventListener('click', clickForDetails);
 
 //+++++close-modal++++++
 
@@ -192,6 +220,15 @@ const onClose = e => {
   backdropDetails.style.backgroundImage = 'url(#)';
   modal.classList.remove('isAppeared');
   backdropDetails.classList.remove('isAppeared');
+
+  if (
+    myLibBtn.classList.contains('is-current') &&
+    headerLibraryWatchedBtn.classList.contains('--is-active')
+  ) {
+    activeLibraryList(watchedDataBase);
+  } else if (headerLibraryQueueBtn.classList.contains('--is-active')) {
+    activeLibraryList(queueDataBase);
+  }
 };
 
 const closeByEsc = e => {
@@ -234,3 +271,13 @@ function windowAppear() {
     modal.classList.add('isAppeared');
   }, 1000);
 }
+
+function activeLibraryList(arr) {
+  const listEl = document.querySelector('.main__movie-card-list');
+  listEl.innerHTML = '';
+  createMarkUpLibraryList(arr);
+}
+
+window.addEventListener('keydown', closeByEsc);
+detCloseBtn.addEventListener('click', onClose);
+backdropDetails.addEventListener('click', onBackdropClose);

@@ -115,6 +115,7 @@
 
     &__info{
         display: block;
+        color: black;
 
         @include respond-to (tablet){
             width: 264px;
@@ -150,7 +151,7 @@
 
     &__attribute{
         display: inline-block;
-        width: 152px;
+        width: 122px;
 
         color: $second-text-color;
         font-size: 12px;
@@ -158,10 +159,20 @@
         font-weight: 500;
 
         &-value{
+            display: inline-block;
+            width: 100px;
         
             font-size: 12px;
             line-height: 1.17;
             font-weight: 500;
+
+            @include respond-to(desktop){
+                width: 130px;
+            }
+
+            @include respond-to(desktop){
+                width: 200px;
+            }
         }
 
         &-vote{

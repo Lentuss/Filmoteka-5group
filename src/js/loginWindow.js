@@ -2,7 +2,7 @@ import { MovieDataBase } from './fireDb';
 import libraryRender from './renderLibrary';
 import Notiflix from 'notiflix';
 Notiflix.Notify.init({
-  timeout: 1500,
+  timeout: 1000,
   width: '280px',
   position: 'center-center',
   distance: '10px',
@@ -291,8 +291,6 @@ function onLogInSubmit(e) {
       onCloseModal();
       setTimeout(() => {
         loginForm.reset();
-        // libraryRender();
-        // MovieDataBase.create(userDataBase);
       }, 1500);
 
       // ...
@@ -335,13 +333,11 @@ function onLogOutBtn(e) {
 //=================== LOG OUT LOGIC END ==================
 
 function onShowSignUpWindow() {
-  console.log('мы нажали кнопку signUp');
   Refs.signUpDiv.classList.remove('--is-hidden');
   Refs.logInDiv.classList.add('--is-hidden');
 }
 
 function onShowLogInWindow() {
-  console.log('мы нажали кнопку logIn');
   Refs.signUpDiv.classList.add('--is-hidden');
   Refs.logInDiv.classList.remove('--is-hidden');
 }
@@ -373,6 +369,7 @@ function addMovieInfoToDataBaseWatch(movieID, title, img, genres, year, uid) {
   const db = getDatabase();
 
   set(ref(db, 'users/' + uid + '/watched' + `/${movieID}`), {
+    movieID,
     title,
     img,
     genres,
@@ -390,6 +387,7 @@ function addMovieInfoToDataBaseQueue(movieID, title, img, genres, year, uid) {
   const db = getDatabase();
 
   set(ref(db, 'users/' + uid + '/queue' + `/${movieID}`), {
+    movieID,
     title,
     img,
     genres,

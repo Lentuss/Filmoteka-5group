@@ -3,18 +3,17 @@ import { renderNewPage } from './getTrendFilms';
 import { createListMarkup } from './renderFilms';
 import { getGenres } from './getGenres';
 
-const movieFilter = new MovieFilter();
+
+const listEl = document.querySelector('.main__movie-card-list');
 const genresEl = document.querySelector('.filter--list__genres');
 const yearsEl = document.querySelector('.filter--list__years');
-const filterYears = document.querySelector('.filter--title__years');
-const filterGenres = document.querySelector('.filter--title__genres');
-const filterListYears = document.querySelector('.filter--list__years');
-const filterListGeners = document.querySelector('.filter--list__genres');
-const listEl = document.querySelector('.main__movie-card-list');
+const filterYears = document.querySelector('.filter__years');
+const filterGeners = document.querySelector('.filter__ganres');
 const loaderEl = document.querySelector('.loader');
 const filtersEl = document.querySelector('.filters');
-const mainBtnsEls = document.querySelector('.main__button-list');
+const mainBtnsEl = document.querySelector('.main__button-list');
 
+const movieFilter = new MovieFilter();
 const genres = getGenres();
 export let selectedGenre = [];
 export let selectedYear = [];
@@ -73,7 +72,6 @@ function setGenre() {
   });
 }
 
-
 function setYear() {
     yearsEl.innerHTML = '';
     let startYear = 1880;
@@ -106,15 +104,17 @@ function setYear() {
         });
     }
 }
+
 function renderFilteredList() {
     if (selectedGenre.length > 0 || selectedYear.length > 0) {
                 getFilerFilms();
                 renderClearBtn();
-                mainBtnsEls.style.display = "none";
+                mainBtnsEl.style.display = "none";
             } else {
                 renderNewPage();
             } 
 }
+
 export function renderClearBtn() {
     let clearBtn = document.getElementById('clear');
     if (clearBtn) {
@@ -130,28 +130,38 @@ export function renderClearBtn() {
         clearList();
     });
 };
+
 function clearList() {
     selectedGenre = [];
     selectedYear = [];
     renderNewPage();
-    filterListYears.classList.add('is-hidden');
-    filterListGeners.classList.add('is-hidden');
+    mainBtnsEl.style.display = "flex";
     setYear();
     setGenre();
     clear.remove();
-    mainBtnsEls.style.display = "flex";
- }
+}
+ 
+filterGeners.addEventListener('mouseover', () => {
+  genresEl.classList.remove('is-hidden');
+});
+filterGeners.addEventListener('click', () => {
+  genresEl.classList.remove('is-hidden');
+});
+filterGeners.addEventListener('mouseout', () => {
+  genresEl.classList.add('is-hidden');
+});
 
-
+filterYears.addEventListener('mouseover', () => {
+  yearsEl.classList.remove('is-hidden');
+});
 filterYears.addEventListener('click', () => {
-  filterListYears.classList.toggle('is-hidden');
-  filterListGeners.classList.add('is-hidden');
+  yearsEl.classList.remove('is-hidden');
+});
+filterYears.addEventListener('mouseout', () => {
+  yearsEl.classList.add('is-hidden');
 });
 
-filterGenres.addEventListener('click', () => {
-  filterListGeners.classList.toggle('is-hidden');
-  filterListYears.classList.add('is-hidden');
-});
+
 // infinite scroll
 const options = {
   intersectionObserver: {
@@ -166,7 +176,4 @@ const callback = function (entries, observer) {
     getFilerFilms();
   }
 };
- const observer = new IntersectionObserver(
-  callback,
-  options.intersectionObserver
-);
+ const observer = new IntersectionObserver(callback, options.intersectionObserver);

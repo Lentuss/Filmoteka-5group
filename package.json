@@ -5,7 +5,8 @@
   "homepage": "https://lentuss.github.io/Filmoteka-5group/",
   "scripts": {
     "start": "parcel src/*.html",
-    "build": "parcel build src/*.html --public-url /Filmoteka-5group/"
+    "build": "parcel build src/*.html --public-url /Filmoteka-5group/",
+    "deploy": "gh-pages -d dist"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,7 @@
   "devDependencies": {
     "@parcel/transformer-sass": "^2.6.0",
     "buffer": "^6.0.3",
+    "gh-pages": "^4.0.0",
     "parcel": "^2.6.0",
     "parcel-reporter-clean-dist": "^1.0.4",
     "posthtml-include": "^1.7.4",

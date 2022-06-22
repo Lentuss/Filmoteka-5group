@@ -94,7 +94,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  // margin-bottom: 20px;
 }
 
 .header-logo {
@@ -118,6 +118,7 @@
   color: #FFFFFF;
   font-family: 'Roboto';
   transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  
 
 
   @media screen and (min-width: 768px) {
@@ -139,7 +140,7 @@
 
 .header-btns__item {
   &:not(:last-child) {
-    margin-right: 39px;
+    margin-right: 20px;
     
   }
 }
@@ -271,7 +272,9 @@ margin-top: 20px;
      
     transform-origin: 50% 100%;
     -ms-transform-origin: 50% 100%;
-    -webkit-transform-origin: 50% 100%;     
+    -webkit-transform-origin: 50% 100%;  
+    
+    transition-delay: 3s;
 }
  
 @keyframes bounce {
