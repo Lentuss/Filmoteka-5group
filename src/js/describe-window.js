@@ -59,5 +59,5 @@ function onFormSubmit(event) {
   event.currentTarget.reset();
   localStorage.removeItem(KEY);
 
-  console.log(inputData);
+  closeModal();
 }
