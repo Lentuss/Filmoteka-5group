@@ -26,11 +26,16 @@ export function renderNewPage() {
 function onBtnDayClick() {
   loaderEl.style.display = 'block';
   getFilmsApiService.trendsOfDay();
+  btnDayEl.classList.add('--is-hidden');
+  btnWeekEl.classList.add('--is-hidden');
+
   renderNewPage();
   listEl.classList.add('--is-hidden');
 
   setTimeout(() => {
     listEl.classList.remove('--is-hidden');
+    btnDayEl.classList.remove('--is-hidden');
+    btnWeekEl.classList.remove('--is-hidden');
     loaderEl.style.display = 'none';
   }, 1000);
 }
@@ -38,11 +43,15 @@ function onBtnDayClick() {
 function onBtnWeekClick() {
   loaderEl.style.display = 'block';
   getFilmsApiService.trendsOfWeek();
+  btnDayEl.classList.add('--is-hidden');
+  btnWeekEl.classList.add('--is-hidden');
   renderNewPage();
   listEl.classList.add('--is-hidden');
 
   setTimeout(() => {
     listEl.classList.remove('--is-hidden');
+    btnWeekEl.classList.remove('--is-hidden');
+    btnDayEl.classList.remove('--is-hidden');
     loaderEl.style.display = 'none';
   }, 1000);
 }

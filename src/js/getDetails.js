@@ -2,6 +2,7 @@ import { API_KEY, DETAILS_URL, IMAGE_URL, BACKDROP_URL } from './apiVariables';
 import axios from 'axios';
 import { getAuth } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
+import { onOpenModal } from './loginWindow';
 
 import { getDatabase, ref, onValue } from 'firebase/database';
 const firebaseConfig = {
@@ -26,6 +27,15 @@ import {
   addMovieInfoToDataBaseQueue,
   removeMovieIDFromQueue,
 } from './loginWindow';
+import Notiflix from 'notiflix';
+// Notiflix.Notify.init({
+//   timeout: 1000,
+//   width: '280px',
+//   position: 'center-center',
+//   distance: '10px',
+//   opacity: 1,
+//   clickToClose: true,
+// });
 
 let watchedDataBase = [];
 let queueDataBase = [];
@@ -313,6 +323,9 @@ function addToWatched(event) {
 
   if (!event.target.classList.contains('addToWatchedBtn-JS')) {
     return;
+  } else if (!uid) {
+    Notiflix.Notify.info('Login please or Register to add');
+    onOpenModal();
   } else if (uid) {
     const movieID = event.target
       .closest('.details__box')
@@ -363,6 +376,10 @@ function addToQueue(event) {
   const uid = auth.lastNotifiedUid;
   if (!event.target.classList.contains('addToQueueBtn-JS')) {
     return;
+  } else if (!uid) {
+    Notiflix.Notify.info('Login please or Register to add');
+
+    onOpenModal();
   } else if (uid) {
     const movieID = event.target
       .closest('.details__box')

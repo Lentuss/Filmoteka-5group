@@ -1,13 +1,23 @@
 import Notiflix from 'notiflix';
 Notiflix.Notify.init({
-  timeout: 1000,
+  timeout: 1500,
   width: '280px',
   position: 'center-center',
   distance: '10px',
   opacity: 1,
   clickToClose: true,
+  info: {
+    background: '#ff6b08',
+    textColor: '#fff',
+    childClassName: 'notiflix-notify-info',
+    notiflixIconColor: 'rgba(0,0,0,0.2)',
+    fontAwesomeClassName: 'fas fa-info-circle',
+    fontAwesomeIconColor: 'rgba(0,0,0,0.2)',
+    backOverlayColor: 'rgba(38,192,211,0.2)',
+  },
 });
 import flatpickr from 'flatpickr';
+import { renderNewPage } from './getTrendFilms';
 
 import { initializeApp } from 'firebase/app';
 
@@ -85,6 +95,8 @@ onAuthStateChanged(auth, user => {
     });
   } else {
     // User is signed out
+    const loaderEl = document.querySelector('.loader');
+    const headerSectionRef = document.querySelector('.header-section');
     Refs.signUpBtnWindow.classList.remove('--is-hidden');
     Refs.logInBtnWindow.classList.remove('--is-hidden');
     Refs.logOutBtn.classList.add('--is-hidden');
@@ -92,7 +104,7 @@ onAuthStateChanged(auth, user => {
     Refs.signUpDiv.setAttribute('style', 'display:flex');
     Refs.headLogInBtn.textContent = 'Log In';
     Refs.headLibraryBtn.classList.add('--is-hidden');
-
+    headerSectionRef.classList.remove('header-section__library');
     Refs.logoutDiv.innerHTML = '';
     console.log('User Is Signed Out');
   }
@@ -119,7 +131,7 @@ function onSignUpSubmit(e) {
         const user = userCredential.user;
         // console.log(userCredential);
         // console.log(user.uid);
-        Notiflix.Notify.success('You Successfully SignUp');
+        Notiflix.Notify.info('You Successfully SignUp');
         const userId = user.uid;
       })
       .catch(error => {
@@ -152,7 +164,6 @@ function onLogInSubmit(e) {
     .then(userCredential => {
       // Signed in
       const user = userCredential.user;
-      console.log(user);
 
       formData[e.target.email.name] = e.target.email.value;
       formData[e.target.password.name] = e.target.password.value;
@@ -163,9 +174,9 @@ function onLogInSubmit(e) {
         movieID: savedString,
         user: user,
       };
-      console.log(userDataBase);
+      // console.log(userDataBase);
 
-      Notiflix.Notify.success('Enter Success');
+      Notiflix.Notify.info('Enter Success');
       onCloseModal();
       setTimeout(() => {
         loginForm.reset();
@@ -192,14 +203,22 @@ Refs.logOutBtn.addEventListener('click', onLogOutBtn);
 
 //=================== LOG OUT LOGIC START ==================
 function onLogOutBtn(e) {
+  const listEl = document.querySelector('.main__movie-card-list');
+  const loaderEl = document.querySelector('.loader');
+  loaderEl.style.display = 'block';
   signOut(auth)
     .then(() => {
       // Sign-out successful.
       signupForm.reset();
       loginForm.reset();
+      renderNewPage();
+      listEl.classList.add('--is-hidden');
+
       setTimeout(() => {
-        Notiflix.Notify.success('Logout Success');
+        Notiflix.Notify.info('Logout Success');
         // console.log('Logout Success');
+        listEl.classList.remove('--is-hidden');
+        loaderEl.style.display = 'none';
       }, 1500);
     })
     .catch(error => {
@@ -220,7 +239,7 @@ function onShowLogInWindow() {
   Refs.logInDiv.classList.remove('--is-hidden');
 }
 
-function onOpenModal() {
+export function onOpenModal() {
   Refs.backdrop.classList.toggle('backdrop--is-hidden');
   window.addEventListener('keydown', closeModalByEsc);
 }
