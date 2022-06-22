@@ -5,7 +5,6 @@ const footer = document.querySelector("#footer-switch");
 const buttonDay = document.querySelector("#button-color-day");
 const buttonWeek = document.querySelector("#button-color-week");
 
-
 checkbox.addEventListener("change", onSwitchClick);
 
 function onSwitchClick(){
@@ -23,14 +22,13 @@ function onSwitchClick(){
       buttonWeek.classList.remove('button-ligh');
       footer.classList.add('footer-dark');
       footer.classList.remove('footer-light');
-      
-      ;
-      
+      // movieTitle.classList.add('title-dark');
+      // movieTitle.classList.remove('title-light');
       }
       else {
         body.classList.add('light-theme');
         body.classList.remove('dark-theme');
-    
+    // document.getElementById("title-color").style.color = '#333';
         movieTitles.forEach(movieTitle => movieTitle.style.color = "#333");
         section.classList.add('light-on');
         section.classList.remove('dark-on');
@@ -38,21 +36,9 @@ function onSwitchClick(){
         buttonDay.classList.remove('button-dark');
         buttonWeek.classList.add('button-ligh');
         buttonWeek.classList.remove('button-dark');
-      footer.classList.add('footer-light');
-      footer.classList.remove('footer-dark');
-      
-     localStorage.setItem("color",'light-on','button-ligh','footer-light');
+        footer.classList.add('footer-light');
+        footer.classList.remove('footer-dark');
+      // movieTitle.classList.add("title-light");
+      // movieTitle.classList.remove('title-dark');
     }
   };
-
-  function savedStorage(){
-
-if (checkbox.checked) {
-  localStorage.setItem(checked);
-}
-else {
-  localStorage.setItem(!checked)
-}
-}
- 
-savedStorage();
