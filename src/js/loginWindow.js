@@ -1,4 +1,4 @@
-import { MovieDataBase } from './fireDb';
+// import { MovieDataBase } from './fireDb';
 import libraryRender from './renderLibrary';
 import Notiflix from 'notiflix';
 Notiflix.Notify.init({
