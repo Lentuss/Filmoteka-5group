@@ -1,4 +1,4 @@
-import allGenres from './genres.json';
+import allGenres from '../data/genres.json';
 
 export function getGenres() {
   const { genres } = allGenres;
