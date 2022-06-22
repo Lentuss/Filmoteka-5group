@@ -24,27 +24,16 @@ export function renderNewPage() {
 }
 
 function onBtnDayClick() {
-  loaderEl.style.display = 'block';
   getFilmsApiService.trendsOfDay();
   renderNewPage();
-  listEl.classList.add('--is-hidden');
-
-  setTimeout(() => {
-    listEl.classList.remove('--is-hidden');
-    loaderEl.style.display = 'none';
-  }, 1000);
+  btnWeekEl.classList.remove('is-active');
+  btnDaykEl.classList.add('is-active');
 }
-
 function onBtnWeekClick() {
-  loaderEl.style.display = 'block';
   getFilmsApiService.trendsOfWeek();
   renderNewPage();
-  listEl.classList.add('--is-hidden');
-
-  setTimeout(() => {
-    listEl.classList.remove('--is-hidden');
-    loaderEl.style.display = 'none';
-  }, 1000);
+  btnWeekEl.classList.add('is-active');
+  btnDayEl.classList.remove('is-active');
 }
 
 export async function getTrendFilms() {
