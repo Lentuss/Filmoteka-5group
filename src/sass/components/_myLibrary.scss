@@ -1,6 +1,8 @@
 .header-section__library {
-  // height: 230px;
   padding: 40px 20px 62px;
+  background-repeat: no-repeat;
+  background-size:cover;
+  background-position: center;
   background-image: linear-gradient(
       to right,
       rgba(0, 0, 0, 0.56),
@@ -60,6 +62,16 @@
   }
 }
 
+.header-main__library{
+    margin-top: 42px;
+
+    @include respond-to (tablet) {
+            margin-top: 16px;
+            margin-bottom: 60px;
+        }
+}
+
+
 .header-library__list {
   @include centered;
 }
@@ -85,10 +97,17 @@
   transition-property: background-color, color, border-color;
   transition-duration: 0.25s;
   transition-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
+
+  &:hover{
+    background-color: #ff6b08;
+    border-color: #ff6b08;
+    box-shadow: 0px 8px 43px rgba(255, 107, 1, 0.6);
+  }
 }
 
 .--is-active {
   color: #fff;
   background-color: #ff6b08;
   border-color: #ff6b08;
+  box-shadow: 0px 8px 43px rgba(255, 107, 1, 0.6); 
 }
