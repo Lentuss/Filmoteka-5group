@@ -2,7 +2,6 @@
 
 import './js/loginWindow';
 import './js/filmSearch';
-import './js/renderLibrary';
 import './js/getFilmsApiService';
 import './js/renderFilms';
 import './js/getDetails';
