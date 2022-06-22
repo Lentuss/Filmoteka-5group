@@ -2,6 +2,7 @@ import { API_KEY, DETAILS_URL, IMAGE_URL, BACKDROP_URL } from './apiVariables';
 import axios from 'axios';
 import { getAuth } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
+import Notiflix from 'notiflix';
 
 import { getDatabase, ref, onValue } from 'firebase/database';
 const firebaseConfig = {
@@ -21,6 +22,13 @@ const db = getDatabase(app);
 
 // ===================================
 import { createMarkUpLibraryList } from './myLibrary';
+import {
+  addMovieInfoToDataBaseWatch,
+  removeMovieIDFromWatched,
+  addMovieInfoToDataBaseQueue,
+  removeMovieIDFromQueue,
+} from './loginWindow';
+
 let watchedDataBase = [];
 let queueDataBase = [];
 let watchedArr = [];
@@ -56,27 +64,34 @@ const clickForDetails = e => {
   windowAppear();
 
   const uid = auth.lastNotifiedUid;
-
+  const removeQBtn = document.querySelector(`.removeFromQueueBtn-JS`);
+  const addQBtn = document.querySelector(`.addToQueueBtn-JS`);
+  const removeWBtn = document.querySelector(`.removeFromWatchedBtn-JS`);
+  const addWBtn = document.querySelector(`.addToWatchedBtn-JS`);
   if (uid) {
     const allInfo = ref(db, 'users/' + uid);
     const ifOnValue = onValue(allInfo, snapshot => {
       const data = snapshot.val();
       if (!data) {
+        queueDataBase = [];
+        watchedDataBase = [];
+        queueArr = [];
+        watchedArr = [];
         console.log('All Data Base Is Empty');
       } else {
         if (!data.watched) {
-          watchedDataBase = data.watched;
-
+          watchedDataBase = [];
           console.log('watched Base Is Empty');
         } else {
-          queueDataBase = data.queue;
-
+          watchedDataBase = data.watched;
           watchedArr = Object.keys(data.watched);
         }
 
         if (!data.queue) {
+          queueDataBase = [];
           console.log('queue Base Is Empty');
         } else {
+          queueDataBase = data.queue;
           queueArr = Object.keys(data.queue);
         }
       }
@@ -96,10 +111,32 @@ const clickForDetails = e => {
 
   const movieId = e.target.closest('[data-movieId]').dataset.movieid;
 
-  checkArr(watchedArr, movieId, 'Watched');
-  checkArr(queueArr, movieId, 'Queue');
+  for (const item of watchedArr) {
+    if (item === movieId) {
+      console.log('we found same ID');
 
-  console.log(movieId);
+      const addBtn = document.querySelector(`.addToWatchedBtn-JS`);
+      const removeBtn = document.querySelector(`.removeFromWatchedBtn-JS`);
+      addBtn.classList.add('isHidden');
+      removeBtn.classList.remove('isHidden');
+    }
+  }
+
+  for (const item of queueArr) {
+    if (item === movieId) {
+      console.log('we found same ID');
+
+      const addBtn = document.querySelector(`.addToQueueBtn-JS`);
+      const removeBtn = document.querySelector(`.removeFromQueueBtn-JS`);
+      addBtn.classList.add('isHidden');
+      removeBtn.classList.remove('isHidden');
+    }
+  }
+  console.log(watchedArr);
+  console.log(queueArr);
+  // checkArr(watchedArr, movieId, 'Watched');
+  // checkArr(queueArr, movieId, 'Queue');
+
   getDetails(movieId);
 };
 
@@ -221,14 +258,13 @@ const onClose = e => {
   modal.classList.remove('isAppeared');
   backdropDetails.classList.remove('isAppeared');
 
-  if (
-    myLibBtn.classList.contains('is-current') &&
-    headerLibraryWatchedBtn.classList.contains('--is-active')
-  ) {
+  if (headerLibraryWatchedBtn.classList.contains('--is-active')) {
     activeLibraryList(watchedDataBase);
   } else if (headerLibraryQueueBtn.classList.contains('--is-active')) {
     activeLibraryList(queueDataBase);
   }
+  console.log(watchedArr);
+  console.log(queueArr);
 };
 
 const closeByEsc = e => {
@@ -249,20 +285,20 @@ window.addEventListener('keydown', closeByEsc);
 detCloseBtn.addEventListener('click', onClose);
 backdropDetails.addEventListener('click', onBackdropClose);
 
-function checkArr(arr, movieID, arrName) {
-  const selector = arrName;
+// export function checkArr(arr, movieID, arrName) {
+//   const selector = arrName;
 
-  for (const item of arr) {
-    if (item === movieID) {
-      console.log('we found same ID');
+//   for (const item of arr) {
+//     if (item === movieID) {
+//       console.log('we found same ID');
 
-      const addBtn = document.querySelector(`.addTo${selector}Btn-JS`);
-      const removeBtn = document.querySelector(`.removeFrom${selector}Btn-JS`);
-      addBtn.classList.add('isHidden');
-      removeBtn.classList.remove('isHidden');
-    }
-  }
-}
+//       const addBtn = document.querySelector(`.addTo${selector}Btn-JS`);
+//       const removeBtn = document.querySelector(`.removeFrom${selector}Btn-JS`);
+//       addBtn.classList.add('isHidden');
+//       removeBtn.classList.remove('isHidden');
+//     }
+//   }
+// }
 
 function windowAppear() {
   detailsModal.classList.remove('isHidden');
@@ -281,3 +317,125 @@ function activeLibraryList(arr) {
 window.addEventListener('keydown', closeByEsc);
 detCloseBtn.addEventListener('click', onClose);
 backdropDetails.addEventListener('click', onBackdropClose);
+
+//==================== PRACTICE =============
+const Refs = {
+  details__modal: document.querySelector('.details__modal'),
+  //==================== PRACTICE =============
+};
+
+//==================== PRACTICE ADD BUTTON LOGIC START =============
+
+//==================== PRACTICE =============
+
+Refs.details__modal.addEventListener('click', addToWatched);
+Refs.details__modal.addEventListener('click', addToQueue);
+Refs.details__modal.addEventListener('click', removeFromWatched);
+Refs.details__modal.addEventListener('click', removeFromQueue);
+
+//==================== PRACTICE =============
+
+//==================== PRACTICE =============
+
+function addToWatched(event) {
+  const addBtn = Refs.details__modal.querySelector('.addToWatchedBtn-JS');
+  const removeBtn = Refs.details__modal.querySelector(
+    '.removeFromWatchedBtn-JS'
+  );
+  const uid = auth.lastNotifiedUid;
+
+  if (!event.target.classList.contains('addToWatchedBtn-JS')) {
+    return;
+  } else if (uid) {
+    const movieID = event.target
+      .closest('.details__box')
+      .getAttribute('data-id');
+    const imgPoster = Refs.details__modal
+      .querySelector('.details__image')
+      .getAttribute('src');
+    const titleDetails =
+      Refs.details__modal.querySelector('.details__title').textContent;
+    const genres =
+      Refs.details__modal.querySelector('.details__genre').textContent;
+    const year = event.target
+      .closest('.details__box')
+      .getAttribute('data-date');
+
+    addMovieInfoToDataBaseWatch(
+      movieID,
+      titleDetails,
+      imgPoster,
+      genres,
+      year,
+      uid
+    );
+    addBtn.classList.add('isHidden');
+    removeBtn.classList.remove('isHidden');
+  }
+}
+
+function removeFromWatched(event) {
+  const addBtn = Refs.details__modal.querySelector('.addToWatchedBtn-JS');
+  const removeBtn = Refs.details__modal.querySelector(
+    '.removeFromWatchedBtn-JS'
+  );
+  if (!event.target.classList.contains('removeFromWatchedBtn-JS')) {
+    return;
+  }
+  const movieID = event.target.closest('.details__box').getAttribute('data-id');
+  const uid = auth.lastNotifiedUid;
+  removeMovieIDFromWatched(uid, movieID);
+  addBtn.classList.remove('isHidden');
+  removeBtn.classList.add('isHidden');
+  watchedArr = [];
+}
+
+function addToQueue(event) {
+  const addBtn = Refs.details__modal.querySelector('.addToQueueBtn-JS');
+  const removeBtn = Refs.details__modal.querySelector('.removeFromQueueBtn-JS');
+  const uid = auth.lastNotifiedUid;
+  if (!event.target.classList.contains('addToQueueBtn-JS')) {
+    return;
+  } else if (uid) {
+    const movieID = event.target
+      .closest('.details__box')
+      .getAttribute('data-id');
+    const imgPoster = Refs.details__modal
+      .querySelector('.details__image')
+      .getAttribute('src');
+    const titleDetails =
+      Refs.details__modal.querySelector('.details__title').textContent;
+    const genres =
+      Refs.details__modal.querySelector('.details__genre').textContent;
+    const year = event.target
+      .closest('.details__box')
+      .getAttribute('data-date');
+
+    addMovieInfoToDataBaseQueue(
+      movieID,
+      titleDetails,
+      imgPoster,
+      genres,
+      year,
+      uid
+    );
+    addBtn.classList.add('isHidden');
+    removeBtn.classList.remove('isHidden');
+  }
+}
+
+function removeFromQueue(event) {
+  const addBtn = Refs.details__modal.querySelector('.addToQueueBtn-JS');
+  const removeBtn = Refs.details__modal.querySelector('.removeFromQueueBtn-JS');
+  if (!event.target.classList.contains('removeFromQueueBtn-JS')) {
+    return;
+  }
+  const movieID = event.target.closest('.details__box').getAttribute('data-id');
+  const uid = auth.lastNotifiedUid;
+  removeMovieIDFromQueue(uid, movieID);
+  addBtn.classList.remove('isHidden');
+  removeBtn.classList.add('isHidden');
+  queueArr = [];
+}
+//==================== PRACTICE =============
+//==================== PRACTICE ADD BUTTON LOGIC END =============

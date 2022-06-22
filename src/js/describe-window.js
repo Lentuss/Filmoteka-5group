@@ -60,4 +60,5 @@ function onFormSubmit(event) {
   localStorage.removeItem(KEY);
 
   console.log(inputData);
+  closeModal();
 }

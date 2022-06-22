@@ -1,13 +1,14 @@
 .header-section__library {
-  // height: 230px;
   padding: 40px 20px 62px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   background-image: linear-gradient(
       to right,
       rgba(0, 0, 0, 0.56),
       rgba(0, 0, 0, 0.56)
     ),
     url('../images/library-mobile.jpg');
-
   @media (min-device-pixel-ratio: 2),
     (min-resolution: 192dpi),
     (min-resolution: 2dppx) {
@@ -18,7 +19,6 @@
       ),
       url('../images/library-mobile-x2.jpg');
   }
-
   @media screen and (min-width: 768px) {
     background-image: linear-gradient(
         to right,
@@ -26,7 +26,6 @@
         rgba(0, 0, 0, 0.56)
       ),
       url('../images/library-tablet.jpg');
-
     @media (min-device-pixel-ratio: 2),
       (min-resolution: 192dpi),
       (min-resolution: 2dppx) {
@@ -38,7 +37,6 @@
         url('../images/library-tablet-x2.jpg');
     }
   }
-
   @media screen and (min-width: 1024px) {
     background-image: linear-gradient(
         to right,
@@ -46,7 +44,6 @@
         rgba(0, 0, 0, 0.56)
       ),
       url('../images/library-pc.jpg');
-
     @media (min-device-pixel-ratio: 2),
       (min-resolution: 192dpi),
       (min-resolution: 2dppx) {
@@ -59,17 +56,21 @@
     }
   }
 }
-
+.header-main__library {
+  margin-top: 42px;
+  @include respond-to(tablet) {
+    margin-top: 16px;
+    margin-bottom: 60px;
+  }
+}
 .header-library__list {
   @include centered;
 }
-
 .header-library__item {
   &:not(:last-child) {
     margin-right: 20px;
   }
 }
-
 .header-library__btn {
   width: 130px;
   height: 44px;
@@ -85,10 +86,15 @@
   transition-property: background-color, color, border-color;
   transition-duration: 0.25s;
   transition-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  &:hover {
+    background-color: #ff6b08;
+    border-color: #ff6b08;
+    box-shadow: 0px 8px 43px rgba(255, 107, 1, 0.6);
+  }
 }
-
 .--is-active {
   color: #fff;
   background-color: #ff6b08;
   border-color: #ff6b08;
+  box-shadow: 0px 8px 43px rgba(255, 107, 1, 0.6);
 }

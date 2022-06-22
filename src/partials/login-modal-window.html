@@ -3,8 +3,8 @@
     <div id="logInDiv">
       <form class="logInForm" autocomplete="on" validate id="login-form">
         <div class="form-container">
-            <label class="form-container__label">
-                <span class="form-container__span">Email</span>
+          <label class="form-container__label">
+            <span class="form-container__span">Email</span>
             <input
               type="email"
               class="inputStyle"
@@ -35,10 +35,15 @@
     </div>
     <!-- ==================  SIGN UP =============================== -->
     <div class="--is-hidden" id="signUpDiv">
-      <form class="logInForm" autocomplete="on" validate id="signup-form">
+      <form
+        class="logInForm logInForm__singup"
+        autocomplete="on"
+        validate
+        id="signup-form"
+      >
         <div class="form-container">
-            <label class="form-container__label">
-                <span class="form-container__span">Email</span> 
+          <label class="form-container__label">
+            <span class="form-container__span">Email</span>
             <input
               type="email"
               class="inputStyle"
@@ -47,8 +52,8 @@
             />
           </label>
 
-            <label class="form-container__label">
-                <span class="form-container__span">Password</span>
+          <label class="form-container__label">
+            <span class="form-container__span">Password</span>
             <input
               type="password"
               class="inputStyle"
@@ -71,22 +76,24 @@
         <button
           type="submit"
           data-action="signup-submit-btn"
-          class="loginSubmitBtn"
+          class="loginSubmitBtn loginSubmitBtn__singup"
         >
           Sign Up
         </button>
       </form>
     </div>
-        <button class="modal__closeBtn" data-modal-close>
-            <svg class="modal__closeBtn--svg" width="18px" height="18px">
-                <use href="/src/images/sprite.svg#footer-modal-close"></use>
-            </svg>
-        </button>
-    <div  class='logInDiv-container__btn'>
+    <button class="modal__closeBtn" data-modal-close>
+      <svg class="modal__closeBtn--svg" width="18px" height="18px">
+        <use href="/src/images/sprite.svg#footer-modal-close"></use>
+      </svg>
+    </button>
+    <div class="logInDiv-container__btn">
       <button type="button" class="logInBtn-JS btnStyle">Log In Window</button>
-      <button type="button" class="signUpBtn-JS btnStyle"> Sign Up Window</button>
+      <button type="button" class="signUpBtn-JS btnStyle">
+        Sign Up Window
+      </button>
     </div>
-    <div>    
+    <div>
       <button type="button" class="logOutBtn-JS btnStyle">Logout</button>
     </div>
   </div>

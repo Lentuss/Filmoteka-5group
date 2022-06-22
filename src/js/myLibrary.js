@@ -24,6 +24,7 @@ import { renderNewPage } from './getTrendFilms';
 const myLibBtn = document.querySelector(
   '[data-action="header-library-button"]'
 );
+const headerSectionRef = document.querySelector('.header-section');
 const homeBtn = document.querySelector('[data-action="header-home-button"]');
 const headerMain = document.querySelector('.header-main');
 const headLib = document.querySelector('.header-main__library');
@@ -47,12 +48,13 @@ homeBtn.addEventListener('click', onClickHomeBtn);
 headerLibraryWatchedBtn.addEventListener('click', onCLickWatchedBtn);
 headerLibraryQueueBtn.addEventListener('click', onClickQueueBtn);
 
-function onClickQueueBtn() {
+function onClickQueueBtn(e) {
   headerLibraryQueueBtn.classList.add('--is-active');
   headerLibraryWatchedBtn.classList.remove('--is-active');
   listEl.innerHTML = '';
   loaderEl.style.display = 'block';
   createMarkUpLibraryList(queueDataBase);
+
   listEl.classList.add('--is-hidden');
 
   setTimeout(() => {
@@ -61,12 +63,13 @@ function onClickQueueBtn() {
   }, 1000);
 }
 
-function onCLickWatchedBtn() {
+function onCLickWatchedBtn(e) {
   headerLibraryQueueBtn.classList.remove('--is-active');
   headerLibraryWatchedBtn.classList.add('--is-active');
   listEl.innerHTML = '';
   loaderEl.style.display = 'block';
   createMarkUpLibraryList(watchedDataBase);
+
   listEl.classList.add('--is-hidden');
 
   setTimeout(() => {
@@ -79,12 +82,13 @@ function onCLickWatchedBtn() {
 function onClickLibraryBtn(e) {
   e.preventDefault();
   loaderEl.style.display = 'block';
-
+  headerSectionRef.classList.add('header-section__library');
   headerMain.classList.add('--is-hidden');
   headLib.classList.remove('--is-hidden');
   mainBtnList.classList.add('--is-hidden');
   homeBtn.classList.remove('is-current');
   myLibBtn.classList.add('is-current');
+  headerLibraryWatchedBtn.classList.add('--is-active');
   listEl.innerHTML = '';
 
   const uid = auth.lastNotifiedUid;
@@ -112,7 +116,7 @@ function onClickLibraryBtn(e) {
 function onClickHomeBtn(e) {
   e.preventDefault();
   loaderEl.style.display = 'block';
-
+  headerSectionRef.classList.remove('header-section__library');
   headerMain.classList.remove('--is-hidden');
   headLib.classList.add('--is-hidden');
   mainBtnList.classList.remove('--is-hidden');
