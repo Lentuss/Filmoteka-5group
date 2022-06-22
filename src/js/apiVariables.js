@@ -1,5 +1,5 @@
-let period = 'day'; //убрать
-let id = ''; //убрать
+let period = 'day';
+let id = '';
 
 const API_KEY = 'b19e6b2986fc1ae4c290daa4cefec337';
 const BASE_URL = 'https://api.themoviedb.org/3/';
