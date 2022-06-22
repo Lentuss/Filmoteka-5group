@@ -7,6 +7,9 @@ const listEl = document.querySelector('.main__movie-card-list');
 const btnDayEl = document.querySelector('.trends-of-day');
 const btnWeekEl = document.querySelector('.trends-of-week');
 
+const loaderEl = document.querySelector('.loader');
+loaderEl.style.display = 'none';
+
 const getFilmsApiService = new GetFilmsApiService();
 
 btnDayEl.addEventListener('click', onBtnDayClick);
@@ -21,20 +24,34 @@ export function renderNewPage() {
 }
 
 function onBtnDayClick() {
+  loaderEl.style.display = 'block';
   getFilmsApiService.trendsOfDay();
   renderNewPage();
+  listEl.classList.add('--is-hidden');
+
+  setTimeout(() => {
+    listEl.classList.remove('--is-hidden');
+    loaderEl.style.display = 'none';
+  }, 1000);
 }
 
 function onBtnWeekClick() {
+  loaderEl.style.display = 'block';
   getFilmsApiService.trendsOfWeek();
   renderNewPage();
+  listEl.classList.add('--is-hidden');
+
+  setTimeout(() => {
+    listEl.classList.remove('--is-hidden');
+    loaderEl.style.display = 'none';
+  }, 1000);
 }
 
 export async function getTrendFilms() {
   try {
     const requestedFilms = await getFilmsApiService.getTrendFilms(BASE_URL);
     onGetSucces(requestedFilms);
-    console.log(requestedFilms);
+    // console.log(requestedFilms);
   } catch (error) {
     onGetError();
   }
