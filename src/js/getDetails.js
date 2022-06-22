@@ -28,14 +28,6 @@ import {
   removeMovieIDFromQueue,
 } from './loginWindow';
 import Notiflix from 'notiflix';
-// Notiflix.Notify.init({
-//   timeout: 1000,
-//   width: '280px',
-//   position: 'center-center',
-//   distance: '10px',
-//   opacity: 1,
-//   clickToClose: true,
-// });
 
 let watchedDataBase = [];
 let queueDataBase = [];
@@ -60,6 +52,11 @@ const sliderTrack = document.querySelector('.slider-track');
 
 const clickForDetails = e => {
   e.preventDefault();
+  // if (e.target.classList.contains('main__movie-card-item')) {
+  //   console.log(e.target);
+
+  //   return;
+  // }
   windowAppear();
 
   const uid = auth.lastNotifiedUid;
@@ -101,28 +98,6 @@ const clickForDetails = e => {
 
   const movieId = e.target.closest('[data-movieId]').dataset.movieid;
 
-  // for (const item of watchedArr) {
-  //   if (item === movieId) {
-  //     console.log('we found same ID');
-
-  //     const addBtn = document.querySelector(`.addToWatchedBtn-JS`);
-  //     const removeBtn = document.querySelector(`.removeFromWatchedBtn-JS`);
-  //     addBtn.classList.add('isHidden');
-  //     removeBtn.classList.remove('isHidden');
-  //   }
-  // }
-
-  // for (const item of queueArr) {
-  //   if (item === movieId) {
-  //     console.log('we found same ID');
-
-  //     const addBtn = document.querySelector(`.addToQueueBtn-JS`);
-  //     const removeBtn = document.querySelector(`.removeFromQueueBtn-JS`);
-  //     addBtn.classList.add('isHidden');
-  //     removeBtn.classList.remove('isHidden');
-  //   }
-  // }
-
   checkArr(watchedArr, movieId, 'Watched');
   checkArr(queueArr, movieId, 'Queue');
 
@@ -150,7 +125,7 @@ export async function getDetails(movieId) {
     release_date,
   } = details;
 
-  checkBackdrop(backdrop_path); //////переробити
+  checkBackdrop(backdrop_path);
 
   function checkBackdrop(backdrop_path) {
     const backdropImg = `url(${BACKDROP_URL + backdrop_path})`;

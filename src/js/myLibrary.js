@@ -100,7 +100,7 @@ function onClickLibraryBtn(e) {
     // console.log(data);
     if (!data) {
       setTimeout(() => {
-        Notiflix.Notify.info('Your library is empty');
+        listEl.innerHTML = `<p class="renderEmpty">Library is empty</p>`;
       }, 1000);
       return;
     }
