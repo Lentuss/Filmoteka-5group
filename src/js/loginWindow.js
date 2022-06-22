@@ -9,11 +9,12 @@ Notiflix.Notify.init({
   opacity: 1,
   clickToClose: true,
 });
+import flatpickr from 'flatpickr';
 
 import { initializeApp } from 'firebase/app';
 
 // TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -59,13 +60,12 @@ const Refs = {
   logOutBtn: document.querySelector('.logOutBtn-JS'),
   signUpDiv: document.querySelector('#signUpDiv'),
   logInDiv: document.querySelector('#logInDiv'),
+  logoutDiv: document.querySelector('.logout-container'),
 };
 
 //============================= AUTH STATUS ========================
 onAuthStateChanged(auth, user => {
   if (user) {
-    // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/firebase.User
     Refs.signUpBtnWindow.classList.add('--is-hidden');
     Refs.logInBtnWindow.classList.add('--is-hidden');
     Refs.logInDiv.setAttribute('style', 'display:none');
@@ -81,8 +81,20 @@ onAuthStateChanged(auth, user => {
     onValue(allInfo, snapshot => {
       const data = snapshot.val();
       console.log(data);
-      // console.log(data.queue);
-      // updateStarCount(postElement, data);
+
+      const userLifeTime = flatpickr.formatDate(
+        new Date(user.metadata.creationTime),
+        'F j, Y'
+      );
+      const userProfile = `
+  <p class="logout-info">
+    User Em@il <span class="user-data">${user.email}</span>
+  </p>
+  <p class="logout-info">
+    You are with us since <span class="user-data">${userLifeTime}</span>
+  </p>;`;
+      Refs.logoutDiv.insertAdjacentHTML('afterbegin', userProfile);
+      console.log(user);
     });
   } else {
     // User is signed out
@@ -94,6 +106,7 @@ onAuthStateChanged(auth, user => {
     Refs.headLogInBtn.textContent = 'Log In';
     Refs.headLibraryBtn.classList.add('--is-hidden');
 
+    Refs.logoutDiv.innerHTML = '';
     console.log('User Is Signed Out');
   }
 });
