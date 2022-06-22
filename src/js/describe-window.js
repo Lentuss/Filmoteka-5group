@@ -3,7 +3,7 @@ import throttle from 'lodash.throttle';
 
 const describeModal = document.querySelector('.describe-modal');
 const describeCloseBtn = document.querySelector('.describe-modal__close');
-
+const describeCloseSubmit = document.querySelector('.describe-form__submit');
 
 setTimeout(() => {
   describeModal.classList.remove('isHidden');
@@ -20,6 +20,7 @@ function closeByEscape(event) {
 }
 
 describeCloseBtn.addEventListener('click', closeModal);
+describeCloseSubmit.addEventListener('click', closeModal)
 window.addEventListener('keydown', closeByEscape);
 
 const KEY = 'describe-form';
@@ -57,9 +58,10 @@ function onFormSubmit(event) {
   formDataToSend.forEach((value, name) => {
     inputData[name] = value;
   });
-
+  
   event.currentTarget.reset();
   localStorage.removeItem(KEY);
 
   console.log(inputData);
+  // event.currentTarget.closeModal();
 }
