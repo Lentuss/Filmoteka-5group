@@ -17,6 +17,6 @@ import './js/myLibrary';
 import './js/scrollUp';
 import './js/footer';
 import './js/themeSwitcher';
-import './js/describe-window';
+import './js/subscribe-window';
 
 import './js/getFiler';

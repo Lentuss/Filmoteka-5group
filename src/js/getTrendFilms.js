@@ -1,5 +1,4 @@
 import { BASE_URL } from './apiVariables';
-// import { getGenreById } from './getGenres';
 import GetFilmsApiService from './getFilmsApiService';
 import { createListMarkup } from './renderFilms';
 
@@ -24,7 +23,6 @@ export function renderNewPage() {
 }
 
 function onBtnDayClick() {
-  loaderEl.style.display = 'block';
   getFilmsApiService.trendsOfDay();
   btnDayEl.classList.add('--is-hidden');
   btnWeekEl.classList.add('--is-hidden');
@@ -39,9 +37,7 @@ function onBtnDayClick() {
     loaderEl.style.display = 'none';
   }, 1000);
 }
-
 function onBtnWeekClick() {
-  loaderEl.style.display = 'block';
   getFilmsApiService.trendsOfWeek();
   btnDayEl.classList.add('--is-hidden');
   btnWeekEl.classList.add('--is-hidden');

@@ -32,7 +32,6 @@
   max-width: 290px;
   padding: 20px;
   background-color: rgba(0, 0, 0, 0.8);
-  // background-color: rgba(54, 54, 54, 0.95);
   position: absolute;
   top: 50%;
   left: 50%;
@@ -135,6 +134,9 @@
   }
 }
 .loginSubmitBtn__singup {
+  margin-top: 0;
+}
+.loginSubmitBtn__singup{
   margin-top: 0;
 }
 .signInSubmitBtn {
