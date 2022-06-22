@@ -115,6 +115,7 @@
 
     &__info{
         display: block;
+        color: black;
 
         @include respond-to (tablet){
             width: 264px;

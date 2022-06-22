@@ -161,7 +161,7 @@ export async function getDetails(movieId) {
                             <span class="details__attribute"> Vote/Votes
                             </span>
                             <span class="details__attribute-value">
-                                <span class="details__attribute-vote">${vote_count}</span> / ${vote_average}</span>
+                                <span class="details__attribute-vote">${vote_average}</span> / ${vote_count}</span>
                         </li>
                         <li>
                             <span class="details__attribute">Popularity
