@@ -91,6 +91,8 @@ onAuthStateChanged(auth, user => {
   <p class="logout-info">
     You are with us since <span class="user-data">${userLifeTime}</span>
   </p>;`;
+      Refs.logoutDiv.innerHTML = '';
+
       Refs.logoutDiv.insertAdjacentHTML('afterbegin', userProfile);
     });
   } else {

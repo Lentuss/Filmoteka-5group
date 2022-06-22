@@ -20,6 +20,7 @@ const db = getDatabase(app);
 const uid = auth.lastNotifiedUid;
 
 import { renderNewPage } from './getTrendFilms';
+import Notiflix from 'notiflix';
 
 const myLibBtn = document.querySelector(
   '[data-action="header-library-button"]'
@@ -98,6 +99,9 @@ function onClickLibraryBtn(e) {
     const data = snapshot.val();
     // console.log(data);
     if (!data) {
+      setTimeout(() => {
+        Notiflix.Notify.info('Your library is empty');
+      }, 1000);
       return;
     }
     watchedDataBase = data.watched;
