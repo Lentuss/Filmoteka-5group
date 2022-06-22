@@ -74,6 +74,9 @@ footer.footer-dark{
   display: inline-block;
   width: 50px;
   height: 24px;
+
+  border-radius: 5px;
+  overflow: hidden;
  
 }
 
@@ -91,6 +94,7 @@ footer.footer-dark{
   background-color: #333;
   -webkit-transition: .4s;
   transition: .4s;
+  
 }
 
 .slider:before {
@@ -103,6 +107,7 @@ footer.footer-dark{
   background-color: #ccc;
   -webkit-transition: .4s;
   transition: .4s;
+  border-radius: 50%;
 }
 
 input:checked + .slider {
