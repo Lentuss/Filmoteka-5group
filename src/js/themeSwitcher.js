@@ -16,8 +16,6 @@ checkbox.addEventListener('change', () => {
 });
 const stat = JSON.parse(localStorage.getItem('Current theme'));
 
-console.log(typeof stat);
-
 if (stat) {
   checkbox.checked = stat;
   onDarkSwitchClick();

@@ -1,5 +1,4 @@
 import { BASE_URL } from './apiVariables';
-// import { getGenreById } from './getGenres';
 import GetFilmsApiService from './getFilmsApiService';
 import { createListMarkup } from './renderFilms';
 
@@ -25,15 +24,32 @@ export function renderNewPage() {
 
 function onBtnDayClick() {
   getFilmsApiService.trendsOfDay();
+  btnDayEl.classList.add('--is-hidden');
+  btnWeekEl.classList.add('--is-hidden');
+
   renderNewPage();
-  btnWeekEl.classList.remove('is-active');
-  btnDaykEl.classList.add('is-active');
+  listEl.classList.add('--is-hidden');
+
+  setTimeout(() => {
+    listEl.classList.remove('--is-hidden');
+    btnDayEl.classList.remove('--is-hidden');
+    btnWeekEl.classList.remove('--is-hidden');
+    loaderEl.style.display = 'none';
+  }, 1000);
 }
 function onBtnWeekClick() {
   getFilmsApiService.trendsOfWeek();
+  btnDayEl.classList.add('--is-hidden');
+  btnWeekEl.classList.add('--is-hidden');
   renderNewPage();
-  btnWeekEl.classList.add('is-active');
-  btnDayEl.classList.remove('is-active');
+  listEl.classList.add('--is-hidden');
+
+  setTimeout(() => {
+    listEl.classList.remove('--is-hidden');
+    btnWeekEl.classList.remove('--is-hidden');
+    btnDayEl.classList.remove('--is-hidden');
+    loaderEl.style.display = 'none';
+  }, 1000);
 }
 
 export async function getTrendFilms() {
