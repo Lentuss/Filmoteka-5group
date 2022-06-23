@@ -20,7 +20,7 @@ function closeByEscape(event) {
 }
 
 describeCloseBtn.addEventListener('click', closeModal);
-describeCloseSubmit.addEventListener('click', closeModal)
+// describeCloseSubmit.addEventListener('click', closeModal);
 window.addEventListener('keydown', closeByEscape);
 
 const KEY = 'describe-form';
@@ -58,10 +58,10 @@ function onFormSubmit(event) {
   formDataToSend.forEach((value, name) => {
     inputData[name] = value;
   });
-  
+
   event.currentTarget.reset();
   localStorage.removeItem(KEY);
-
+  event.currentTarget.closeModal();
   console.log(inputData);
-  // event.currentTarget.closeModal();
+  
 }
