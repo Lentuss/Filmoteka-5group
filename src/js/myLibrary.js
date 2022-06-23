@@ -50,6 +50,19 @@ headerLibraryWatchedBtn.addEventListener('click', onCLickWatchedBtn);
 headerLibraryQueueBtn.addEventListener('click', onClickQueueBtn);
 
 function onClickQueueBtn(e) {
+  const allInfo = ref(db, 'users/' + uid);
+  onValue(allInfo, snapshot => {
+    const data = snapshot.val();
+    // console.log(data);
+    if (!data) {
+      setTimeout(() => {
+        listEl.innerHTML = `<p class="renderEmpty">Library is empty</p>`;
+      }, 1000);
+      return;
+    }
+    watchedDataBase = data.watched;
+    queueDataBase = data.queue;
+  });
   headerLibraryQueueBtn.classList.add('--is-active');
   headerLibraryWatchedBtn.classList.remove('--is-active');
   listEl.innerHTML = '';
@@ -65,6 +78,19 @@ function onClickQueueBtn(e) {
 }
 
 function onCLickWatchedBtn(e) {
+  const allInfo = ref(db, 'users/' + uid);
+  onValue(allInfo, snapshot => {
+    const data = snapshot.val();
+    // console.log(data);
+    if (!data) {
+      setTimeout(() => {
+        listEl.innerHTML = `<p class="renderEmpty">Library is empty</p>`;
+      }, 1000);
+      return;
+    }
+    watchedDataBase = data.watched;
+    queueDataBase = data.queue;
+  });
   headerLibraryQueueBtn.classList.remove('--is-active');
   headerLibraryWatchedBtn.classList.add('--is-active');
   listEl.innerHTML = '';
