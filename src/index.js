@@ -1,15 +1,15 @@
 // import './sass/index.scss';
 
-import './js/loginWindow';
-import './js/filmSearch';
+import './js/preloader';
+import './js/apiVariables';
 import './js/getFilmsApiService';
 import './js/renderFilms';
-import './js/getDetails';
 import './js/getTrendFilms';
+import './js/filmSearch';
+import './js/loginWindow';
+import './js/getDetails';
 import './js/getGenres';
-import './js/apiVariables';
 import './js/slider';
-import './js/preloader';
 import './js/makeSort';
 import './js/myLibrary';
 
