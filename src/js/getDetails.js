@@ -8,8 +8,7 @@ import { getDatabase, ref, onValue } from 'firebase/database';
 const firebaseConfig = {
   apiKey: 'AIzaSyAXr3vyab8PJtuI-kO5zXVUNDPWQzN3ayY',
   authDomain: 'filmoteka-group5.firebaseapp.com',
-  databaseURL:
-    'https://filmoteka-group5-default-rtdb.europe-west1.firebasedatabase.app',
+  databaseURL: 'https://filmoteka-group5-default-rtdb.europe-west1.firebasedatabase.app',
   projectId: 'filmoteka-group5',
   storageBucket: 'filmoteka-group5.appspot.com',
   messagingSenderId: '217077508176',
@@ -34,12 +33,8 @@ let queueDataBase = [];
 let watchedArr = [];
 let queueArr = [];
 
-const headerLibraryWatchedBtn = document.querySelector(
-  '#header-libraryWatched__btn'
-);
-const headerLibraryQueueBtn = document.querySelector(
-  '#header-libraryQueue__btn'
-);
+const headerLibraryWatchedBtn = document.querySelector('#header-libraryWatched__btn');
+const headerLibraryQueueBtn = document.querySelector('#header-libraryQueue__btn');
 
 const moviesList = document.querySelector('.main__movie-card-list');
 const detailsModal = document.querySelector('.details');
@@ -52,11 +47,12 @@ const sliderTrack = document.querySelector('.slider-track');
 
 const clickForDetails = e => {
   e.preventDefault();
-  // if (e.target.classList.contains('main__movie-card-item')) {
-  //   console.log(e.target);
+  const movieCard = e.target;
+  if (!movieCard.classList.contains('main__movie-img')) {
+    console.log(e.target);
 
-  //   return;
-  // }
+    return;
+  }
   windowAppear();
 
   const uid = auth.lastNotifiedUid;
@@ -138,8 +134,7 @@ export async function getDetails(movieId) {
 
   let posterPicture = `${IMAGE_URL + poster_path}`;
   if (poster_path === null) {
-    posterPicture =
-      'https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg';
+    posterPicture = 'https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg';
   }
 
   const allGenres = genres.map(genre => genre.name).join(', ');
@@ -234,6 +229,7 @@ const closeByEsc = e => {
     detailsModal.classList.add('isHidden');
     modal.classList.remove('isAppeared');
     backdropDetails.classList.remove('isAppeared');
+    window.removeEventListener('keydown', closeByEsc);
   }
 };
 
@@ -291,9 +287,7 @@ Refs.details__modal.addEventListener('click', removeFromQueue);
 
 function addToWatched(event) {
   const addBtn = Refs.details__modal.querySelector('.addToWatchedBtn-JS');
-  const removeBtn = Refs.details__modal.querySelector(
-    '.removeFromWatchedBtn-JS'
-  );
+  const removeBtn = Refs.details__modal.querySelector('.removeFromWatchedBtn-JS');
   const uid = auth.lastNotifiedUid;
 
   if (!event.target.classList.contains('addToWatchedBtn-JS')) {
@@ -302,28 +296,13 @@ function addToWatched(event) {
     Notiflix.Notify.info('Login please or Register to add');
     onOpenModal();
   } else if (uid) {
-    const movieID = event.target
-      .closest('.details__box')
-      .getAttribute('data-id');
-    const imgPoster = Refs.details__modal
-      .querySelector('.details__image')
-      .getAttribute('src');
-    const titleDetails =
-      Refs.details__modal.querySelector('.details__title').textContent;
-    const genres =
-      Refs.details__modal.querySelector('.details__genre').textContent;
-    const year = event.target
-      .closest('.details__box')
-      .getAttribute('data-date');
+    const movieID = event.target.closest('.details__box').getAttribute('data-id');
+    const imgPoster = Refs.details__modal.querySelector('.details__image').getAttribute('src');
+    const titleDetails = Refs.details__modal.querySelector('.details__title').textContent;
+    const genres = Refs.details__modal.querySelector('.details__genre').textContent;
+    const year = event.target.closest('.details__box').getAttribute('data-date');
 
-    addMovieInfoToDataBaseWatch(
-      movieID,
-      titleDetails,
-      imgPoster,
-      genres,
-      year,
-      uid
-    );
+    addMovieInfoToDataBaseWatch(movieID, titleDetails, imgPoster, genres, year, uid);
     addBtn.classList.add('isHidden');
     removeBtn.classList.remove('isHidden');
   }
@@ -331,9 +310,7 @@ function addToWatched(event) {
 
 function removeFromWatched(event) {
   const addBtn = Refs.details__modal.querySelector('.addToWatchedBtn-JS');
-  const removeBtn = Refs.details__modal.querySelector(
-    '.removeFromWatchedBtn-JS'
-  );
+  const removeBtn = Refs.details__modal.querySelector('.removeFromWatchedBtn-JS');
   if (!event.target.classList.contains('removeFromWatchedBtn-JS')) {
     return;
   }
@@ -356,28 +333,13 @@ function addToQueue(event) {
 
     onOpenModal();
   } else if (uid) {
-    const movieID = event.target
-      .closest('.details__box')
-      .getAttribute('data-id');
-    const imgPoster = Refs.details__modal
-      .querySelector('.details__image')
-      .getAttribute('src');
-    const titleDetails =
-      Refs.details__modal.querySelector('.details__title').textContent;
-    const genres =
-      Refs.details__modal.querySelector('.details__genre').textContent;
-    const year = event.target
-      .closest('.details__box')
-      .getAttribute('data-date');
+    const movieID = event.target.closest('.details__box').getAttribute('data-id');
+    const imgPoster = Refs.details__modal.querySelector('.details__image').getAttribute('src');
+    const titleDetails = Refs.details__modal.querySelector('.details__title').textContent;
+    const genres = Refs.details__modal.querySelector('.details__genre').textContent;
+    const year = event.target.closest('.details__box').getAttribute('data-date');
 
-    addMovieInfoToDataBaseQueue(
-      movieID,
-      titleDetails,
-      imgPoster,
-      genres,
-      year,
-      uid
-    );
+    addMovieInfoToDataBaseQueue(movieID, titleDetails, imgPoster, genres, year, uid);
     addBtn.classList.add('isHidden');
     removeBtn.classList.remove('isHidden');
   }
